@@ -17,5 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('ModuloContable', 'Account\AccountController@index');
