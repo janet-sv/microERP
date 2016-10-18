@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/account', function () {
+Route::auth();
+
+Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('ModuloContable', 'Account\AccountController@index');
