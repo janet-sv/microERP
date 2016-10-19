@@ -1,0 +1,9 @@
+#!/bin/bash
+watchify \
+-x jquery \
+-x sb-admin-2 \
+-x bootstrap-sass \
+resources/assets/js/app.js \
+-o public/build/js/app.js \
+--poll \
+-vd \
