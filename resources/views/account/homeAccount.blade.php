@@ -243,26 +243,30 @@
                     <!-- /.dropdown-alerts -->
                 </li>
                 <!-- /.dropdown -->
-                
-                 <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
+                 <li class="dropdown">
+
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
                         
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            </ul>
+                        @if (Auth::guest())
+                        <li><a href="{{ url('/login') }}"><i class="fa fa-user fa-fw"></i> Iniciar Sesión</a>
+                        </li>        
+                         @else
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i>  {{ Auth::user()->name }}</a>
                         </li>
-                    @endif
-                </ul>
+                        <li class="divider"></li>
+                        <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                         @endif
 
-
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                  
+               
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->

@@ -15,14 +15,15 @@ class Partner extends Model
       
 
       protected $fillable = [
-         'id','name' , 'country', ''
+         'id','name' , 'country', 'department', 'province', 'address' , 'website', 
+         'job' , 'Phone' , 'mobile' , 'Fax' , 'mail' , 'title'  
       ];
 
 
-      public function product ()
+      public function salesinvoice ()
       {
          // belongsto --- pertenece a
-         return $this->belongsto(Product::class);
+         return $this->belongsto(SalesInvoice::class);
 
       }
 }
