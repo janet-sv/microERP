@@ -1,0 +1,8 @@
+#!/bin/bash
+node-sass \
+--include-path src/scss \
+--output-style compressed \
+resources/assets/scss/app.scss \
+| postcss \
+--use autoprefixer \
+-o public/build/css/app.css
