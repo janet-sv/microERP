@@ -27,6 +27,6 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return view('/account/homeAccount');
+        return view('/account/home');
     }
 }
