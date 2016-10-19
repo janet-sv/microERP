@@ -13,12 +13,63 @@
 
   <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><strong>Tabla de Facturas</strong></div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    
+                          <h2>Lista de Facturas</h2>
+                          <br>
+                          <div class="table-responsive ">
+                          <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th>
+                                    <label><input type="checkbox" value=""></label>
+                                </th>
+                                <th>Cliente</th>
+                                <th>Fecha Factura</th>
+                                <th>Número</th>
+                                <th>Comercial</th>
+                                <th>Fecha de Vencimiento</th>
+                                <th>Total</th>
+                                <th>Importe Adecuado</th>
+                                <th>Estado</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                    <label><input type="checkbox" value=""></label>
+                                </td>
+                                <td>Anna</td>
+                                <td>Pitt</td>
+                                <td>35</td>
+                                <td>New York</td>
+                                <td>USA</td>
+                                <td>USA</td>
+                                <td>USA</td>
+                                <td>USA</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                    <label><input type="checkbox" value=""></label>
+                                </td>
+                                <td>Anna</td>
+                                <td>Pitt</td>
+                                <td>35</td>
+                                <td>New York</td>
+                                <td>USA</td>
+                                <td>USA</td>
+                                <td>USA</td>
+                                <td>USA</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          </div>
+                     
+
                 </div>
             </div>
         </div>
