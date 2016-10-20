@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/sale', function () {
-    return view('welcome');
+Route::get('/ventas', function () {
+    return view('sales.pages.home.home');
 });
