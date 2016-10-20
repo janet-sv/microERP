@@ -11,8 +11,8 @@
 |
 */
 
-Route::group(['prefix' => 'logistic'], function () {
+Route::group(['prefix' => 'logistica'], function () {
 	Route::get('/', function () {
-	    return view('welcome'); //esto no esta bien, no se hace :P
+	    return view('logistic.pages.home.home'); //esto no esta bien, no se hace :P
 	});
 });

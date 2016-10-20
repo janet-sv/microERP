@@ -1,0 +1,8 @@
+#!/bin/bash
+browserify \
+-r jquery \
+-g uglifyify \
+| uglifyjs \
+--compress warnings=false \
+--mangle \
+-o public/build/vendor/app-vendor.js
