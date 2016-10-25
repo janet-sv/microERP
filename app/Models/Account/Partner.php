@@ -16,13 +16,13 @@ class Partner extends Model
 
       protected $fillable = [
          'id','name' , 'country', 'department', 'province', 'address' , 'website', 
-         'job' , 'Phone' , 'mobile' , 'Fax' , 'mail' , 'title'  
+         'job' , 'phone' , 'mobile' , 'fax' , 'mail' , 'title' , 
       ];
 
 
       public function salesinvoice ()
       {
-         // belongsto --- pertenece a
+         // belongsto --- pertenece a el nombre es de la tabla
          return $this->belongsto(SalesInvoice::class);
 
       }
