@@ -12,5 +12,6 @@
 */
 
 Route::get('/ventas', function () {
-    return view('sales.pages.home.home');
+    //return view('sales.pages.home.home');
+    return view('sales.pages.listPrice.create');
 });

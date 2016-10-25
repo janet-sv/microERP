@@ -10,6 +10,7 @@
 	<link href="/vendor/sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
 	<link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link type="text/css" href="/build/css/app.css" rel="stylesheet">
+	<script src="/vendor/jquery/jquery.min.js"></script>
 	<title>MicroERP | @yield('title')</title>
 </head>
 <body>
@@ -19,7 +20,7 @@
 	</div>
 	@include('sales.layouts.footer')
 	
-	<script src="/vendor/jquery/jquery.min.js"></script>
+	
 	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/vendor/metisMenu/metisMenu.min.js"></script>
 	<script src="/vendor/sb-admin-2/js/sb-admin-2.min.js"></script>
