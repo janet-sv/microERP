@@ -19,3 +19,34 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Models\Account\Partner::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->company,
+        'country' => 'Perú',
+        'department' => 'Lima',
+        'province' => 'Lima',
+        'district' => 'La victoria',
+        'address' => $faker->address,
+        'website' => $faker->url,
+        'job' => $faker->jobTitle,
+        'phone' =>$faker->phoneNumber,
+        'mobile' => $faker->phoneNumber,
+        'fax' => $faker->areaCode,
+        'mail' => $faker->safeEmail,
+        'title' => 'Gerente',
+    ];
+});
+
+$factory->define(App\Models\Account\SalesInvoice::class, function (Faker\Generator $faker) {
+    return [
+        
+        'date_invoice' => $faker->dateTimeThisMonth($max = 'now'),
+        'user_id' => '1',
+        'date_due' => $faker->dateTimeThisMonth($max = 'now'),
+        'amount_total_signed' => $faker->randomFloat,
+        'residual_signed' => $faker->randomFloat,
+        'state' => 'Cerrado',
+        
+    ];
+});

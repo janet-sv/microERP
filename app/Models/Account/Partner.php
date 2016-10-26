@@ -15,7 +15,7 @@ class Partner extends Model
       
 
       protected $fillable = [
-         'id','name' , 'country', 'department', 'province', 'address' , 'website', 
+         'id','name' , 'country', 'department', 'province','district', 'address' , 'website', 
          'job' , 'phone' , 'mobile' , 'fax' , 'mail' , 'title' , 
       ];
 

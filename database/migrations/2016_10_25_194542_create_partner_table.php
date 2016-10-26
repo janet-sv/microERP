@@ -19,14 +19,15 @@ class CreatePartnerTable extends Migration
             $table->string('country');
             $table->string('department');
             $table->string('province');
-            $table->string('address')->unique();
-            $table->string('website')->unique();
+            $table->string('district');
+            $table->string('address')->unique()->nullable();
+            $table->string('website')->unique()->nullable();
             $table->string('job');
-            $table->char('phone', 9);
-            $table->char('mobile', 7);
-            $table->string('fax');
-            $table->string('mail')->unique();
-            $table->string('title');
+            $table->string('phone', 15)->nullable();
+            $table->string('mobile', 15)->nullable();
+            $table->string('fax')->nullable();
+            $table->string('mail')->unique()->nullable();
+            $table->string('title')->nullable();
 
         });
     }
