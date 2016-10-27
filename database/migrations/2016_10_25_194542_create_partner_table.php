@@ -14,7 +14,7 @@ class CreatePartnerTable extends Migration
     {
         
        Schema::create('partner', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id') ;
             $table->string('name');
             $table->string('country');
             $table->string('department');
