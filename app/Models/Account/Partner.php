@@ -24,6 +24,7 @@ class Partner extends Model
       {
          // belongsto --- pertenece a el nombre es de la tabla
          return $this->belongsto(SalesInvoice::class);
+         //factory(App\Models\Account\Partner::class, 4 )->create();
 
       }
 }

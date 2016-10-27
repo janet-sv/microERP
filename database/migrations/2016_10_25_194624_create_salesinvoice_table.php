@@ -22,7 +22,7 @@ class CreateSalesinvoiceTable extends Migration
             $table->string('state');
             $table->string('partner_id')->references('id')->on('partner');
             $table->string('user_id')->references('id')->on('user');
-
+            //factory(App\Models\Account\Partner::class, 4 )->create();
         });
     }
 

@@ -28,6 +28,7 @@ class CreatePartnerTable extends Migration
             $table->string('fax')->nullable();
             $table->string('mail')->unique()->nullable();
             $table->string('title')->nullable();
+           //factory(App\Models\Account\Partner::class, 4 )->create();
 
         });
     }
