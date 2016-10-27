@@ -39,32 +39,25 @@
                               </tr>
                             </thead>
                             <tbody>
+                            @foreach($SalesInvoice as $salesinvoice)
                               <tr>
                                 <td>
                                     <label><input type="checkbox" value=""></label>
                                 </td>
-                                <td>Anna</td>
-                                <td>Pitt</td>
-                                <td>35</td>
-                                <td>New York</td>
-                                <td>USA</td>
-                                <td>USA</td>
-                                <td>USA</td>
-                                <td>USA</td>
-                              </tr>
-                              <tr>
+                                <td>{{$salesinvoice->client}}</td>
+                                <td>{{$salesinvoice->date_invoice}}</td>
+                                <td>{{$salesinvoice->number}}</td>
+                                <td>{{$salesinvoice->user}}</td>
+                                <td>{{$salesinvoice->date_due}}</td>
+                                <td>{{$salesinvoice->amount_total_signed}}</td>
+                                <td>{{$salesinvoice->residual_signed}}</td>
+                                <td>{{$salesinvoice->state}}</td>
                                 <td>
-                                    <label><input type="checkbox" value=""></label>
+                                    <a href="{{route('FacturasClientes.edit',$salesinvoice->id)}}">[Editar]</a> 
+                                    <a href="{{route('FacturasClientes.show',$salesinvoice->id)}}">[Eliminar]</a>
                                 </td>
-                                <td>Anna</td>
-                                <td>Pitt</td>
-                                <td>35</td>
-                                <td>New York</td>
-                                <td>USA</td>
-                                <td>USA</td>
-                                <td>USA</td>
-                                <td>USA</td>
                               </tr>
+                              @endforeach
                             </tbody>
                           </table>
                           </div>

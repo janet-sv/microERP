@@ -11,9 +11,8 @@ class SalesInvoiceTableSeeder extends Seeder
      */
     public function run()
     {
-         factory(App\Models\Account\SalesInvoiceTableSeeder::class, 5  )->create();
+         factory(App\Models\Account\SalesInvoice::class, 5  )->create();
 
-         //factory(App\Models\Account\Partner::class, 4 )->create();
-         //factory(App\Models\Account\Partner::class, 4 )->create();
+      
     }
 }

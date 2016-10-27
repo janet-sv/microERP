@@ -11,12 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        
          $this->call(PartnerTableSeeder::class);
-          $this->call(SalesInvoice::class) 
-          ;
-          //$this->call(SalesInvoice::class) 
-          //factory(App\Models\Account\Partner::class, 4 )->create();
+          $this->call(SalesInvoiceTableSeeder::class);
+         
           
     }
 }

@@ -42,11 +42,11 @@ $factory->define(App\Models\Account\Partner::class, function (Faker\Generator $f
 $factory->define(App\Models\Account\SalesInvoice::class, function (Faker\Generator $faker) {
     return [
         
-        'date_invoice' => $faker->dateTimeThisMonth($max = 'now'),
+        'date_invoice' => $faker->date($format = 'Y-m-d', $min ='now', $max = 'now'),
         'user_id' => '1',
-        'date_due' => $faker->dateTimeThisMonth($max = 'now'),
-        'amount_total_signed' => $faker->randomFloat,
-        'residual_signed' => $faker->randomFloat,
+        'date_due' => $faker->date($format = 'Y-m-d',$min ='now',  $max = 'now'),
+        'amount_total_signed' => $faker->randomFloat($nbMaxDecimals = 2, $min = 100, $max = 2000),
+        'residual_signed' => $faker->randomFloat($nbMaxDecimals = 2, $min = 100, $max = 2000),
         'state' => 'Cerrado',
         
     ];
