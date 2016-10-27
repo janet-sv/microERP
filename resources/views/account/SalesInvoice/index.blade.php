@@ -16,7 +16,11 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading"><strong>Tabla de Facturas</strong></div>
-
+                <br>
+                <br>
+                <div ><button type="button" id='nuevo'  name='nuevo' class="btn btn-warning">Nuevo</button></div>
+                
+                      
                 <div class="panel-body">
                     
                           <h2>Lista de Facturas</h2>
@@ -36,6 +40,7 @@
                                 <th>Total</th>
                                 <th>Importe Adecuado</th>
                                 <th>Estado</th>
+                                <th>Acción</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -69,5 +74,12 @@
     </div>
 </div>
 
+<script>
+  $("#nuevo").click(function(event)
+  {
+      document.location.href = "{{ route('FacturasClientes.create')}}";
+  });
+
+</script>
   
 @endsection
