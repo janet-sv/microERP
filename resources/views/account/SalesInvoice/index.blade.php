@@ -16,17 +16,15 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading"><strong>Tabla de Facturas</strong></div>
-                <br>
-                <br>
-                <div ><button type="button" id='nuevo'  name='nuevo' class="btn btn-warning">Nuevo</button></div>
-                
-                      
                 <div class="panel-body">
                     
-                          <h2>Lista de Facturas</h2>
+                          <h2>Facturas de Ventas</h2>
                           <br>
+                                <p class="navbar-text navbar-left" style=" margin-top: 1px;">
+                                  <button  type="button" id='nuevo'  name='nuevo' class="btn btn-warning navbar-btn" style="margin-bottom: 1px; margin-top: -5px;margin-right: 8px;padding: 3px 20px;">Nuevo</button>
+                                 </p>  <br><br><br>
                           <div class="table-responsive ">
-                          <table class="table table-hover">
+                          <table class="table table-hover table-bordered table-responsive">
                             <thead>
                               <tr>
                                 <th>
@@ -35,7 +33,7 @@
                                 <th>Cliente</th>
                                 <th>Fecha Factura</th>
                                 <th>Número</th>
-                                <th>Comercial</th>
+                                <th>Usuario</th>
                                 <th>Fecha de Vencimiento</th>
                                 <th>Total</th>
                                 <th>Importe Adecuado</th>
@@ -73,13 +71,16 @@
         </div>
     </div>
 </div>
-
+@section('page-script')
 <script>
+
   $("#nuevo").click(function(event)
   {
       document.location.href = "{{ route('FacturasClientes.create')}}";
   });
 
 </script>
+
+@endsection
   
 @endsection

@@ -37,5 +37,98 @@ class SalesController extends Controller
                     ->paginate(5);
         return view('/account/SalesInvoice/index')->with('SalesInvoice',$salesinvoices);
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function create()
+    {
+        //
+
+        $Partners = Partner::lists('name','id')->prepend('Seleccioname el cliente');
+        return view('/account/SalesInvoice/create')->with('Partners',$Partners);
+           
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        SalesInvoice::create($request->all());
+        return redirect()->route('FacturasClientes.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+        $SalesInvoices = SalesInvoice::FindOrFail($id);
+        return view('FacturasClientes.show')->with('SalesInvoices',$SalesInvoices);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+        $Partners = Partner::lists('name','id')->prepend('Seleccioname la cliente');
+        $users = User::lists('name','id')->prepend('Seleccioname el usuario');
+        $SalesInvoices = SalesInvoice::FindOrFail($id);
+
+        return view('/account/SalesInvoice/edit');
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+
+        $products = Product::FindOrFail($id);
+        $input = $request->all();
+        $products->fill($input)->save();
+
+        return redirect()->route('product.index');
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+        $products = Product::FindOrFail($id);
+        $products->delete();
+        return redirect()->route('product.index');
+                
+    }
+
    
 }

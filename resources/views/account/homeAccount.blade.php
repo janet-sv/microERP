@@ -32,6 +32,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
 
 </head>
 
@@ -386,9 +387,9 @@
 
         <div id="page-wrapper">
             
-            <!-- /.row -->
+      
                 @yield('content')
-            <!-- /.row -->
+         
         </div>
         <!-- /#page-wrapper -->
 
@@ -397,6 +398,7 @@
 
     <!-- jQuery -->
     <script src="../contable/vendor/jquery/jquery.min.js"></script>
+
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../contable/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -411,6 +413,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../contable/dist/js/sb-admin-2.js"></script>
+    @yield('page-script')
 
 </body>
 
