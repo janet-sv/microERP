@@ -11,20 +11,12 @@
 
     <title>Modulo-Contable</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="../contable/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="../contable/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="../contable/dist/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="../contable/vendor/morrisjs/morris.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="../contable/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    {!!Html::style('contable/vendor/bootstrap/css/bootstrap.min.css')!!}
+    {!!Html::style('contable/vendor/metisMenu/metisMenu.min.css')!!}
+    {!!Html::style('contable/dist/css/sb-admin-2.css')!!}
+    {!!Html::style('contable/vendor/morrisjs/morris.css')!!}
+    {!!Html::style('contable/vendor/font-awesome/css/font-awesome.min.css')!!}
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -379,6 +371,8 @@
                         </li>
                         
                     </ul>
+
+                    
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
@@ -396,23 +390,16 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="../contable/vendor/jquery/jquery.min.js"></script>
+
+{!!Html::script('contable/vendor/jquery/jquery.min.js')!!}
+{!!Html::script('contable/vendor/bootstrap/js/bootstrap.min.js')!!}
+{!!Html::script('contable/vendor/metisMenu/metisMenu.min.js')!!}
+{!!Html::script('contable/vendor/raphael/raphael.min.js')!!}
+{!!Html::script('contable/vendor/morrisjs/morris.min.js')!!}
+{!!Html::script('contable/data/morris-data.js')!!}
+{!!Html::script('contable/dist/js/sb-admin-2.js')!!}
 
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../contable/vendor/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../contable/vendor/metisMenu/metisMenu.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="../contable/vendor/raphael/raphael.min.js"></script>
-    <script src="../contable/vendor/morrisjs/morris.min.js"></script>
-    <script src="../contable/data/morris-data.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="../contable/dist/js/sb-admin-2.js"></script>
     @yield('page-script')
 
 </body>
