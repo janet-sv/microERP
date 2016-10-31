@@ -6,8 +6,11 @@
    
    <div class="row">
       <div class="col-lg-12">
-            <h1 class="page-header">Facturas de Cliente</h1>
+            <h1 class="page-header">Facturas de Ventas</h1>
       </div>
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item active" ><a href="{{url('FacturasClientes')}}">>>Modulo Contable</a></li>
+       </ol>
                 <!-- /.col-lg-12 -->
   </div>
 
@@ -18,7 +21,7 @@
                 <div class="panel-heading"><strong>Tabla de Facturas</strong></div>
                 <div class="panel-body">
                     
-                          <h2>Facturas de Ventas</h2>
+                          <h2>Facturas de Clientes</h2>
                           <br>
                                 <p class="navbar-text navbar-left" style=" margin-top: 1px;">
                                   <button  type="button" id='nuevo'  name='nuevo' class="btn btn-warning navbar-btn" style="margin-bottom: 1px; margin-top: -5px;margin-right: 8px;padding: 3px 20px;">Nuevo</button>
@@ -36,7 +39,7 @@
                                 <th>Usuario</th>
                                 <th>Fecha de Vencimiento</th>
                                 <th>Total</th>
-                                <th>Importe Adecuado</th>
+                                <th>Importe Adeuado</th>
                                 <th>Estado</th>
                                 <th>Acción</th>
                               </tr>

@@ -4,9 +4,9 @@
 
 @section('content')
 
-<ol class="breadcrumb">
+  <ol class="breadcrumb">
      <li><a href="{{url('dashboard')}}">Escritorio</a></li>
-     <li><a href="{{url('product')}}"> Productos</a></li>
+     
      <li class="active">Editar Producto</li>
    </ol>
  

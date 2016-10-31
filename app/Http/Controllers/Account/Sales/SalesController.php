@@ -49,9 +49,11 @@ class SalesController extends Controller
     {
         //
 
-        $Partners = Partner::lists('name','id')->prepend('Seleccioname el cliente');
-        return view('/account/SalesInvoice/create')->with('Partners',$Partners);
-           
+        $Partners = Partner::lists('name','id')->prepend('Seleccioname la cliente');
+        $users = User::lists('name','id')->prepend('Seleccioname el usuario');
+        //return view('/account/SalesInvoice/create')->with('Partners',$Partners);
+           return view('/account/SalesInvoice/create', array('users'=>$users, 'Partners'=>$Partners ));
+ 
     }
 
     /**
@@ -92,7 +94,8 @@ class SalesController extends Controller
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
         $SalesInvoices = SalesInvoice::FindOrFail($id);
 
-        return view('/account/SalesInvoice/edit');
+       // return view('/account/SalesInvoice/edit');
+        return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices,'users'=>$users, 'Partners'=>$Partners ));
 
     }
 
@@ -106,12 +109,10 @@ class SalesController extends Controller
     public function update(Request $request, $id)
     {
         //
-
-        $products = Product::FindOrFail($id);
+ $SalesInvoices = SalesInvoice::FindOrFail($id);
         $input = $request->all();
-        $products->fill($input)->save();
-
-        return redirect()->route('product.index');
+        $SalesInvoices->fill($input)->save();
+        return redirect()->route('FacturasClientes.index');
 
     }
 
@@ -124,9 +125,9 @@ class SalesController extends Controller
     public function destroy($id)
     {
         //
-        $products = Product::FindOrFail($id);
-        $products->delete();
-        return redirect()->route('product.index');
+        $SalesInvoices = SalesInvoices::FindOrFail($id);
+        $SalesInvoices->delete();
+        return redirect()->route('FacturasClientes.index');
                 
     }
 
