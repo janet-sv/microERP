@@ -13,6 +13,5 @@ class SalesInvoiceTableSeeder extends Seeder
     {
          factory(App\Models\Account\SalesInvoice::class, 5  )->create();
 
-      
     }
 }

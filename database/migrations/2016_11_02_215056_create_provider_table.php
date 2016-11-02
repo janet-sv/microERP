@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePartnerTable extends Migration
+class CreateProviderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,7 @@ class CreatePartnerTable extends Migration
      */
     public function up()
     {
-        
-       Schema::create('partner', function (Blueprint $table) {
+         Schema::create('provider', function (Blueprint $table) {
             $table->increments('id') ;
             $table->string('name');
             $table->integer('ruc')->unique()->nullable();
@@ -31,7 +30,6 @@ class CreatePartnerTable extends Migration
             $table->string('title_contact')->nullable();
             $table->string('contact')->nullable();
             $table->string('job')->nullable();
-
         });
     }
 
@@ -42,7 +40,6 @@ class CreatePartnerTable extends Migration
      */
     public function down()
     {
-         Schema::drop('partner');
-         
+         Schema::drop('provider');
     }
 }

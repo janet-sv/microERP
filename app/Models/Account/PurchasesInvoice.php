@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models\Account;
+
+use Illuminate\Database\Eloquent\Model;
+
+class PurchasesInvoice extends Model
+{
+     protected $table      = 'PurchasesInvoice';
+   protected $primarykey = 'id';
+   public    $timestamps = false;
+
+   protected  $fillable= [
+      'id','provider_id', 'date_invoice', 'number' , 'date_due', 'amount_total_signed',
+      'residual_signed', 'state',
+   ];
+
+   public function provider()
+   {
+      // hasmany - tiene muchas
+      return $this->hasmany(Provider::class);
+      
+}

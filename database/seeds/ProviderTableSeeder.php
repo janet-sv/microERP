@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PartnerTableSeeder extends Seeder
+class ProviderTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,6 @@ class PartnerTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Account\Partner::class, 4 )->create();
-      
+         factory(App\Models\Account\Provider::class, 5 )->create();
     }
 }
