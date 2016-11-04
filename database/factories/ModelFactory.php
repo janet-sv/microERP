@@ -24,7 +24,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\Account\Partner::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->company,
-        'ruc' => $faker->randomNumber($nbDigits = 11),
+        'ruc' => $faker->unique()->regexify('[1-9]{11}'),
         'country' => 'Perú',
         'department' => 'Lima',
         'province' => 'Lima',
@@ -35,7 +35,7 @@ $factory->define(App\Models\Account\Partner::class, function (Faker\Generator $f
         'mobile' => $faker->phoneNumber,
         'fax' => $faker->areaCode,
         'mail' => $faker->safeEmail,
-        'dni_contact' => $faker->randomNumber($nbDigits = 8),
+        'dni_contact' => $faker->unique()->regexify('[1-9]{9}'),
         'title_contact' => 'Gerente',
         'contact' => 'Juan Hernandez',
         'job' => $faker->jobTitle,
@@ -45,6 +45,7 @@ $factory->define(App\Models\Account\Partner::class, function (Faker\Generator $f
 $factory->define(App\Models\Account\SalesInvoice::class, function (Faker\Generator $faker) {
     return [
         
+        'partner_id' => $faker->regexify('[1-5]{1}'),
         'date_invoice' => $faker->date($format = 'Y-m-d', $min ='now', $max = 'now'),
         'user_id' => '1',
         'date_due' => $faker->date($format = 'Y-m-d',$min ='now',  $max = 'now'),
@@ -59,7 +60,7 @@ $factory->define(App\Models\Account\SalesInvoice::class, function (Faker\Generat
 $factory->define(App\Models\Account\Provider::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->company,
-        'ruc' => $faker->randomNumber($nbDigits = 11),
+        'ruc' => $faker->unique()->regexify('[1-9]{11}'),
         'country' => 'Perú',
         'department' => 'Lima',
         'province' => 'Lima',
@@ -70,7 +71,7 @@ $factory->define(App\Models\Account\Provider::class, function (Faker\Generator $
         'mobile' => $faker->phoneNumber,
         'fax' => $faker->areaCode,
         'mail' => $faker->safeEmail,
-         'dni_contact' => $faker->randomNumber($nbDigits = 8),
+        'dni_contact' => $faker->unique()->regexify('[0-9]{9}'),
         'title_contact' => 'Gerente',
         'contact' => 'Vicente Garcia',
         'job' => $faker->jobTitle,
@@ -80,6 +81,7 @@ $factory->define(App\Models\Account\Provider::class, function (Faker\Generator $
 $factory->define(App\Models\Account\PurchasesInvoice::class, function (Faker\Generator $faker) {
     return [
         
+        'provider_id' => $faker->regexify('[1-5]{1}'),
         'date_invoice' => $faker->date($format = 'Y-m-d', $min ='now', $max = 'now'),
         'date_due' => $faker->date($format = 'Y-m-d',$min ='now',  $max = 'now'),
         'amount_total_signed' => $faker->randomFloat($nbMaxDecimals = 2, $min = 100, $max = 2000),

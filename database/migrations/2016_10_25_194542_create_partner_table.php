@@ -16,7 +16,7 @@ class CreatePartnerTable extends Migration
        Schema::create('partner', function (Blueprint $table) {
             $table->increments('id') ;
             $table->string('name');
-            $table->integer('ruc')->unique()->nullable();
+            $table->string('ruc')->unique()->nullable();
             $table->string('country');
             $table->string('department');
             $table->string('province');
@@ -27,7 +27,7 @@ class CreatePartnerTable extends Migration
             $table->string('mobile', 15)->nullable();
             $table->string('fax', 5)->nullable();
             $table->string('mail')->unique()->nullable();
-            $table->integer('dni_contact')->unique()->nullable();
+            $table->string('dni_contact')->unique()->nullable();
             $table->string('title_contact')->nullable();
             $table->string('contact')->nullable();
             $table->string('job')->nullable();

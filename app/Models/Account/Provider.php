@@ -8,7 +8,7 @@ class Provider extends Model
 {
       protected $table = 'provider';
 
-      protected $primarykey = 'id';http://crmocai.pucp.net/node/add
+      protected $primarykey = 'id';
 
       public $timestamps = false;
       

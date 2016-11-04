@@ -303,7 +303,7 @@
                             <a href="#"><i class="fa fa-bus fa-fw"></i> Compras<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">Facturas de proveedor</a>
+                                    <a href="FacturasProveedores">Facturas de proveedor</a>
                                 </li>
                                 <li>
                                     <a href="morris.html">Pagos</a>

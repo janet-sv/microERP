@@ -15,7 +15,7 @@ class CreateSalesinvoiceTable extends Migration
        Schema::create('salesinvoice', function (Blueprint $table) {
             $table->increments('id');
             $table->string('date_invoice') ;
-            $table->integer('number');
+            $table->increments(integer('number',1));
             $table->string('date_due');
             $table->string('amount_total_signed');
             $table->string('residual_signed');

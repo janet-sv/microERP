@@ -49,7 +49,7 @@ class SalesController extends Controller
     {
         //
 
-        $Partners = Partner::lists('name','id')->prepend('Seleccioname la cliente');
+        $Partners = Partner::lists('name','id')->prepend('Seleccione al cliente');
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
         //return view('/account/SalesInvoice/create')->with('Partners',$Partners);
            return view('/account/SalesInvoice/create', array('users'=>$users, 'Partners'=>$Partners ));
@@ -76,9 +76,8 @@ class SalesController extends Controller
      */
     public function show($id)
     {
-        //
         $SalesInvoices = SalesInvoice::FindOrFail($id);
-        return view('FacturasClientes.show')->with('SalesInvoices',$SalesInvoices);
+        return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices));
     }
 
     /**

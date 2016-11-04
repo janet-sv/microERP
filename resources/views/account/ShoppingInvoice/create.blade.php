@@ -2,10 +2,10 @@
 
 @section('content')
 
-     <ol class="breadcrumb">
+  <ol class="breadcrumb">
          <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
-         <li class ="breadcrumb-item"><a href="{{url('FacturasClientes')}}">>Menu de Ventas</a></li>
-         <li class ="breadcrumb-item active">>Nueva Factura de Ventas</li>
+         <li class ="breadcrumb-item"><a href="{{url('FacturasProveedores')}}">>Menu de Compras</a></li>
+         <li class ="breadcrumb-item active">>Nueva Factura de Compras</li>
      </ol>
    <div class="page-header">
      <h1> Nueva Factura </h1>
@@ -16,15 +16,15 @@
 
         <div class="panel panel-primary">
           <div class="panel-heading">
-              Factura de Venta
+              Factura de Compra
            </div>
           <div class="panel-body">
                
-                 {!!Form::open(['route'=>'FacturasClientes.store','method'=>'POST'])!!}
+                 {!!Form::open(['route'=>'FacturasProveedores.store','method'=>'POST'])!!}
                     
                      <div class="form-group">
-                          {!!form::label('Cliente')!!}
-                           {!! Form::select('partner_id',$Partners,null,['id'=>'partner_id','class'=>'form-control'],['readonly']) !!}
+                           {!!form::label('Proveedor')!!}
+                           {!! Form::select('provider_id',$Partners,null,['id'=>'provider_id','class'=>'form-control'],['readonly']) !!}
                         
                      </div>
                      <div class="form-group">
@@ -36,11 +36,6 @@
                    
                           {!!form::label('Numero de Factura')!!}
                           {!!form::text('number',null,['id'=>'number','class'=>'form-control','placeholder'=>'Numero de Factura'])!!}
-                     </div>
-                     <div class="form-group">
-                   
-                          {!!form::label('Usuario')!!}
-                          {!! Form::select('user_id',$users,null,['id'=>'user_id','class'=>'form-control']) !!}
                      </div>
                      <div class="form-group">
                    
@@ -85,7 +80,7 @@
     <script>
       $("#cancelar").click(function(event)
       {
-          document.location.href = "{{ route('FacturasClientes.index')}}";
+          document.location.href = "{{ route('FacturasProveedores.index')}}";
       });
 
     </script>

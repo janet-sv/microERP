@@ -9,7 +9,7 @@
             <h1 class="page-header">Facturas de Ventas</h1>
       </div>
        <ol class="breadcrumb">
-         <li class="breadcrumb-item active" ><a href="{{url('FacturasClientes')}}">>>Modulo Contable</a></li>
+         <li class="breadcrumb-item active" ><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
        </ol>
                 <!-- /.col-lg-12 -->
   </div>

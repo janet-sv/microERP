@@ -19,18 +19,18 @@
           </div>
          <div class="panel-body">
 
-              {!!Form::open(['route'=>['FacturasClientes.destroy',$SalesInvoices->id],'method'=>'DELETE'])!!}
+              {!!Form::open(['route'=>['FacturasProveedores.destroy',$PurchasesInvoices->id],'method'=>'DELETE'])!!}
                 
                  <div class="form-group">
                    <label for="exampleInputPassword1">Desea eliminar esta factura:</label>                
                  </div>
                  <div class="form-group">
                   {!!form::label('Numero de factura:')!!} 
-                   {!!$SalesInvoices->number !!}
+                   {!!$PurchasesInvoices->number !!}
                  </div>
                  <div class="form-group">
                    {!!form::label('Monto Total de la factura:')!!} 
-                   (s./) {!!$SalesInvoices->amount_total_signed !!}  
+                    (s./) {!!$PurchasesInvoices->amount_total_signed !!}
                  </div>
 
                      {!!form::submit('Eliminar',['name'=>'grabar','id'=>'grabar','content'=>'<span>Eliminar</span>','class'=>'btn btn-danger btn-sm m-t-10'])!!}
@@ -50,7 +50,7 @@
 <script>
   $("#cancelar").click(function(event)
   {
-      document.location.href = "{{ route('FacturasClientes.index')}}";
+      document.location.href = "{{ route('FacturasProveedores.index')}}";
   });
 
 </script>

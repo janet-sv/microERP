@@ -6,10 +6,10 @@
    
    <div class="row">
       <div class="col-lg-12">
-            <h1 class="page-header">Facturas de Ventas</h1>
+            <h1 class="page-header">Facturas de Compras</h1>
       </div>
        <ol class="breadcrumb">
-         <li class="breadcrumb-item active" ><a href="{{url('FacturasClientes')}}">>>Modulo Contable</a></li>
+         <li class="breadcrumb-item active" ><a href="{{url('ModuloContable')}}">>>Modulo Contable</a></li>
        </ol>
                 <!-- /.col-lg-12 -->
   </div>
@@ -31,90 +31,38 @@
                           
                               <thead>
                                 <tr>
-                                  <th>Proveedor</th>
-                                  <th>Fecha de Factura</th>
-                                  <th>Numero</th>
-                                  <th>Fecha de Vencimiento</th>
-                                  <th>Total</th>
-                                  <th>A Pagar</th>
-                                  <th>Estado</th>
-
+                                    <th>
+                                    <label><input type="checkbox" value=""></label>
+                                    </th>
+                                    <th>Proveedor</th>
+                                    <th>Fecha de Factura</th>
+                                    <th>Numero</th>
+                                    <th>Fecha de Vencimiento</th>
+                                    <th>Total</th>
+                                    <th>A Pagar</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>Proveedor 1</td>
-                                  <td>2016-04-12</td>
-                                  <td>1</td>
-                                  <td>2016-04-12</td>
-                                  <td>1000.0</td>
-                                  <td>0.0</td>
-                                  <td>Cancelado</td>
-                                </tr>
-                                <tr>
-                                  <td>Proveedor 2</td>
-                                  <td>2016-08-12</td>
-                                  <td>1</td>
-                                  <td>2016-08-12</td>
-                                  <td>456.0</td>
-                                  <td>0.0</td>
-                                  <td>Cancelado</td>
-                                </tr>
-                                <tr>
-                                  <td>Proveedor 3</td>
-                                  <td>2016-04-12</td>
-                                  <td>1</td>
-                                  <td>2016-04-12</td>
-                                  <td>342.0</td>
-                                  <td>0.0</td>
-                                  <td>Cancelado</td>
-                                </tr>
-                                <tr>
-                                  <td>Proveedor 4</td>
-                                  <td>2016-04-12</td>
-                                  <td>1</td>
-                                  <td>2016-04-12</td>
-                                  <td>1000.0</td>
-                                  <td>0.0</td>
-                                  <td>Cancelado</td>
-                                </tr>
-                                <tr>
-                                  <td>Proveedor 1</td>
-                                  <td>2016-04-12</td>
-                                  <td>1</td>
-                                  <td>2016-04-12</td>
-                                  <td>1000.0</td>
-                                  <td>0.0</td>
-                                  <td>Cancelado</td>
-                                </tr>
-                                <tr>
-                                  <td>Proveedor 1</td>
-                                  <td>2016-04-12</td>
-                                  <td>1</td>
-                                  <td>2016-04-12</td>
-                                  <td>1000.0</td>
-                                  <td>0.0</td>
-                                  <td>Cancelado</td>
-                                </tr>
-                                <tr>
-                                  <td>Proveedor 1</td>
-                                  <td>2016-04-12</td>
-                                  <td>1</td>
-                                  <td>2016-04-12</td>
-                                  <td>1000.0</td>
-                                  <td>0.0</td>
-                                  <td>Cancelado</td>
-                                </tr>
-                                <tr>
-                                  <td>Proveedor 1</td>
-                                  <td>2016-04-12</td>
-                                  <td>1</td>
-                                  <td>2016-04-12</td>
-                                  <td>1000.0</td>
-                                  <td>0.0</td>
-                                  <td>Cancelado</td>
-                                </tr>
-
+                                   @foreach($PurchasesInvoice as $purchasesinvoice)
+                                      <tr>
+                                            <td>
+                                                <label><input type="checkbox" value=""></label>
+                                            </td>
+                                            <td>{{$purchasesinvoice->provider}}</td>
+                                            <td>{{$purchasesinvoice->date_invoice}}</td>
+                                            <td>{{$purchasesinvoice->number}}</td>
+                                            <td>{{$purchasesinvoice->date_due}}</td>
+                                            <td>{{$purchasesinvoice->amount_total_signed}}</td>
+                                            <td>{{$purchasesinvoice->residual_signed}}</td>
+                                            <td>{{$purchasesinvoice->state}}</td>
+                                            <td>
+                                              <a href="{{route('FacturasProveedores.edit',$purchasesinvoice->id)}}">[Editar]</a> 
+                                              <a href="{{route('FacturasProveedores.show',$purchasesinvoice->id)}}">[Eliminar]</a>
+                                            </td>
+                                      </tr>
+                              @endforeach
                               </tbody>
 
                           </table>
