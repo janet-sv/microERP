@@ -77,7 +77,7 @@ class SalesController extends Controller
     public function show($id)
     {
         $SalesInvoices = SalesInvoice::FindOrFail($id);
-        return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices));
+        return view('/account/SalesInvoice/show', array('SalesInvoices'=>$SalesInvoices));
     }
 
     /**
