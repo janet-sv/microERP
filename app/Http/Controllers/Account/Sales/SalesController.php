@@ -107,8 +107,8 @@ class SalesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
- $SalesInvoices = SalesInvoice::FindOrFail($id);
+        
+        $SalesInvoices = SalesInvoice::FindOrFail($id);
         $input = $request->all();
         $SalesInvoices->fill($input)->save();
         return redirect()->route('FacturasClientes.index');
@@ -121,10 +121,10 @@ class SalesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+   public function destroy($id)
     {
-        //
-        $SalesInvoices = SalesInvoices::FindOrFail($id);
+        
+         $SalesInvoices = SalesInvoice::FindOrFail($id);
         $SalesInvoices->delete();
         return redirect()->route('FacturasClientes.index');
                 
