@@ -31,11 +31,9 @@
                           
                               <thead>
                                 <tr>
-                                    <th>
-                                    <label><input type="checkbox" value=""></label>
-                                    </th>
+                                    
                                     <th>Proveedor</th>
-                                    <th>Fecha de Factura</th>
+                                    <th>Fecha de emisión</th>
                                     <th>Numero</th>
                                     <th>Fecha de Vencimiento</th>
                                     <th>Total</th>
@@ -47,9 +45,7 @@
                               <tbody>
                                    @foreach($PurchasesInvoice as $purchasesinvoice)
                                       <tr>
-                                            <td>
-                                                <label><input type="checkbox" value=""></label>
-                                            </td>
+                                            
                                             <td>{{$purchasesinvoice->provider}}</td>
                                             <td>{{$purchasesinvoice->date_invoice}}</td>
                                             <td>{{$purchasesinvoice->number}}</td>

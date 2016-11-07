@@ -19,4 +19,10 @@ class PurchasesInvoice extends Model
    {
       return $this->hasmany(Provider::class);
     }  
+
+ public function invoicedetailpurchase()
+   {
+      return $this->belongsto(InvoiceDetailPurchase::class);
+    }
+    
 }

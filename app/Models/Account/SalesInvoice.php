@@ -28,8 +28,12 @@ class SalesInvoice extends Model
    {
       // hasmany - tiene muchas
       return $this->hasmany(User::class);
-      //factory(App\Models\Account\Partner::class, 4 )->create();
       
    }
+
+    public function invoicedetailsales()
+   {
+      return $this->belongsto(InvoiceDetailSales::class);
+    }
  
 }

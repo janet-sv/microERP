@@ -16,7 +16,9 @@
     {!!Html::style('contable/dist/css/sb-admin-2.css')!!}
     {!!Html::style('contable/vendor/morrisjs/morris.css')!!}
     {!!Html::style('contable/vendor/font-awesome/css/font-awesome.min.css')!!}
-    
+    {!!Html::style('contable/style.css')!!}
+
+{!!Html::style('contable/vendor/jquery/jquery-ui.css')!!}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -398,7 +400,7 @@
 {!!Html::script('contable/vendor/morrisjs/morris.min.js')!!}
 {!!Html::script('contable/data/morris-data.js')!!}
 {!!Html::script('contable/dist/js/sb-admin-2.js')!!}
-
+{!!Html::script('contable/vendor/jquery/jquery-ui.js')!!}
 
     @yield('page-script')
 

@@ -30,11 +30,9 @@
                           <table class="table table-hover table-bordered table-responsive">
                             <thead>
                               <tr>
-                                <th>
-                                    <label><input type="checkbox" value=""></label>
-                                </th>
+                                
                                 <th>Cliente</th>
-                                <th>Fecha Factura</th>
+                                <th>Fecha de emisión</th>
                                 <th>Número</th>
                                 <th>Usuario</th>
                                 <th>Fecha de Vencimiento</th>
@@ -47,9 +45,7 @@
                             <tbody>
                             @foreach($SalesInvoice as $salesinvoice)
                               <tr>
-                                <td>
-                                    <label><input type="checkbox" value=""></label>
-                                </td>
+                               
                                 <td>{{$salesinvoice->client}}</td>
                                 <td>{{$salesinvoice->date_invoice}}</td>
                                 <td>{{$salesinvoice->number}}</td>
