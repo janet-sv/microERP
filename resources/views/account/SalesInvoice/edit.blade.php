@@ -36,7 +36,9 @@
                                   <div class="form-group">
                        
                                       {!!form::label('Estado')!!}
-                                      {!!form::text('state',null,['id'=>'state','class'=>'form-control','placeholder'=>'Estado'])!!}
+                                      {!!form::text('state',"Abierto",['id'=>'state','class'=>'form-control','placeholder'=>'Estado','readonly' => 'true'])!!}
+                                    
+
                                  </div>
                             </div>
 

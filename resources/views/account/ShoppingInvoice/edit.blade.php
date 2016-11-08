@@ -32,7 +32,7 @@
                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
-                                  <div class="form-group">
+                                 <div class="form-group">
                        
                                       {!!form::label('Estado')!!}
                                       {!!form::text('state',"Abierto",['id'=>'state','class'=>'form-control','placeholder'=>'Estado','readonly' => 'true'])!!}
