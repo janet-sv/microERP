@@ -33,6 +33,7 @@
                                 <tr>
                                     
                                     <th>Proveedor</th>
+                                     <th>RUC</th>
                                     <th>Fecha de emisión</th>
                                     <th>Numero</th>
                                     <th>Fecha de Vencimiento</th>
@@ -47,6 +48,7 @@
                                       <tr>
                                             
                                             <td>{{$purchasesinvoice->provider}}</td>
+                                            <td>{{$purchasesinvoice->ruc}}</td>
                                             <td>{{$purchasesinvoice->date_invoice}}</td>
                                             <td>{{$purchasesinvoice->number}}</td>
                                             <td>{{$purchasesinvoice->date_due}}</td>

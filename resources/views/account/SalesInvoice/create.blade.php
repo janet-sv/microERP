@@ -30,16 +30,17 @@
                           <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
-                       
                                     {!!form::label('Numero de Factura')!!}
-                                    {!!form::text('number',null,['id'=>'number','class'=>'form-control','placeholder'=>'Numero de Factura'])!!}
+                                    {!!form::text('number',$invoices +1 ,['id'=>'number','class'=>'form-control','placeholder'=>$invoices ,'readonly' => 'true' ])!!}
                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                   <div class="form-group">
                        
                                       {!!form::label('Estado')!!}
-                                      {!!form::text('state',null,['id'=>'state','class'=>'form-control','placeholder'=>'Estado'])!!}
+                                      {!!form::text('state',"Abierto",['id'=>'state','class'=>'form-control','placeholder'=>'Estado','readonly' => 'true'])!!}
+                                    
+
                                  </div>
                             </div>
 
@@ -84,18 +85,7 @@
                             </div>
 
                           </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                 <div class="form-group">
-                       
-                                        {!!form::label('Usuario')!!}
-                                        {!! Form::select('user_id',$users,null,['id'=>'user_id','class'=>'form-control']) !!}
-                                   </div>
-                                  
-                            </div>
-                            
-
-                          </div>
+                          
 
                           <div class="row">
                             <div class="col-xs-12 col-sm-3 col-md-3">
@@ -145,12 +135,17 @@
       });
 
     </script>
+ 
   <script>
   $( function() {
-    $( "#date_invoice" ).datepicker();
+    $( "#date_invoice" ).datepicker({ dateFormat: "yy-mm-dd" });
   } );
   </script>
-
+<script>
+  $( function() {
+    $( "#date_due" ).datepicker({ dateFormat: "yy-mm-dd" });
+  } );
+  </script>
 
   @endsection
 

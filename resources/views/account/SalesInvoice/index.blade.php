@@ -32,6 +32,7 @@
                               <tr>
                                 
                                 <th>Cliente</th>
+                                <th>RUC</th>
                                 <th>Fecha de emisión</th>
                                 <th>Número</th>
                                 <th>Usuario</th>
@@ -47,6 +48,7 @@
                               <tr>
                                
                                 <td>{{$salesinvoice->client}}</td>
+                                <td>{{$salesinvoice->ruc}}</td>
                                 <td>{{$salesinvoice->date_invoice}}</td>
                                 <td>{{$salesinvoice->number}}</td>
                                 <td>{{$salesinvoice->user}}</td>

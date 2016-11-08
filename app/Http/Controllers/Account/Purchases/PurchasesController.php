@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Account\Provider;
 use App\Models\Account\PurchasesInvoice;
 use App\User;
-
+use DB; 
 
 class PurchasesController extends Controller
 {
@@ -32,7 +32,7 @@ class PurchasesController extends Controller
     {
        
         $purchasesinvoices = PurchasesInvoice::
-                    select('purchasesinvoice.id','provider.name as provider','purchasesinvoice.date_invoice','purchasesinvoice.number','purchasesinvoice.date_due','purchasesinvoice.amount_total_signed','purchasesinvoice.residual_signed','purchasesinvoice.state')
+                    select('purchasesinvoice.id','provider.name as provider','provider.ruc as ruc','purchasesinvoice.date_invoice','purchasesinvoice.number','purchasesinvoice.date_due','purchasesinvoice.amount_total_signed','purchasesinvoice.residual_signed','purchasesinvoice.state')
                     ->join('provider','provider.id','=','purchasesinvoice.provider_id')
                     ->paginate(5);
         return view('/account/ShoppingInvoice/index')->with('PurchasesInvoice',$purchasesinvoices);
@@ -48,9 +48,9 @@ class PurchasesController extends Controller
 
     public function create()
     {
-        
-        $Providers = Provider::lists('name','id')->prepend('Seleccioname el proveedor');
-        return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers ));
+         $invoices = DB::table('purchasesinvoice')->count();
+         $Providers = Provider::lists('name','id')->prepend('Seleccioname el proveedor');
+      return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'invoices'=>$invoices ));
     }
 
     /**

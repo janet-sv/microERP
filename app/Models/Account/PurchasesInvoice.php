@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PurchasesInvoice extends Model
 {
-     protected $table      = 'PurchasesInvoice';
+     protected $table      = 'purchasesinvoice';
    protected $primarykey = 'id';
    public    $timestamps = false;
 
