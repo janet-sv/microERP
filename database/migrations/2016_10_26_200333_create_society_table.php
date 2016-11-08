@@ -14,7 +14,8 @@ class CreateSocietyTable extends Migration
     {
         Schema::create('societys', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('razon_social',50);
+            $table->string('direccion',100);
+            $table->string('razon_social',100);
             $table->string('ruc',11);
             $table->string('descripcion',150);            
             $table->softDeletes();

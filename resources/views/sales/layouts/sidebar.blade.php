@@ -30,10 +30,10 @@
                 <a href="#"><i class="fa fa-exclamation-circle fa-fw"></i> Condiciones de promociones<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="#">Nuevo</a>
+                        <a href="{{ route('promocondition.create') }}">Nuevo</a>
                     </li>
                     <li>
-                        <a href="#">Consultar</a>
+                        <a href="{{ route('promocondition.index') }}">Consultar</a>
                     </li>
                 </ul>
             </li>
@@ -44,10 +44,10 @@
                         <a href="#">Promoción por producto<span class="fa arrow"></span></a>                        
                         <ul class="nav nav-third-level">
                             <li>
-                                <a href="#">Nuevo</a>
+                                <a href="{{ route('promotionbyproduct.index') }}">Nuevo</a>
                             </li>
                             <li>
-                                <a href="#">Consultar</a>
+                                <a href="{{ route('promotionbyproduct.index') }}">Consultar</a>
                             </li>
                         </ul>                    
                     </li>

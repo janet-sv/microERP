@@ -11,7 +11,36 @@
 |
 */
 
-Route::get('/ventas', function () {
-    //return view('sales.pages.home.home');
-    return view('sales.pages.listPrice.create');
+
+
+Route::group(['prefix' => 'ventas'], function(){
+
+			Route::get('/', 'Sales\SalesController@index');
+
+			//Administrar condición de promociones
+
+            Route::group(['prefix' => 'condicionpromocion'], function(){    
+                Route::get('/', ['as' => 'promocondition.index', 'uses' => 'Sales\PromoconditionController@index']);
+                Route::get('create', ['as' => 'promocondition.create', 'uses' => 'Sales\PromoconditionController@create']);
+                Route::post('create', ['as' => 'promocondition.store', 'uses' => 'Sales\PromoconditionController@store']);
+                //Route::get('show/{id}', ['as' => 'promocondition.show', 'uses' => 'Investigation\Promocondition\PromoconditionController@show']);
+                Route::get('edit/{id}', ['as' => 'promocondition.edit', 'uses' => 'Sales\PromoconditionController@edit']);
+                Route::post('edit/{id}', ['as' => 'promocondition.update', 'uses' => 'Sales\PromoconditionController@update']);
+                Route::get('delete/{id}', ['as' => 'promocondition.delete', 'uses' => 'Sales\PromoconditionController@destroy']);
+            });
+
+            //Administrar promociones por producto
+
+            Route::group(['prefix' => 'promociones'], function(){    
+                Route::group(['prefix' => 'porproducto'], function(){    
+                    Route::get('/', ['as' => 'promotionbyproduct.index', 'uses' => 'Sales\PromotionbyproductController@index']);
+                    Route::get('create', ['as' => 'promotionbyproduct.create', 'uses' => 'Sales\PromotionbyproductController@create']);
+                    Route::post('create', ['as' => 'promotionbyproduct.store', 'uses' => 'Sales\PromotionbyproductController@store']);
+                    //Route::get('show/{id}', ['as' => 'promocondition.show', 'uses' => 'Investigation\Promocondition\PromoconditionController@show']);
+                    Route::get('edit/{id}', ['as' => 'promotionbyproduct.edit', 'uses' => 'Sales\PromotionbyproductController@edit']);
+                    Route::post('edit/{id}', ['as' => 'promotionbyproduct.update', 'uses' => 'Sales\PromotionbyproductController@update']);
+                    Route::get('delete/{id}', ['as' => 'promotionbyproduct.delete', 'uses' => 'Sales\PromotionbyproductController@destroy']);
+                });
+            });
+
 });

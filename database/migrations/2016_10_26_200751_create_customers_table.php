@@ -18,7 +18,8 @@ class CreateCustomersTable extends Migration
             $table->string('nombre',50);
             $table->string('apellido_paterno',50);
             $table->string('apellido_materno',50);
-            $table->string('razon_social',50);
+            $table->string('razon_social',100);
+            $table->string('direccion',100);
             $table->string('ruc',11);
             $table->integer('sexo');
             $table->integer('tipo_documento');
