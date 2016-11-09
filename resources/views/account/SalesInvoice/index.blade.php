@@ -3,14 +3,14 @@
 @section('content')
 
    <!-- Main component for a primary marketing message or call to action -->
-   
+    <ol class="breadcrumb">
+         <li class="breadcrumb-item active" ><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
+       </ol>
    <div class="row">
       <div class="col-lg-12">
             <h1 class="page-header">Facturas de Ventas</h1>
       </div>
-       <ol class="breadcrumb">
-         <li class="breadcrumb-item active" ><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
-       </ol>
+      
                 <!-- /.col-lg-12 -->
   </div>
 
@@ -64,6 +64,10 @@
                               @endforeach
                             </tbody>
                           </table>
+                          <div class="text-center">
+                            {!!$SalesInvoice->links()!!}
+                          </div>
+
                           </div>
                      
 

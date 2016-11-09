@@ -12,7 +12,7 @@
    </div>
 
    <div class="row">
-     <div class="col-md-8">
+     <div class="col-md-12 col-xs-12 col-sm-12 ">
 
         <div class="panel panel-primary">
           <div class="panel-heading">
@@ -44,11 +44,12 @@
 
                           </div>
                           <div class="row">
+                          <div class="col-xs-12 col-sm-6 col-md-6">
                              <div class="form-group">
                                  {!!form::label('Proveedor')!!}
                                  {!! Form::select('provider_id',$Providers,null,['id'=>'provider_id','class'=>'form-control'],['readonly']) !!}
                               </div>                  
-
+                              </div> 
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                        <div class="form-group">
                                             {!!form::label('Fecha de emisión')!!}

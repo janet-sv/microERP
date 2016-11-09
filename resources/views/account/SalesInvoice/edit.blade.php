@@ -9,7 +9,7 @@
    </ol>
 
    <div class="page-header">
-     <h1> Nueva Factura </h1>
+     <h1> Editar Factura </h1>
    </div>
 
    <div class="row">
@@ -121,7 +121,10 @@
              
                              {!!form::submit('Grabar',['name'=>'grabar','id'=>'grabar','content'=>'<span>Grabar</span>','class'=>'btn btn-warning btn-sm m-t-10'])!!}
                              
-                             <button type="button" id='cancelar'  name='cancelar' class="btn btn-info btn-sm m-t-10" >Cancelar</button>  
+                           
+                               <a href="#" class="btn btn-success" role="button">Registrar Pago</a>
+
+                             <button type="button" id='cancelar'  name='cancelar' class="btn btn-danger btn-sm m-t-10" >Volver</button>  
 
                         </div>
 
