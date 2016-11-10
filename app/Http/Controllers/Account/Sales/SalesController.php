@@ -35,7 +35,8 @@ class SalesController extends Controller
                     ->join('partner','partner.id','=','salesinvoice.partner_id')
                     ->join('users','users.id','=','salesinvoice.user_id')
                     ->paginate(5);
-        return view('/account/SalesInvoice/index')->with('SalesInvoice',$salesinvoices);
+        
+        return  view('/account/SalesInvoice/index')->with('SalesInvoice',$salesinvoices);
     }
 
     /**
@@ -78,6 +79,7 @@ class SalesController extends Controller
     public function show($id)
     {
         $SalesInvoices = SalesInvoice::FindOrFail($id);
+
         return view('/account/SalesInvoice/show', array('SalesInvoices'=>$SalesInvoices));
     }
 

@@ -20,3 +20,6 @@ Route::get('/', function () {
 Route::get('ModuloContable', 'Account\AccountController@index');
 Route::resource('FacturasClientes','Account\Sales\SalesController');
 Route::resource('FacturasProveedores','Account\Purchases\PurchasesController');
+Route::resource('Impuestos','Account\Taxes\TaxesController');
+Route::resource('Bancos','Account\Bank\BankController');
+Route::resource('PlanContable','Account\Accountplaning\AccountplaningController');

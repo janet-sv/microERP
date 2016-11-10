@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTaxesTable extends Migration
+class CreateBankTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,11 @@ class CreateTaxesTable extends Migration
      */
     public function up()
     {
-         Schema::create('taxes', function (Blueprint $table) {
+         Schema::create('bank', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('scope_tax');
-            $table->string('tax_calculation');
+            $table->string('number');
+            $table->string('debit');
+            $table->string('payment');
             $table->string('amount');
             
         });
@@ -29,6 +29,6 @@ class CreateTaxesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('taxes');
+        Schema::drop('bank');
     }
 }

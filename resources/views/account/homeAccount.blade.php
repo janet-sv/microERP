@@ -17,8 +17,7 @@
     {!!Html::style('contable/vendor/morrisjs/morris.css')!!}
     {!!Html::style('contable/vendor/font-awesome/css/font-awesome.min.css')!!}
     {!!Html::style('contable/style.css')!!}
-
-{!!Html::style('contable/vendor/jquery/jquery-ui.css')!!}
+    {!!Html::style('contable/vendor/jquery/jquery-ui.css')!!}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -356,7 +355,7 @@
                                     <a href="panels-wells.html">Ejercicio Fiscal</a>
                                 </li>
                                 <li>
-                                    <a href="buttons.html">Impuestos</a>
+                                    <a href="Impuestos">Impuestos</a>
                                 </li>
                                 <li>
                                     <a href="notifications.html">Cuentas Bancarias</a>
