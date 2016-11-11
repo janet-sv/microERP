@@ -352,20 +352,18 @@
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Configuración <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="panels-wells.html">Ejercicio Fiscal</a>
+                                    <a href="#">Ejercicio Fiscal</a>
                                 </li>
                                 <li>
                                     <a href="Impuestos">Impuestos</a>
                                 </li>
                                 <li>
-                                    <a href="notifications.html">Cuentas Bancarias</a>
+                                    <a href="Bancos">Cuentas Bancarias</a>
                                 </li>
                                 <li>
-                                    <a href="typography.html">Tipo de Diarios</a>
+                                    <a href="#">Tipo de Diarios</a>
                                 </li>
-                                <li>
-                                    <a href="icons.html"> Terminos de Pago</a>
-                                </li>
+                                
                                 
                             </ul>
                             <!-- /.nav-second-level -->

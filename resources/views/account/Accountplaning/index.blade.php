@@ -5,11 +5,11 @@
    <!-- Main component for a primary marketing message or call to action -->
     <ol class="breadcrumb">
          <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
-         <li class ="breadcrumb-item active"><a href="{{url('Impuestos')}}">>Menu de Impuestos</a></li>
+         <li class ="breadcrumb-item active"><a href="{{url('Impuestos')}}">>Plan Contable General</a></li>
        </ol>
    <div class="row">
       <div class="col-lg-12">
-            <h1 class="page-header">Modulo de Impuestos</h1>
+            <h1 class="page-header"></h1>
       </div>
       
                 <!-- /.col-lg-12 -->
@@ -19,44 +19,48 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
-                <div class="panel-heading"><strong>Tabla de Impuestos</strong></div>
+                <div class="panel-heading"><strong>Plan Contable</strong></div>
                 <div class="panel-body">
                     
-                          <h2>Impuestos</h2>
                           <br>
                                 <p class="navbar-text navbar-left" style=" margin-top: 1px;">
-                                  <button  type="button" id='nuevo'  name='nuevo' class="btn btn-warning navbar-btn" style="margin-bottom: 1px; margin-top: -5px;margin-right: 8px;padding: 3px 20px;">Crear Impuesto</button>
+                                  <button  type="button" id='nuevo'  name='nuevo' class="btn btn-warning navbar-btn" style="margin-bottom: 1px; margin-top: -5px;margin-right: 8px;padding: 3px 20px;">Agregar Cuenta</button>
                                  </p>  <br><br><br>
                           <div class="table-responsive ">
                           <table class="table table-hover table-bordered table-responsive">
                             <thead>
                               <tr>
-                                <th>Nombre del Impuesto</th>
-                                <th>Ambito del Impuesto</th>
-                                <th>Calculo del Impuesto</th>
-                                <th>Importe</th>
+                                <th>Nombre de la cuenta</th>
+                                <th>Nivel de cuenta</th>
+                                <th>Tipo de cuenta</th>
+                                <th>Tipo de analisis</th>
+                                <th>Cta. al DEBE</th>
+                                <th>Cta. al HABER</th>
                                 <th>Acciones</th>
                                 
                               </tr>
                             </thead>
                             <tbody>
-                                 @foreach($taxes as $taxe)
+                                 @foreach($accounts as $account)
                               <tr>
                                
-                                <td>{{$taxe->name}}</td>
-                                <td>{{$taxe->scope_tax}}</td>
-                                <td>{{$taxe->tax_calculation}}</td>
-                                <td>{{$taxe->amount}}</td>
+                                <td>{{$account->code}}</td>
+                                <td>{{$account->name}}</td>
+                                <td>{{$account->account_level}}</td>
+                                <td>{{$account->account_type}}</td>
+                                <td>{{$account->analysis_type}}</td>
+                                <td>{{$account->debit}}</td>
+                                <td>{{$account->credit}}</td>
                                 <td>
-                                    <a href="{{route('Impuestos.edit',$taxe->id)}}">[Editar]</a> 
-                                    <a href="{{route('Impuestos.show',$taxe->id)}}">[Eliminar]</a>
+                                    <a href="{{route('PlanContable.edit',$account->id)}}">[Editar]</a> 
+                                    <a href="{{route('PlanContable.show',$account->id)}}">[Eliminar]</a>
                                 </td>
                               </tr>
                                @endforeach
                             </tbody>
                           </table>
                           <div class="text-center">
-                            {!!$taxes->links()!!}
+                             {!!$accounts->links()!!}
                           </div>
 
                           </div>
@@ -72,7 +76,7 @@
 
   $("#nuevo").click(function(event)
   {
-      document.location.href = "{{ route('Impuestos.create')}}";
+      document.location.href = "{{ route('PlanContable.create')}}";
   });
 
 </script>

@@ -17,8 +17,7 @@ class CreateTaxesTable extends Migration
             $table->string('name');
             $table->string('scope_tax');
             $table->string('tax_calculation');
-            $table->string('amount');
-            
+            $table->double('amount', 5, 2);
         });
     }
 

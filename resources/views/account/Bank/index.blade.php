@@ -5,11 +5,11 @@
    <!-- Main component for a primary marketing message or call to action -->
     <ol class="breadcrumb">
          <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
-         <li class ="breadcrumb-item active"><a href="{{url('Impuestos')}}">>Menu de Impuestos</a></li>
+         <li class ="breadcrumb-item active"><a href="{{url('Impuestos')}}">>Menu de Bancos</a></li>
        </ol>
    <div class="row">
       <div class="col-lg-12">
-            <h1 class="page-header">Modulo de Impuestos</h1>
+            <h1 class="page-header">Modulo de Bancos</h1>
       </div>
       
                 <!-- /.col-lg-12 -->
@@ -19,44 +19,44 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
-                <div class="panel-heading"><strong>Tabla de Impuestos</strong></div>
+                <div class="panel-heading"><strong>Tabla de Bancos</strong></div>
                 <div class="panel-body">
                     
-                          <h2>Impuestos</h2>
+                          <h2>Bancos</h2>
                           <br>
                                 <p class="navbar-text navbar-left" style=" margin-top: 1px;">
-                                  <button  type="button" id='nuevo'  name='nuevo' class="btn btn-warning navbar-btn" style="margin-bottom: 1px; margin-top: -5px;margin-right: 8px;padding: 3px 20px;">Crear Impuesto</button>
+                                  <button  type="button" id='nuevo'  name='nuevo' class="btn btn-warning navbar-btn" style="margin-bottom: 1px; margin-top: -5px;margin-right: 8px;padding: 3px 20px;">Nuevo Banco</button>
                                  </p>  <br><br><br>
                           <div class="table-responsive ">
                           <table class="table table-hover table-bordered table-responsive">
                             <thead>
                               <tr>
-                                <th>Nombre del Impuesto</th>
-                                <th>Ambito del Impuesto</th>
-                                <th>Calculo del Impuesto</th>
-                                <th>Importe</th>
+                                <th>Nombre del Banco</th>
+                                <th>Numero de Cuenta</th>
+                                <th>Metodos de Débito</th>
+                                <th>Metodos de Pago</th>
                                 <th>Acciones</th>
                                 
                               </tr>
                             </thead>
                             <tbody>
-                                 @foreach($taxes as $taxe)
+                                 @foreach($banks as $bank)
                               <tr>
                                
-                                <td>{{$taxe->name}}</td>
-                                <td>{{$taxe->scope_tax}}</td>
-                                <td>{{$taxe->tax_calculation}}</td>
-                                <td>{{$taxe->amount}}</td>
+                                <td>{{$bank->name_bank}}</td>
+                                <td>{{$bank->number}}</td>
+                                <td>{{$bank->debit}}</td>
+                                <td>{{$bank->debit}}</td>
                                 <td>
-                                    <a href="{{route('Impuestos.edit',$taxe->id)}}">[Editar]</a> 
-                                    <a href="{{route('Impuestos.show',$taxe->id)}}">[Eliminar]</a>
+                                    <a href="{{route('Bancos.edit',$bank->id)}}">[Editar]</a> 
+                                    <a href="{{route('Bancos.show',$bank->id)}}">[Eliminar]</a>
                                 </td>
                               </tr>
                                @endforeach
                             </tbody>
                           </table>
                           <div class="text-center">
-                            {!!$taxes->links()!!}
+                             {!!$banks->links()!!}
                           </div>
 
                           </div>
@@ -72,7 +72,7 @@
 
   $("#nuevo").click(function(event)
   {
-      document.location.href = "{{ route('Impuestos.create')}}";
+      document.location.href = "{{ route('Bancos.create')}}";
   });
 
 </script>

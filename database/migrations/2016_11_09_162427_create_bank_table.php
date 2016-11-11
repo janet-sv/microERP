@@ -14,11 +14,11 @@ class CreateBankTable extends Migration
     {
          Schema::create('bank', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name_bank');
             $table->string('number');
             $table->string('debit');
-            $table->string('payment');
-            $table->string('amount');
-            
+            $table->string('payment');      
+                        
         });
     }
 

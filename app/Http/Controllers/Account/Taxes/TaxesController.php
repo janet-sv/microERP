@@ -45,7 +45,7 @@ class TaxesController extends Controller
 
     public function create()
     {
-        $ambito = array( "Ventas"=>"Ventas", "Ventas"=>"Compras");
+        $ambito = array( "Ventas"=>"Ventas", "Compras"=>"Compras");
         $calculo = array("Porcentaje"=>"Porcentaje sobre el precio en %", "Fijo"=>"Fijo");
         return view('/account/Taxes/create' , array('ambito'=>$ambito ,'calculo'=>$calculo ));
  	}
@@ -82,8 +82,10 @@ class TaxesController extends Controller
      */
     public function edit($id)
     {
+        $ambito = array( "Ventas"=>"Ventas", "Compras"=>"Compras");
+        $calculo = array("Porcentaje"=>"Porcentaje sobre el precio en %", "Fijo"=>"Fijo");
         $taxes = Taxes::FindOrFail($id);
-        return view('/account/Taxes/edit', array('taxes'=>$taxes));
+        return view('/account/Taxes/edit', array('taxes'=>$taxes, 'ambito'=>$ambito ,'calculo'=>$calculo ));
 
     }
 

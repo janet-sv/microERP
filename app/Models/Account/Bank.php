@@ -4,13 +4,14 @@ namespace App\Models\Account;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Accounts extends Model
+class Bank extends Model
 {
-   protected $table      = 'accounts';
+   protected $table      = 'bank';
    protected $primarykey = 'id';
    public    $timestamps = false;
 
    protected  $fillable= [
-      'id','code', 'name', 'account_level' , 'account_type', 'analysis_type', 'debit' , 'credit',
+      'id','name_bank', 'number', 'debit' , 'payment',
    ];
+
 }
