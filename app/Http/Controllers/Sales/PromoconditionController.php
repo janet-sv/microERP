@@ -99,11 +99,11 @@ class PromoconditionController extends Controller
     public function update(PromoconditionRequest $request, $id)
     {
         try {
-            $promocondition = Promocondition::find($id);
-            $promocondition->nombre       = $request['nombre'];
-            $promocondition->descripcion  = $request['descripcion'];
-            $promocondition->cantidad_requerida  = $request['cantidad_requerida'];
-            $promocondition->cantidad_descuento  = $request['cantidad_descuento'];
+            $promocondition                       = Promocondition::find($id);
+            $promocondition->nombre               = $request['nombre'];
+            $promocondition->descripcion          = $request['descripcion'];
+            $promocondition->cantidad_requerida   = $request['cantidad_requerida'];
+            $promocondition->cantidad_descuento   = $request['cantidad_descuento'];
             $promocondition->porcentaje_descuento = $request['porcentaje_descuento'];
             $promocondition->save();
 

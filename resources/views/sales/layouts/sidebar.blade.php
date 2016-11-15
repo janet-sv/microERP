@@ -8,10 +8,10 @@
                 <a href="#"><i class="fa fa-users fa-fw"></i> Clientes<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="#">Nuevo</a>
+                        <a href="{{ route('customer.create') }}">Nuevo</a>
                     </li>
                     <li>
-                        <a href="#">Consultar</a>
+                        <a href="{{ route('customer.index') }}">Consultar</a>
                     </li>
                 </ul>
             </li>

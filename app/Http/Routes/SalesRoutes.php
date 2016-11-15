@@ -17,6 +17,19 @@ Route::group(['prefix' => 'ventas'], function(){
 
 			Route::get('/', 'Sales\SalesController@index');
 
+            //Administrar condición de promociones
+
+            Route::group(['prefix' => 'cliente'], function(){    
+                Route::get('/', ['as' => 'customer.index', 'uses' => 'Sales\CustomerController@index']);
+                Route::get('create', ['as' => 'customer.create', 'uses' => 'Sales\CustomerController@create']);
+                Route::post('create', ['as' => 'customer.store', 'uses' => 'Sales\CustomerController@store']);
+                //Route::get('show/{id}', ['as' => 'promocondition.show', 'uses' => 'Investigation\Promocondition\PromoconditionController@show']);
+                Route::get('edit/{id}', ['as' => 'customer.edit', 'uses' => 'Sales\CustomerController@edit']);
+                Route::post('edit/{id}', ['as' => 'customer.update', 'uses' => 'Sales\CustomerController@update']);
+                Route::get('delete/{id}', ['as' => 'customer.delete', 'uses' => 'Sales\CustomerController@destroy']);
+            });
+
+
 			//Administrar condición de promociones
 
             Route::group(['prefix' => 'condicionpromocion'], function(){    
