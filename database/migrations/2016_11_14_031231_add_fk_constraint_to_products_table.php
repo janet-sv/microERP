@@ -14,16 +14,16 @@ class AddFkConstraintToProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             
-            $table->integer('id_category');
+            $table->integer('id_category')->unsigned();
 
             $table->foreign('id_category')->references('id')->on('product_categories');
 
-            $table->integer('id_trademark');
+            $table->integer('id_trademark')->unsigned();
 
             $table->foreign('id_trademark')->references('id')->on('trademarks');
         });
     }
-por 
+
     /**
      * Reverse the migrations.
      *
@@ -33,9 +33,9 @@ por
     {
         Schema::table('products', function (Blueprint $table) {
             
-            $table->dropForeign(['id_category']);
+            $table->dropForeign(['id_category'])->onDelete('cascade');
             
-            $table->dropForeign(['id_trademark']);
+            $table->dropForeign(['id_trademark'])->onDelete('cascade');
         
         });
     }

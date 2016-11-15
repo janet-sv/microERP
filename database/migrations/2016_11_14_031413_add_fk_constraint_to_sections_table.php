@@ -14,9 +14,9 @@ class AddFkConstraintToSectionsTable extends Migration
     {
         Schema::table('sections', function (Blueprint $table) {
             
-            $table->integer('id_warehouse');
+            $table->integer('id_warehouse')->unsigned();
 
-            $table->foreign('id_warehouse')->reference('id')->on('warehouses');
+            $table->foreign('id_warehouse')->references('id')->on('warehouses');
 
         });
     }
