@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models\Purchase\Trademark;
 
 use Illuminate\Database\Eloquent\Model;
 
