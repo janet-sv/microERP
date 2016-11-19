@@ -145,7 +145,7 @@
                             <div class="row">
                                 <div class="col-lg-12">                                    
                                     {{Form::submit('Guardar', ['class'=>'btn btn-success pull-right'])}}                                                                       
-                                    <a class="btn btn-default pull-right" href="{{ route('customer.index') }}">Cancelar</a>                                    
+                                    <a class="btn btn-default pull-right" href="{{ route('promotionbyproduct.index') }}">Cancelar</a>                                    
                                 </div>
                             </div>
                         {{Form::close()}}

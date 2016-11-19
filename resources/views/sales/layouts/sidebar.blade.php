@@ -44,7 +44,7 @@
                         <a href="#">Promoción por producto<span class="fa arrow"></span></a>                        
                         <ul class="nav nav-third-level">
                             <li>
-                                <a href="{{ route('promotionbyproduct.index') }}">Nuevo</a>
+                                <a href="{{ route('promotionbyproduct.create') }}">Nuevo</a>
                             </li>
                             <li>
                                 <a href="{{ route('promotionbyproduct.index') }}">Consultar</a>
@@ -55,10 +55,10 @@
                         <a href="#">Promoción por agrupación de producto<span class="fa arrow"></span></a>  
                         <ul class="nav nav-third-level">
                             <li>
-                                <a href="#">Nuevo</a>
+                                <a href="{{route('promotionbygroup.create')}}">Nuevo</a>
                             </li>
                             <li>
-                                <a href="#">Consultar</a>
+                                <a href="{{route('promotionbygroup.index')}}">Consultar</a>
                             </li>
                         </ul>
                     </li>

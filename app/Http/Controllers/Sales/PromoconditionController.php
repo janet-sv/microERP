@@ -12,7 +12,7 @@ class PromoconditionController extends Controller
 {
     public function index()
     {
-        $promoconditions = Promocondition::orderBy('nombre', 'asc')->get();
+        $promoconditions = Promocondition::orderBy('nombre', 'asc')->paginate(10);
 
         $data = [
             'promoconditions'    =>  $promoconditions,

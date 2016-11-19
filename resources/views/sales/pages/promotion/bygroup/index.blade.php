@@ -23,7 +23,7 @@
                                 <form action="#" method="get">
                                     <div class="input-group">
                                         <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
-                                        <input class="form-control" id="promotionbyproduct-search" name="q" placeholder="Buscar" required>
+                                        <input class="form-control" id="promotionbygroup-search" name="q" placeholder="Buscar" required>
                                         <span class="input-group-btn">
                                             <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                                         </span>
@@ -31,7 +31,7 @@
                                 </form>
                             </div>                        
                             <div class="col-lg-6">
-                                <a href="{{route('promotionbyproduct.create')}}">
+                                <a href="{{route('promotionbygroup.create')}}">
                                     {{Form::button('<i class="fa fa-plus"></i> Crear promoción',['class'=>'btn btn-success pull-right'])}}
                                 </a>
                             </div>                            
@@ -43,35 +43,36 @@
                                         <th>Nombre</th>                                                                                 
                                         <th>Categoría</th>                                         
                                         <th>Producto</th>                                         
-                                        <th>Condición</th> 
+                                        <th>Cantidad descuento</th> 
+                                        <th>Porcentaje descuento</th> 
                                         <th>Fecha inicio</th> 
                                         <th>Fecha fin</th> 
                                         <th colspan="2">Acciones</th>
                                     </tr> 
                                 </thead> 
                                 <tbody> 
-                                    @foreach($promotionbyproducts as $promotionbyproduct)
+                                    @foreach($promotionbygroups as $promotionbygroup)
                                     <tr> 
-                                        <td>{{ $promotionbyproduct->name }}</td>                                         
+                                        <td>{{ $promotionbygroup->name }}</td>                                         
                                         <td></td>
                                         <td></td> 
                                         <td></td>                                         
                                         <td></td>                                         
                                         <td></td>                                         
                                         <td>
-                                            <a href="{{route('promotionbyproduct.edit', $promotionbyproduct->id)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{route('promotionbygroup.edit', $promotionbygroup->id)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
                                             
-                                            <a href="" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#{{$promotionbyproduct->id}}" title="Eliminar"><i class="fa fa-remove"></i></a>
+                                            <a href="" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#{{$promotionbygroup->id}}" title="Eliminar"><i class="fa fa-remove"></i></a>
                                             
                                         </td>
                                     </tr> 
 
-                                    @include('sales.pages.modals.delete', ['id'=> $promotionbyproduct->id, 'message' => '¿Está seguro que desea eliminar esta promoción?', 'route' => route('promotionbyproduct.delete', $promotionbyproduct->id)])
+                                    @include('sales.pages.modals.delete', ['id'=> $promotionbygroup->id, 'message' => '¿Está seguro que desea eliminar esta promoción?', 'route' => route('promotionbygroup.delete', $promotionbygroup->id)])
                                     @endforeach
                                 </tbody> 
                             </table>
                         </div>
-                        {{ $promotionbyproducts->links() }}
+                        {{ $promotionbygroups->links() }}
                     </div>
                 </div>
             </div>
@@ -79,6 +80,6 @@
 
 </section>
 
-<script src="{{ URL::asset('build/js/sales/promotionbyproduct.js')}}"></script>
+<script src="{{ URL::asset('build/js/sales/promotion.js')}}"></script>
 
 @endsection

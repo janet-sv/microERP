@@ -9,18 +9,17 @@ use App\Models\Sales\Promotion;
 use App\Http\Requests\Sales\PromoconditionRequest;
 use App\Http\Requests;
 
-class PromotionbyproductController extends Controller
-{    
-
+class PromotionbygroupController extends Controller
+{
     public function index()
     {
-        $promotionbyproducts = Promotion::where('tipo', 1)->orderBy('nombre', 'asc')->paginate(10);
+        $promotionbygroups = Promotion::where('tipo', 2)->orderBy('nombre', 'asc')->paginate(10);
 
         $data = [
-            'promotionbyproducts'    =>  $promotionbyproducts,
+            'promotionbygroups'    =>  $promotionbygroups,
         ];
 
-        return view('sales.pages.promotion.byproduct.index', $data);
+        return view('sales.pages.promotion.bygroup.index', $data);
 
     }
 
@@ -40,7 +39,7 @@ class PromotionbyproductController extends Controller
             'categoryproducts' =>  $categoryproducts,
             'products'         =>  $products,
         ];
-        return view('sales.pages.promotion.byproduct.create', $data);
+        return view('sales.pages.promotion.bygroup.create', $data);
     }
 
     /**
@@ -61,7 +60,7 @@ class PromotionbyproductController extends Controller
             $promotion->fecha_fin              = $request['fecha_fin'];            
             $promotion->save();
 
-            return redirect()->route('promotionbyproduct.index')->with('success', 'La promoción se ha registrado exitosamente');
+            return redirect()->route('promotionbygroup.index')->with('success', 'La promoción se ha registrado exitosamente');
         } catch (Exception $e) {
             return redirect()->back()->with('warning', 'Ocurrió un error al hacer esta acción');
         }
@@ -81,7 +80,7 @@ class PromotionbyproductController extends Controller
             'promotion'    =>  $promotion,
         ];
 
-        return view('sales.pages.promotion.byproduct.show', $data);
+        return view('sales.pages.promotion.bygroup.show', $data);
     }
 
     /**
@@ -98,7 +97,7 @@ class PromotionbyproductController extends Controller
             'promotion'      =>  $promotion,
         ];
 
-        return view('sales.pages.promotion.byproduct.edit', $data);
+        return view('sales.pages.promotion.bygroup.edit', $data);
     }
 
     /**
@@ -120,7 +119,7 @@ class PromotionbyproductController extends Controller
             $promotion->fecha_fin              = $request['fecha_fin'];            
             $promotion->save();
 
-            return redirect()->route('promotionbyproduct.index')->with('success', 'La promoción se ha actualizado exitosamente');
+            return redirect()->route('promotionbygroup.index')->with('success', 'La promoción se ha actualizado exitosamente');
         } catch (Exception $e) {
             return redirect()->back()->with('warning', 'Ocurrió un error al hacer esta acción');
         }
@@ -140,7 +139,7 @@ class PromotionbyproductController extends Controller
             
             $promotion->delete();
 
-            return redirect()->route('promotionbyproduct.index')->with('success', 'La promoción se ha eliminado exitosamente');
+            return redirect()->route('promotionbygroup.index')->with('success', 'La promoción se ha eliminado exitosamente');
         } catch (Exception $e) {
             return redirect()->back()->with('warning', 'Ocurrió un error al hacer esta acción');
         }
@@ -149,10 +148,10 @@ class PromotionbyproductController extends Controller
 
     public function getProductsByCategory()
     {
-        $promotionbyproducts = Promotion::where('tipo', 1)->orderBy('nombre', 'asc')->get();
+        $promotionbygroups = Promotion::where('tipo', 1)->orderBy('nombre', 'asc')->get();
 
         $data = [
-            'promotionbyproducts'    =>  $promotionbyproducts,
+            'promotionbygroups'    =>  $promotionbygroups,
         ];
 
         return null;

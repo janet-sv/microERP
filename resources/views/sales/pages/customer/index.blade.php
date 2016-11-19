@@ -54,6 +54,7 @@
                                 <tbody> 
                                     @foreach($customers as $customer)
                                     <tr> 
+                                        <td hidden><input type="text" value="{{$customer->id}}" name="arrIds[{{$customer->id}}]"></td>
                                         <td>{{$customer->nombre}}</td> 
                                         @if($customer->tipo_contribuyente == 1)   
                                             <td>Natural</td> 
@@ -80,6 +81,7 @@
                                 </tbody> 
                             </table>
                         </div>
+                        {{ $customers->links() }}
                     </div>
                 </div>
             </div>

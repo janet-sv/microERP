@@ -25,7 +25,15 @@
                                         <label>Nombre</label>
                                         <input class="form-control" name="name" placeholder="Nombre" maxlength="50">
                                     </div>
-                                </div>                                                                       
+                                </div>                                      
+                                 <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Condición de promoción</label>
+                                        <select class="form-control">                                           
+                                            <option value="0">Seleccione</option>                                            
+                                        </select>
+                                    </div>
+                                </div> 
                             </div>        
                             <div class="row">
                                 <div class="col-lg-6">
@@ -110,21 +118,24 @@
                                         </div> 
                                         <div class="row">                                                            
                                             <div class="col-lg-3">
-                                                <div class="form-group">                                                    
+                                                <div class="form-group">
+                                                    <label>Categoría de producto</label>
                                                     <select class="form-control" name="categoryproduct2">                                           
                                                         <option value="0">Seleccione</option>                                            
                                                     </select>
                                                 </div>
                                             </div>                                   
                                             <div class="col-lg-3">
-                                                <div class="form-group">                                                    
+                                                <div class="form-group">
+                                                    <label>Producto</label>
                                                     <select class="form-control" name="product2">                                           
                                                         <option value="0">Seleccione</option>                                                                                        
                                                     </select>
                                                 </div>
                                             </div>                                                               
                                             <div class="col-lg-3">
-                                                <div class="form-group">                                                    
+                                                <div class="form-group">
+                                                    <label>Cantidad de descuento</label>
                                                     <div class="form-group input-group">
                                                         <span class="input-group-addon">u</span>
                                                         <input class="form-control" name="cantidad_descuento2" placeholder="Cantidad de descuento" maxlength="3">
@@ -132,7 +143,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
-                                                <div class="form-group">                                                    
+                                                <div class="form-group">
+                                                    <label>Porcentaje de descuento</label>
                                                     <div class="form-group input-group">
                                                         <span class="input-group-addon">%</span>
                                                         <input type="text" class="form-control" name="porcentaje_descuento2" placeholder="Porcentaje de descuento">
@@ -146,7 +158,7 @@
                             <div class="row">
                                 <div class="col-lg-12">                                    
                                     <button class="btn btn-success pull-right" type="submit">Guardar</button>                                    
-                                    <a href="{{route('promotionbygroup.index')}}" class="btn btn-default pull-right">Cancelar</a>                                      
+                                    <a href="#" class="btn btn-default pull-right">Cancelar</a>                                      
                                 </div>
                             </div>
                         </form>

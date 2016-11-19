@@ -64,12 +64,13 @@
                                         </td>
                                     </tr> 
 
-                                    @include('sales.pages.modals.delete', ['id'=> $promocondition->id, 'message' => '¿Esta seguro que desea eliminar esta condición de promoción?', 'route' => route('promocondition.delete', $promocondition->id)])
+                                    @include('sales.pages.modals.delete', ['id'=> $promocondition->id, 'message' => '¿Está seguro que desea eliminar esta condición de promoción?', 'route' => route('promocondition.delete', $promocondition->id)])
                                     @endforeach
                                     
                                 </tbody> 
                             </table>
                         </div>
+                        {{ $promoconditions->links() }}
                     </div>
                 </div>
             </div>

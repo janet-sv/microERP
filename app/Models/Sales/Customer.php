@@ -14,7 +14,7 @@ class Customer extends Model
     'porcentaje_descuento', 'plazo_credito', 'estado', 'id_sociedad'];
 
     public function society(){
-    	return $this->belongsTo('App\Models\Sales', 'id_sociedad');	
+    	return $this->belongsTo('App\Models\Sales\Society', 'id_sociedad');	
     }
 }
 

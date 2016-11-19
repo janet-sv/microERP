@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePromoconditionsTable extends Migration
+class CreatePromotionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,13 @@ class CreatePromoconditionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('promoconditions', function (Blueprint $table) {
+        Schema::create('promotions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre',50);
-            $table->string('descripcion',150);
-            $table->integer('cantidad_requerida');
-            $table->integer('cantidad_descuento');
-            $table->float('porcentaje_descuento',5,2);
+            $table->string('descripcion',150)->nullable();
+            $table->integer('tipo');
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ class CreatePromoconditionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('promoconditions');
+        Schema::drop('promotions');
     }
 }

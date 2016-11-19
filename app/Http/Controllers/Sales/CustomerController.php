@@ -12,8 +12,8 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::orderBy('nombre', 'asc')->get();
-
+        $customers = Customer::orderBy('nombre', 'asc')->paginate(10);
+        
         $data = [
             'customers'    =>  $customers,
         ];

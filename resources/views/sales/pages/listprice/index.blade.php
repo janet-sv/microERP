@@ -32,7 +32,7 @@
                             </div>                        
                             <div class="col-lg-6">
                                 <a href="{{route('list_price.create')}}">
-                                    {{Form::button('<i class="fa fa-plus"></i> Crear cliente',['class'=>'btn btn-success pull-right'])}}
+                                    {{Form::button('<i class="fa fa-plus"></i> Crear precio lista',['class'=>'btn btn-success pull-right'])}}
                                 </a>
                             </div>                            
                         </div>
@@ -60,7 +60,7 @@
                                         </td>
                                     </tr> 
 
-                                    @include('sales.pages.modals.delete', ['id'=> $list_price->id, 'message' => '¿Esta seguro que desea eliminar este cliente?', 'route' => route('list_price.delete', $list_price->id)])
+                                    @include('sales.pages.modals.delete', ['id'=> $list_price->id, 'message' => '¿Está seguro que desea eliminar este precio de lista?', 'route' => route('list_price.delete', $list_price->id)])
                                     {{ -- @endforeach -- }}
                                      
                                 </tbody> 
