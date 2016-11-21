@@ -3,11 +3,11 @@
 @section('content')
 
 
-  <ol class="breadcrumb">
-      <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
-         <li class ="breadcrumb-item"><a href="{{url('Bancos')}}">>Bancos</a></li>
-         <li class ="breadcrumb-item active">>Eliminar un cuenta</li>
-   </ol>
+   <ol class="breadcrumb">
+         <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
+         <li class ="breadcrumb-item active"><a href="{{url('PlanContable')}}">>Plan Contable General</a></li>
+         <li class ="breadcrumb-item active">>Eliminar Cuenta</li>
+     </ol>
  
 
    <div class="row">
@@ -15,28 +15,28 @@
 
        <div class="panel panel-default">
          <div class="panel-heading">
-            Proceso de Eliminar Banco
+            Proceso de Eliminar Cuenta
           </div>
          <div class="panel-body">
 
-              {!!Form::open(['route'=>['Bancos.destroy',$banks->id],'method'=>'DELETE'])!!}
+              {!!Form::open(['route'=>['PlanContable.destroy',$accounts->id],'method'=>'DELETE'])!!}
                 
                  <div class="form-group">
-                   <label for="exampleInputPassword1">Desea eliminar este cuenta bancaria:</label>                
+                   <label for="exampleInputPassword1">Desea eliminar este cuenta en el plan contable:</label>                
                  </div>
 
                       <div class="form-group">
-                       {!!form::label('Nombre del Banco:')!!} 
-                        {!!$banks->name_bank !!}  
+                       {!!form::label('Código de la cuenta:')!!} 
+                        {!!$accounts->code !!}  
                      </div>
                      <div class="form-group">
-                      {!!form::label('Numero de la cuenta:')!!} 
-                       {!!$banks->number !!}
+                       {!!form::label('Nombre de la Cuenta:')!!} 
+                        {!!$accounts->name !!}  
                      </div>
-                 
+                                      
                      {!!form::submit('Eliminar',['name'=>'grabar','id'=>'grabar','content'=>'<span>Eliminar</span>','class'=>'btn btn-danger btn-sm m-t-10'])!!}
 
-                    <button type="button" id= 'cancelar' name='cancelar' class="btn btn-default btn-sm m-t-10" >Cancelar</button>
+            <button type="button" id= 'cancelar' name='cancelar' class="btn btn-default btn-sm m-t-10" >Cancelar</button>
 
               {!!Form::close()!!}
 
@@ -49,7 +49,7 @@
 <script>
   $("#cancelar").click(function(event)
   {
-      document.location.href = "{{ route('Bancos.index')}}";
+      document.location.href = "{{ route('PlanContable.index')}}";
   });
 
 </script>

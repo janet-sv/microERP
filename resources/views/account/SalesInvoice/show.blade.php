@@ -4,7 +4,7 @@
 
 
   <ol class="breadcrumb">
-     <li class="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
+     <li class="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Módulo Contable</a></li>
      <li class="breadcrumb-item"><a href="{{url('FacturasClientes')}}">>Menu de Ventas</a></li>
      <li class="breadcrumb-item active">>Eliminar Factura</li>
    </ol>

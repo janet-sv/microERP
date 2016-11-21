@@ -11,6 +11,6 @@ class Accounts extends Model
    public    $timestamps = false;
 
    protected  $fillable= [
-      'id','code', 'name', 'account_level' , 'account_type', 'analysis_type', 'debit' , 'credit',
+      'id','code', 'name', 'account_level' , 'account_type', 'analysis_type', 'debit' , 'credit', 'bank_cuenta',
    ];
 }

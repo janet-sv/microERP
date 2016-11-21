@@ -286,7 +286,7 @@
                             <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Ventas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="FacturasClientes">Facturas de cliente</a>
+                                    <a href="/FacturasClientes">Facturas de cliente</a>
                                 </li>
                                 <li>
                                     <a href="morris.html">Pagos</a>
@@ -304,7 +304,7 @@
                             <a href="#"><i class="fa fa-bus fa-fw"></i> Compras<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="FacturasProveedores">Facturas de proveedor</a>
+                                    <a href="/FacturasProveedores">Facturas de proveedor</a>
                                 </li>
                                 <li>
                                     <a href="morris.html">Pagos</a>
@@ -323,7 +323,7 @@
                                     <a href="flot.html">Asientos Contables</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Plan de Cuentas</a>
+                                    <a href="/PlanContable">Plan de Cuentas</a>
                                 </li>
                                 
                             </ul>
@@ -355,10 +355,10 @@
                                     <a href="#">Ejercicio Fiscal</a>
                                 </li>
                                 <li>
-                                    <a href="Impuestos">Impuestos</a>
+                                    <a href="/Impuestos">Impuestos</a>
                                 </li>
                                 <li>
-                                    <a href="Bancos">Cuentas Bancarias</a>
+                                    <a href="/Bancos">Cuentas Bancarias</a>
                                 </li>
                                 <li>
                                     <a href="#">Tipo de Diarios</a>

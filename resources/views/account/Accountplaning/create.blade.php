@@ -25,23 +25,38 @@
 
             <div class="container">
                           <div class="row">
-                                <div class="col-xs-12 col-sm-3 col-md-3">
+                                <div class="col-xs-4 col-sm-2 col-md-2">
                                     <div class="form-group">
                                         {!!form::label('Cuenta contable')!!}
                                        
                                    </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-3 col-md-3">
+                                <div class="col-xs-4 col-sm-2 col-md-2">
                                     <div class="form-group">
                                         {!!form::text('code',null ,['id'=>'code','class'=>'form-control'])!!}
                                        
                                    </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-3 col-md-3">
+                                <div class="col-xs-12 col-sm-5 col-md-5">
                                     <div class="form-group">
                                        {!!form::text('name',null ,['id'=>'name','class'=>'form-control'])!!}
                                     </div>
                                 </div>
+                          </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-2 col-md-2">
+                                    <div class="form-group">
+                                        {!!form::label('Numero de la entidad finaciera')!!}
+                                       
+                                   </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-2 col-md-2">
+                                    <div class="form-group">
+                                        
+                                          {!! Form::select('bank_name',$bank,null,['id'=>'bank_name','class'=>'form-control'],['readonly']) !!} 
+                                   </div>
+                                </div>
+                               
                           </div>
                           <div class="row">
                                    <div class="col-xs-12 col-sm-4 col-md4">
@@ -70,13 +85,13 @@
                                     </div>
                            </div>
                           <div class="row">
-                              <div class="col-xs-12 col-sm-6 col-md-6">
+                              <div class="col-xs-12 col-sm-3 col-md-3">
                                   <div class="form-group">
                                           {!!form::label('Cta. para amarre al DEBE')!!}
                                           {!!form::text('debit',null ,['id'=>'debit','class'=>'form-control'])!!}
                                    </div>                  
                               </div> 
-                               <div class="col-xs-12 col-sm-6 col-md-6">
+                               <div class="col-xs-12 col-sm-3 col-md-3">
                                   <div class="form-group">
                                           {!!form::label('Cta. para amarre al HABER')!!}
                                           {!!form::text('credit',null ,['id'=>'credit','class'=>'form-control'])!!}

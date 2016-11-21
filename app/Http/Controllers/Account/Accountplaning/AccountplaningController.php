@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Account\Accounts;
+use DB;
+use App\Models\Account\Bank;
 
 class AccountplaningController extends Controller
 {
@@ -30,7 +32,7 @@ class AccountplaningController extends Controller
     public function index()
     {
       	$accounts = Accounts::
-                    select('accounts.id','accounts.code','accounts.name','accounts.account_level','accounts.account_type','accounts.analysis_type','accounts.debit','accounts.credit')
+                    select('accounts.id','accounts.code','accounts.name','accounts.account_level','accounts.account_type','accounts.analysis_type','accounts.debit','accounts.credit','accounts.bank_name','accounts.bank_cuenta')
                     ->paginate(5);
 
         return view('/account/Accountplaning/index')->with('accounts',$accounts);
@@ -47,8 +49,10 @@ class AccountplaningController extends Controller
     {
        $nivel = array( "B"=>"Balance", "S"=>"Sub-Cuenta", "R"=>"Registro");
        $cuenta = array( "A"=>"Activo", "P"=>"Pasivo","R"=>"Resultado", "N"=>"Naturaleza","F"=>"Funcion", "O"=>"Orden","M"=>"Mayor");
-       $analisis = array( "S"=>"Sin Análisis", "P"=>"Por Documento", "C"=>"Cuenta de Banco", "D"=>"Solo Detalle");
-        return view('/account/Accountplaning/create',array('nivel'=>$nivel,'cuenta'=>$cuenta,'analisis'=>$analisis));
+       $analisis = array( "S"=>"Sin Análisis", "P"=>"Por Documento", "C"=>"Cuenta de Banco", "D"=>"Solo Detalle");  
+       // $bank = DB::select('select * from bank');  
+       $bank = Bank::lists('number','id')->prepend('Seleccione al Banco');
+        return view('/account/Accountplaning/create',array('nivel'=>$nivel,'cuenta'=>$cuenta,'analisis'=>$analisis,'bank'=>$bank));
  	}
 
     /**
@@ -88,8 +92,11 @@ class AccountplaningController extends Controller
     	$nivel = array( "B"=>"Balance", "S"=>"Sub-Cuenta", "R"=>"Registro");
        $cuenta = array( "A"=>"Activo", "P"=>"Pasivo","R"=>"Resultado", "N"=>"Naturaleza","F"=>"Funcion", "O"=>"Orden","M"=>"Mayor");
        $analisis = array( "S"=>"Sin Análisis", "P"=>"Por Documento", "C"=>"Cuenta de Banco", "D"=>"Solo Detalle");
+         //$bank = DB::select('select * from bank');  
+         $bank = Bank::lists('number','id')->prepend('Seleccione al banco');
+        
         $accounts = Accounts::FindOrFail($id);
-        return view('/account/Accountplaning/edit', array('accounts'=>$accounts,'nivel'=>$nivel,'cuenta'=>$cuenta,'analisis'=>$analisis));
+        return view('/account/Accountplaning/edit', array('accounts'=>$accounts,'nivel'=>$nivel,'cuenta'=>$cuenta,'analisis'=>$analisis,'bank'=>$bank));
 
     }
 
@@ -120,7 +127,7 @@ class AccountplaningController extends Controller
     {
         
          $accounts = Accounts::FindOrFail($id);
-        $accounts->delete();
+         $accounts->delete();
         return redirect()->route('PlanContable.index');
                 
     }

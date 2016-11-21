@@ -4,7 +4,7 @@
 
    <!-- Main component for a primary marketing message or call to action -->
     <ol class="breadcrumb">
-         <li class="breadcrumb-item" ><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
+         <li class="breadcrumb-item" ><a href="{{url('ModuloContable')}}">>Módulo Contable</a></li>
          <li class ="breadcrumb-item active"><a href="{{url('FacturasClientes')}}">>Menu de Ventas</a></li>
        </ol>
    <div class="row">

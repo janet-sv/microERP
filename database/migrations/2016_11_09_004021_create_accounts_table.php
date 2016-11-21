@@ -15,13 +15,15 @@ class CreateAccountsTable extends Migration
          Schema::create('accounts', function (Blueprint $table) {
             
             $table->increments('id');
-            $table->string('code');
+            $table->integer('code');
             $table->string('name');
             $table->string('account_level');
             $table->string('account_type');
             $table->string('analysis_type');
             $table->integer('debit');
-            $table->string('credit');
+            $table->integer('credit');
+            $table->string('bank_name');
+            $table->string('bank_cuenta');
 
         });
     }

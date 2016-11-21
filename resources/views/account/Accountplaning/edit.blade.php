@@ -3,12 +3,12 @@
 @section('content')
 
   <ol class="breadcrumb">
-          <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
-         <li class ="breadcrumb-item active"><a href="{{url('Impuestos')}}">>Plan Contable General</a></li>
+         <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
+         <li class ="breadcrumb-item active"><a href="{{url('PlanContable')}}">>Plan Contable General</a></li>
          <li class ="breadcrumb-item active">>Editar Cuenta</li>
      </ol>
    <div class="page-header">
-     <h1> Editar cuenta bancaria </h1>
+     <h1> Editar cuenta </h1>
    </div>
 
    <div class="row">
@@ -16,41 +16,85 @@
 
         <div class="panel panel-primary">
           <div class="panel-heading">
-              Bancos
+              Cuentas
            </div>
           <div class="panel-body">
                      
-                  {!!Form::model($taxes,['route'=>['Bancos.update',$banks->id],'method'=>'PUT'])!!}
-
-                  
+                 {!!Form::model($accounts,['route'=>['PlanContable.update',$accounts->id],'method'=>'PUT'])!!}
+                       
             <div class="container">
                           <div class="row">
-                            <div class="col-xs-12 col-sm-8 col-md-8">
-                                <div class="form-group">
-                                    {!!form::label('Numero de Cuenta')!!}
-                                    {!!form::text('number',null ,['id'=>'number','class'=>'form-control','placeholder'=>'Cuenta' ])!!}
-                               </div>
-                            </div>
+                                <div class="col-xs-4 col-sm-2 col-md-2">
+                                    <div class="form-group">
+                                        {!!form::label('Cuenta contable')!!}
+                                       
+                                   </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-2 col-md-2">
+                                    <div class="form-group">
+                                        {!!form::text('code',null ,['id'=>'code','class'=>'form-control'])!!}
+                                       
+                                   </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-5 col-md-5">
+                                    <div class="form-group">
+                                       {!!form::text('name',null ,['id'=>'name','class'=>'form-control'])!!}
+                                    </div>
+                                </div>
+                          </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-2 col-md-2">
+                                    <div class="form-group">
+                                        {!!form::label('Numero de cuenta de entidad finaciera')!!}
+                                       
+                                   </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-2 col-md-2">
+                                    <div class="form-group">
+                                       
+                                        {!! Form::select('bank_name',$bank,null,['id'=>'bank_name','class'=>'form-control'],['readonly']) !!}
+
+                                   </div>
+                                </div>
+                              
                           </div>
                           <div class="row">
-                              <div class="col-xs-12 col-sm-4 col-md4">
-                                  <div class="form-group">
-                                       {!!form::label('Nombre del Banco')!!}
-                                       {!! Form::select('name_bank',$banco,null,['id'=>'name_bank','class'=>'form-control'] ) !!}
-                                   </div>                  
-                              </div> 
-                          </div>
+                                   <div class="col-xs-12 col-sm-4 col-md4">
+                                      <fieldset>
+                                            <legend>Nivel de cuenta</legend>
+                                                <div class="form-group">
+                                               {!! Form::select('account_level',$nivel,null,['id'=>'account_level','class'=>'form-control'] ) !!}
+                                                </div>    
+                                        </fieldset>                         
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4 col-md4">
+                                      <fieldset>
+                                            <legend>Tipo de cuenta</legend>
+                                                <div class="form-group">
+                                               {!! Form::select('account_type',$cuenta,null,['id'=>'account_type','class'=>'form-control'] ) !!}
+                                                </div>    
+                                        </fieldset>                         
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4 col-md4">
+                                      <fieldset>
+                                            <legend>Tipo de analisis</legend>
+                                                <div class="form-group">
+                                               {!! Form::select('analysis_type',$analisis,null,['id'=>'analysis_type','class'=>'form-control'] ) !!}
+                                                </div>    
+                                        </fieldset>                         
+                                    </div>
+                           </div>
                           <div class="row">
-                              <div class="col-xs-12 col-sm-6 col-md-6">
+                              <div class="col-xs-12 col-sm-3 col-md-3">
                                   <div class="form-group">
-                                       {!!form::label('Métodos de débito')!!}
-                                       {{ Form::checkbox('debit', Manual, true) }}
+                                          {!!form::label('Cta. para amarre al DEBE')!!}
+                                          {!!form::text('debit',null ,['id'=>'debit','class'=>'form-control'])!!}
                                    </div>                  
                               </div> 
-                               <div class="col-xs-12 col-sm-6 col-md-6">
+                               <div class="col-xs-12 col-sm-3 col-md-3">
                                   <div class="form-group">
-                                       {!!form::label('Métodos de pago')!!}
-                                        {{ Form::checkbox('debit', Manual, true) }}
+                                          {!!form::label('Cta. para amarre al HABER')!!}
+                                          {!!form::text('credit',null ,['id'=>'credit','class'=>'form-control'])!!}
                                    </div>                  
                               </div>
                           </div>
@@ -78,7 +122,7 @@
     <script>
       $("#cancelar").click(function(event)
       {
-          document.location.href = "{{ route('Bancos.index')}}";
+          document.location.href = "{{ route('PlanContable.index')}}";
       });
 
     </script>

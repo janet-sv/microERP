@@ -4,12 +4,12 @@
 
    <!-- Main component for a primary marketing message or call to action -->
     <ol class="breadcrumb">
-         <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
+         <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Módulo Contable</a></li>
          <li class ="breadcrumb-item active"><a href="{{url('Impuestos')}}">>Menu de Bancos</a></li>
        </ol>
    <div class="row">
       <div class="col-lg-12">
-            <h1 class="page-header">Modulo de Bancos</h1>
+            <h1 class="page-header">Módulo de Bancos</h1>
       </div>
       
                 <!-- /.col-lg-12 -->

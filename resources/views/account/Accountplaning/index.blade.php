@@ -4,7 +4,7 @@
 
    <!-- Main component for a primary marketing message or call to action -->
     <ol class="breadcrumb">
-         <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
+         <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Módulo Contable</a></li>
          <li class ="breadcrumb-item active"><a href="{{url('Impuestos')}}">>Plan Contable General</a></li>
        </ol>
    <div class="row">
@@ -30,6 +30,7 @@
                           <table class="table table-hover table-bordered table-responsive">
                             <thead>
                               <tr>
+                                 <th>Cuenta</th>
                                 <th>Nombre de la cuenta</th>
                                 <th>Nivel de cuenta</th>
                                 <th>Tipo de cuenta</th>

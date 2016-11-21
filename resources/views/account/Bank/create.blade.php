@@ -3,7 +3,7 @@
 @section('content')
 
   <ol class="breadcrumb">
-       <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Modulo Contable</a></li>
+       <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Módulo Contable</a></li>
          <li class ="breadcrumb-item"><a href="{{url('Bancos')}}">>Bancos</a></li>
          <li class ="breadcrumb-item active">>Nueva cuenta</li>
      </ol>
