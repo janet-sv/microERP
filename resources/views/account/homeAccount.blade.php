@@ -363,7 +363,9 @@
                                 <li>
                                     <a href="#">Tipo de Diarios</a>
                                 </li>
-                                
+                                <li>
+                                    <a href="/Documentos">Tipo de Documentos</a>
+                                </li>
                                 
                             </ul>
                             <!-- /.nav-second-level -->

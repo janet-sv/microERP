@@ -46,7 +46,7 @@
                             </thead>
                             <tbody>
                             @foreach($SalesInvoice as $salesinvoice)
-                              <tr>
+                              <tr class="rows">
                                
                                 <td>{{$salesinvoice->client}}</td>
                                 <td>{{$salesinvoice->ruc}}</td>
@@ -84,6 +84,7 @@
   {
       document.location.href = "{{ route('FacturasClientes.create')}}";
   });
+
 
 </script>
 

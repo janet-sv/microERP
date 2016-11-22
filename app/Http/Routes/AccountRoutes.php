@@ -23,3 +23,5 @@ Route::resource('FacturasProveedores','Account\Purchases\PurchasesController');
 Route::resource('Impuestos','Account\Taxes\TaxesController');
 Route::resource('Bancos','Account\Bank\BankController');
 Route::resource('PlanContable','Account\Accountplaning\AccountplaningController');
+Route::resource('Documentos','Account\DocumentType\DocumentTypeController');
+
