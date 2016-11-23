@@ -20,9 +20,11 @@ class CreateSalesinvoiceTable extends Migration
             $table->string('amount_total_signed');
             $table->string('residual_signed');
             $table->string('state');
+            $table->integer('reference')->nullable();            
             $table->string('partner_id')->references('id')->on('partner');
             $table->string('user_id')->references('id')->on('user');
-            
+            $table->string('document_id')->references('id')->on('document_type');
+
         });
     }
 

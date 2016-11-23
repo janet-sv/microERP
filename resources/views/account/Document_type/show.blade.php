@@ -4,9 +4,9 @@
 
 
   <ol class="breadcrumb">
-      <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Módulo Contable</a></li>
-         <li class ="breadcrumb-item"><a href="{{url('Bancos')}}">>Bancos</a></li>
-         <li class ="breadcrumb-item active">>Eliminar un cuenta</li>
+      <li class ="breadcrumb-item"><a href="{{url('/ModuloContable')}}">>Módulo Contable</a></li>
+         <li class ="breadcrumb-item"><a href="{{url('/Tipo_de_documento')}}">>Tipos de documentos</a></li>
+         <li class ="breadcrumb-item active">>Eliminar un tipo de documento</li>
    </ol>
  
 
@@ -15,23 +15,23 @@
 
        <div class="panel panel-default">
          <div class="panel-heading">
-            Proceso de Eliminar Banco
+            Proceso de Eliminar Tipo de documento
           </div>
          <div class="panel-body">
 
-              {!!Form::open(['route'=>['Bancos.destroy',$banks->id],'method'=>'DELETE'])!!}
+              {!!Form::open(['route'=>['Tipo_de_documento.destroy',$document_type->id],'method'=>'DELETE'])!!}
                 
                  <div class="form-group">
-                   <label for="exampleInputPassword1">Desea eliminar este cuenta bancaria:</label>                
+                   <label for="exampleInputPassword1">Desea eliminar este tipo de documento:</label>                
                  </div>
 
                       <div class="form-group">
-                       {!!form::label('Nombre del Banco:')!!} 
-                        {!!$banks->name_bank !!}  
+                       {!!form::label('Nombre del documento:')!!} 
+                        {!!$document_type->name !!}  
                      </div>
                      <div class="form-group">
                       {!!form::label('Numero de la cuenta:')!!} 
-                       {!!$banks->number !!}
+                       {!!$document_type->description !!}
                      </div>
                  
                      {!!form::submit('Eliminar',['name'=>'grabar','id'=>'grabar','content'=>'<span>Eliminar</span>','class'=>'btn btn-danger btn-sm m-t-10'])!!}
@@ -49,7 +49,7 @@
 <script>
   $("#cancelar").click(function(event)
   {
-      document.location.href = "{{ route('Bancos.index')}}";
+      document.location.href = "{{ route('Tipo_de_documento.index')}}";
   });
 
 </script>

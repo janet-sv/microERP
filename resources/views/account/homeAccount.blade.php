@@ -364,7 +364,7 @@
                                     <a href="#">Tipo de Diarios</a>
                                 </li>
                                 <li>
-                                    <a href="/Documentos">Tipo de Documentos</a>
+                                    <a href="/Tipo_de_documento">Tipo de Documentos</a>
                                 </li>
                                 
                             </ul>

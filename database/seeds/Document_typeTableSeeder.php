@@ -12,7 +12,7 @@ class Document_typeTableSeeder extends Seeder
     public function run()
     {
           DB::table('document_type')->insert([
-            'name'          => 'Factura',
+            'name'          => 'Factura Venta',
             'description'  => NULL,
             'numeration'  => 1,
         ]);
@@ -23,6 +23,12 @@ class Document_typeTableSeeder extends Seeder
             'numeration'  => 1,
         ]);
         
+         DB::table('document_type')->insert([
+           'name'          => 'Factura Compra',
+            'description'  => NULL,
+            'numeration'  => 1,
+        ]);
+
         DB::table('document_type')->insert([
            'name'          => 'Nota de debito',
             'description'  => NULL,

@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Account\Provider;
 use App\Models\Account\PurchasesInvoice;
+use App\Models\Account\Document_type;
 use App\User;
 use DB; 
 
@@ -32,8 +33,9 @@ class PurchasesController extends Controller
     {
        
         $purchasesinvoices = PurchasesInvoice::
-                    select('purchasesinvoice.id','provider.name as provider','provider.ruc as ruc','purchasesinvoice.date_invoice','purchasesinvoice.number','purchasesinvoice.date_due','purchasesinvoice.amount_total_signed','purchasesinvoice.residual_signed','purchasesinvoice.state')
+                    select('purchasesinvoice.id','document_type.name as document','provider.name as provider','provider.ruc as ruc','purchasesinvoice.date_invoice','purchasesinvoice.number','purchasesinvoice.date_due','purchasesinvoice.amount_total_signed','purchasesinvoice.residual_signed','purchasesinvoice.state','purchasesinvoice.reference')
                     ->join('provider','provider.id','=','purchasesinvoice.provider_id')
+                    ->join('document_type','document_type.id','=','purchasesinvoice.document_id')
                     ->paginate(5);
         return view('/account/ShoppingInvoice/index')->with('PurchasesInvoice',$purchasesinvoices);
 
@@ -49,8 +51,10 @@ class PurchasesController extends Controller
     public function create()
     {
          $invoices = DB::table('purchasesinvoice')->count();
+         $Document_type = Document_type::lists('name','id')->prepend('Seleccioname el tipo de documento');
          $Providers = Provider::lists('name','id')->prepend('Seleccioname el proveedor');
-      return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'invoices'=>$invoices ));
+
+      return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'invoices'=>$invoices,  'Document_type'=>$Document_type  ));
     }
 
     /**
@@ -87,9 +91,10 @@ class PurchasesController extends Controller
     {
         
         $Providers = Provider::lists('name','id')->prepend('Seleccioname el proveedor');
+        $Document_type = Document_type::lists('name','id')->prepend('Seleccioname el tipo de documento');
         $PurchasesInvoices = PurchasesInvoice::FindOrFail($id);
 
-        return view('/account/ShoppingInvoice/edit', array('PurchasesInvoices'=>$PurchasesInvoices,'Providers'=>$Providers ));
+        return view('/account/ShoppingInvoice/edit', array('PurchasesInvoices'=>$PurchasesInvoices,'Providers'=>$Providers, 'Document_type'=>$Document_type ));
 
     }
 

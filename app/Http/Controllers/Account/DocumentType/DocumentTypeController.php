@@ -28,11 +28,11 @@ class DocumentTypeController extends Controller
      */
     public function index()
     {
-      	$document_type = Document_type::
+      	$document_types = Document_type::
                 select('document_type.id','document_type.name','document_type.description','document_type.numeration')
                     ->paginate(5);
 
-        return view('/account/Document_type/index')->with('document_type',$document_type);
+        return view('/account/Document_type/index')->with('document_types',$document_types);
     }
 
      /**
@@ -45,7 +45,7 @@ class DocumentTypeController extends Controller
     public function create()
     {
         
-        return view('/account/Bank/cerate' , array('banco'=>$banco));
+        return view('/account/Document_type/create');
  	}
 
     /**
@@ -56,8 +56,8 @@ class DocumentTypeController extends Controller
      */
     public function store(Request $request)
     {
-        Bank::create($request->all());
-        return redirect()->route('Bancos.index');
+        Document_type::create($request->all());
+        return redirect()->route('Tipo_de_documento.index');
     }
 
     /**
@@ -68,8 +68,8 @@ class DocumentTypeController extends Controller
      */
     public function show($id)
     {
-        $banks = Bank::FindOrFail($id);
-        return view('/account/Bank/show', array('banks'=>$banks));
+        $document_type = Document_type::FindOrFail($id);
+        return view('/account/Document_type/show', array('document_type'=>$document_type));
     }
 
     /**
@@ -80,9 +80,9 @@ class DocumentTypeController extends Controller
      */
     public function edit($id)
     {
-         $banco = array( "Banco de Comercio"=>"Banco de Comercio", "Banco de Crédito del Perú"=>"Banco de Crédito del Perú", "Banco Interamericano de Finanzas (BanBif)"=>"Banco Interamericano de Finanzas (BanBif)", "Banco Financiero"=>"Banco Financiero", "BBVA Continental"=>"BBVA Continental", "Citibank"=>"Citibank", "Interbank"=>"Interbank", "MiBanco"=>"MiBanco", "Scotiabank Perú"=>"Scotiabank Perú", "Banco GNB Perú"=>"Banco GNB Perú" );
-        $banks = Bank::FindOrFail($id);
-        return view('/account/Bank/edit', array('banks'=>$banks, 'banco'=>$banco));
+       
+        $document_type = Document_type::FindOrFail($id);
+        return view('/account/Document_type/edit', array('document_type'=>$document_type));
 
     }
 
@@ -96,10 +96,10 @@ class DocumentTypeController extends Controller
     public function update(Request $request, $id)
     {
         
-        $banks = Bank::FindOrFail($id);
+        $document_type = Document_type::FindOrFail($id);
         $input = $request->all();
-        $banks->fill($input)->save();
-        return redirect()->route('Bancos.index');
+        $document_type->fill($input)->save();
+        return redirect()->route('Tipo_de_documento.index');
 
     }
 
@@ -113,9 +113,9 @@ class DocumentTypeController extends Controller
    public function destroy($id)
     {
         
-        $banks = Bank::FindOrFail($id);
-        $banks->delete();
-        return redirect()->route('Bancos.index');
+        $document_type = Document_type::FindOrFail($id);
+        $document_type->delete();
+        return redirect()->route('Tipo_de_documento.index');
                 
     }
     

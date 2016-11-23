@@ -31,13 +31,14 @@
                           <table class="table table-hover table-bordered table-responsive">
                             <thead>
                               <tr>
-                                
+                                <th>Documento</th>
                                 <th>Cliente</th>
                                 <th>RUC</th>
                                 <th>Fecha de emisión</th>
                                 <th>Número</th>
                                 <th>Usuario</th>
                                 <th>Fecha de Vencimiento</th>
+                                <th>Referencia</th>
                                 <th>Total</th>
                                 <th>Importe Adeuado</th>
                                 <th>Estado</th>
@@ -48,15 +49,18 @@
                             @foreach($SalesInvoice as $salesinvoice)
                               <tr class="rows">
                                
+                                <td>{{$salesinvoice->document}}</td>
                                 <td>{{$salesinvoice->client}}</td>
                                 <td>{{$salesinvoice->ruc}}</td>
                                 <td>{{$salesinvoice->date_invoice}}</td>
                                 <td>{{$salesinvoice->number}}</td>
                                 <td>{{$salesinvoice->user}}</td>
                                 <td>{{$salesinvoice->date_due}}</td>
+                                <td>{{$salesinvoice->reference}}</td>
                                 <td>{{$salesinvoice->amount_total_signed}}</td>
                                 <td>{{$salesinvoice->residual_signed}}</td>
                                 <td>{{$salesinvoice->state}}</td>
+
                                 <td>
                                     <a href="{{route('FacturasClientes.edit',$salesinvoice->id)}}">[Editar]</a> 
                                     <a href="{{route('FacturasClientes.show',$salesinvoice->id)}}">[Eliminar]</a>

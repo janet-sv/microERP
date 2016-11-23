@@ -45,6 +45,7 @@ $factory->define(App\Models\Account\Partner::class, function (Faker\Generator $f
 $factory->define(App\Models\Account\SalesInvoice::class, function (Faker\Generator $faker) {
     return [
         
+        'document_id' => $faker->regexify('[1-5]{1}'),
         'partner_id' => $faker->regexify('[1-5]{1}'),
         'date_invoice' => $faker->date($format = 'Y-m-d', $min ='now', $max = 'now'),
         'user_id' => '1',
@@ -80,7 +81,7 @@ $factory->define(App\Models\Account\Provider::class, function (Faker\Generator $
 
 $factory->define(App\Models\Account\PurchasesInvoice::class, function (Faker\Generator $faker) {
     return [
-        
+        'document_id' => $faker->regexify('[1-5]{1}'),
         'provider_id' => $faker->regexify('[1-5]{1}'),
         'date_invoice' => $faker->date($format = 'Y-m-d', $min ='now', $max = 'now'),
         'date_due' => $faker->date($format = 'Y-m-d',$min ='now',  $max = 'now'),

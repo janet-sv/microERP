@@ -4,8 +4,8 @@
 
 
   <ol class="breadcrumb">
-      <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Módulo Contable</a></li>
-         <li class ="breadcrumb-item"><a href="{{url('Bancos')}}">>Bancos</a></li>
+      <li class ="breadcrumb-item"><a href="{{url('/ModuloContable')}}">>Módulo Contable</a></li>
+         <li class ="breadcrumb-item"><a href="{{url('/Bancos')}}">>Bancos</a></li>
          <li class ="breadcrumb-item active">>Eliminar un cuenta</li>
    </ol>
  

@@ -20,7 +20,9 @@ class CreatePurchasesinvoiceTable extends Migration
             $table->string('amount_total_signed');
             $table->string('residual_signed');
             $table->string('state');
+            $table->integer('reference')->nullable();  
             $table->string('provider_id')->references('id')->on('provider');
+            $table->string('document_id')->references('id')->on('document_type');
         });
     }
 

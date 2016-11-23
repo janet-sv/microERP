@@ -5,7 +5,7 @@
   <ol class="breadcrumb">
          <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Mó
          dulo Contable</a></li>
-         <li class ="breadcrumb-item"><a href="{{url('Bancos')}}">>Bancos</a></li>
+         <li class ="breadcrumb-item"><a href="{{url('/Bancos')}}">>Bancos</a></li>
          <li class ="breadcrumb-item active">>Editar un cuenta</li>
      </ol>
    <div class="page-header">
@@ -21,7 +21,7 @@
            </div>
           <div class="panel-body">
                      
-                  {!!Form::model($taxes,['route'=>['Bancos.update',$banks->id],'method'=>'PUT'])!!}
+                  {!!Form::model($banks,['route'=>['Bancos.update',$banks->id],'method'=>'PUT'])!!}
 
                   
             <div class="container">
@@ -45,13 +45,13 @@
                               <div class="col-xs-12 col-sm-6 col-md-6">
                                   <div class="form-group">
                                        {!!form::label('Métodos de débito')!!}
-                                       {{ Form::checkbox('debit', Manual, true) }}
+                                       {{ Form::checkbox('debit', 'Manual', true) }}
                                    </div>                  
                               </div> 
                                <div class="col-xs-12 col-sm-6 col-md-6">
                                   <div class="form-group">
                                        {!!form::label('Métodos de pago')!!}
-                                        {{ Form::checkbox('debit', Manual, true) }}
+                                        {{ Form::checkbox('debit', 'Manual', true) }}
                                    </div>                  
                               </div>
                           </div>

@@ -13,4 +13,21 @@ class Document_type extends Model
    protected  $fillable= [
       'id','name', 'description', 'numeration' ,
    ];
+
+
+   public function salesinvoice ()
+      {
+         return $this->belongsto(SalesInvoice::class);
+         
+      }
+
+
+ public function PurchasesInvoice ()
+      {
+         
+         return $this->belongsto(PurchasesInvoice::class);
+         
+
+      }
+
 }

@@ -32,12 +32,13 @@
                           
                               <thead>
                                 <tr>
-                                    
+                                     <th>Documento</th>
                                     <th>Proveedor</th>
                                      <th>RUC</th>
                                     <th>Fecha de emisión</th>
                                     <th>Numero</th>
                                     <th>Fecha de Vencimiento</th>
+                                    <th>Referencia</th>
                                     <th>Total</th>
                                     <th>A Pagar</th>
                                     <th>Estado</th>
@@ -47,12 +48,13 @@
                               <tbody>
                                    @foreach($PurchasesInvoice as $purchasesinvoice)
                                       <tr>
-                                            
+                                             <td>{{$purchasesinvoice->document}}</td>
                                             <td>{{$purchasesinvoice->provider}}</td>
                                             <td>{{$purchasesinvoice->ruc}}</td>
                                             <td>{{$purchasesinvoice->date_invoice}}</td>
                                             <td>{{$purchasesinvoice->number}}</td>
                                             <td>{{$purchasesinvoice->date_due}}</td>
+                                            <td>{{$purchasesinvoice->reference}}</td>
                                             <td>{{$purchasesinvoice->amount_total_signed}}</td>
                                             <td>{{$purchasesinvoice->residual_signed}}</td>
                                             <td>{{$purchasesinvoice->state}}</td>

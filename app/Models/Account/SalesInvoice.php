@@ -12,8 +12,8 @@ class SalesInvoice extends Model
    public    $timestamps = false;
 
    protected  $fillable= [
-      'id','partner_id', 'date_invoice', 'number' , 'user_id','date_due', 'amount_total_signed',
-      'residual_signed', 'state',
+      'id','document_id','partner_id', 'date_invoice', 'number' , 'user_id','date_due', 'amount_total_signed',
+      'residual_signed', 'state', 'reference', 
    ];
 
 
@@ -24,6 +24,12 @@ class SalesInvoice extends Model
       
    }
 
+      public function document_type()
+   {
+      // hasmany - tiene muchas
+      return $this->hasmany(Document_type::class);
+      
+   }
      public function user()
    {
       // hasmany - tiene muchas

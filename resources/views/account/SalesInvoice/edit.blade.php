@@ -24,6 +24,15 @@
                     
                                 
                         <div class="container">
+                         <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    {!!form::label('Tipo de documento')!!}
+                                       {!! Form::select('document_id',$Document_type,null,['id'=>'document_id','class'=>'form-control'],['readonly']) !!}
+                               </div>
+                            </div>
+                            
+                          </div>
                           <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
@@ -51,12 +60,7 @@
                                     
                                  </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                       <div class="form-group">
-                                            {!!form::label('Fecha de emisión')!!}
-                                            {!!form::text('date_invoice',null,['id'=>'date_invoice','class'=>'form-control','placeholder'=>'Seleccione la Fecha'])!!}
-                                       </div>
-                            </div>
+                           
 
                           </div>
                           <div class="row">
@@ -67,8 +71,11 @@
                                       {!!form::text('date_due',null,['id'=>'date_due','class'=>'form-control','placeholder'=>'Seleccione la fecha'])!!}
                                  </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                
+                             <div class="col-xs-12 col-sm-6 col-md-6">
+                                       <div class="form-group">
+                                            {!!form::label('Fecha de emisión')!!}
+                                            {!!form::text('date_invoice',null,['id'=>'date_invoice','class'=>'form-control','placeholder'=>'Seleccione la Fecha'])!!}
+                                       </div>
                             </div>
 
                           </div>
@@ -84,11 +91,11 @@
 
                           </div>
                           <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                           <div class="col-xs-12 col-sm-6 col-md-6">
                                  <div class="form-group">
                        
-                                        {!!form::label('Usuario')!!}
-                                        {!! Form::select('user_id',$users,null,['id'=>'user_id','class'=>'form-control']) !!}
+                                        {!!form::label('Referencia')!!}
+                                       {!!form::text('reference',null,['id'=>'reference','class'=>'form-control'])!!}
                                    </div>
                                   
                             </div>

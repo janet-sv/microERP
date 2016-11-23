@@ -3,13 +3,12 @@
 @section('content')
 
   <ol class="breadcrumb">
-         <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Mó
-         dulo Contable</a></li>
-         <li class ="breadcrumb-item"><a href="{{url('Bancos')}}">>Bancos</a></li>
-         <li class ="breadcrumb-item active">>Editar un cuenta</li>
+       <li class ="breadcrumb-item"><a href="{{url('/ModuloContable')}}">>Módulo Contable</a></li>
+         <li class ="breadcrumb-item"><a href="{{url('/Tipo_de_documento')}}">>Tipo de documentos</a></li>
+         <li class ="breadcrumb-item active">>Editar Documento</li>
      </ol>
    <div class="page-header">
-     <h1> Editar cuenta bancaria </h1>
+     <h1> Editar tipo de documento </h1>
    </div>
 
    <div class="row">
@@ -21,39 +20,34 @@
            </div>
           <div class="panel-body">
                      
-                  {!!Form::model($taxes,['route'=>['Bancos.update',$banks->id],'method'=>'PUT'])!!}
+                {!!Form::model($document_type,['route'=>['Tipo_de_documento.update',$document_type->id],'method'=>'PUT'])!!}
 
                   
-            <div class="container">
+              <div class="container">
                           <div class="row">
-                            <div class="col-xs-12 col-sm-8 col-md-8">
+                            <div class="col-xs-12 col-sm-4 col-md-4">
                                 <div class="form-group">
-                                    {!!form::label('Numero de Cuenta')!!}
-                                    {!!form::text('number',null ,['id'=>'number','class'=>'form-control','placeholder'=>'Cuenta' ])!!}
+                                    {!!form::label('Nombre del documento')!!}
+                    {!!form::text('name',null ,['id'=>'name','class'=>'form-control','placeholder'=>'Nombre' ])!!}
                                </div>
                             </div>
                           </div>
                           <div class="row">
-                              <div class="col-xs-12 col-sm-4 col-md4">
+                              <div class="col-xs-12 col-sm-6 col-md6">
                                   <div class="form-group">
-                                       {!!form::label('Nombre del Banco')!!}
-                                       {!! Form::select('name_bank',$banco,null,['id'=>'name_bank','class'=>'form-control'] ) !!}
+                                       {!!form::label('Descripción')!!}
+  {!!form::text('description',null ,['id'=>'description','class'=>'form-control','placeholder'=>'Descripción' ])!!}
                                    </div>                  
                               </div> 
                           </div>
                           <div class="row">
                               <div class="col-xs-12 col-sm-6 col-md-6">
                                   <div class="form-group">
-                                       {!!form::label('Métodos de débito')!!}
-                                       {{ Form::checkbox('debit', Manual, true) }}
+                                       {!!form::label('Numeración')!!}
+    {!!form::text('numeration',1 ,['id'=>'numeration','class'=>'form-control','placeholder'=>'Numeración','readonly' => 'true' ])!!}
                                    </div>                  
                               </div> 
-                               <div class="col-xs-12 col-sm-6 col-md-6">
-                                  <div class="form-group">
-                                       {!!form::label('Métodos de pago')!!}
-                                        {{ Form::checkbox('debit', Manual, true) }}
-                                   </div>                  
-                              </div>
+                             
                           </div>
                          
              
@@ -62,6 +56,7 @@
                              <button type="button" id='cancelar'  name='cancelar' class="btn btn-info btn-sm m-t-10" >Cancelar</button>  
 
                         </div>
+                 
                  
 
                    {!!Form::close()!!}
@@ -79,7 +74,7 @@
     <script>
       $("#cancelar").click(function(event)
       {
-          document.location.href = "{{ route('Bancos.index')}}";
+          document.location.href = "{{ route('Tipo_de_documento.index')}}";
       });
 
     </script>
