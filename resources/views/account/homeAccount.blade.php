@@ -280,7 +280,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="ModuloContable"><i class="fa fa-dashboard fa-fw"></i> Panel de Control</a>
+                            <a href="/ModuloContable"><i class="fa fa-dashboard fa-fw"></i> Panel de Control</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Ventas<span class="fa arrow"></span></a>
@@ -361,7 +361,7 @@
                                     <a href="/Bancos">Cuentas Bancarias</a>
                                 </li>
                                 <li>
-                                    <a href="#">Tipo de Diarios</a>
+                                    <a href="/Tipo_Diario">Tipo de Diarios</a>
                                 </li>
                                 <li>
                                     <a href="/Tipo_de_documento">Tipo de Documentos</a>

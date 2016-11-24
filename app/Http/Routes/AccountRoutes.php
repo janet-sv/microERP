@@ -24,5 +24,6 @@ Route::resource('Impuestos','Account\Taxes\TaxesController');
 Route::resource('Bancos','Account\Bank\BankController');
 Route::resource('PlanContable','Account\Accountplaning\AccountplaningController');
 Route::resource('Tipo_de_documento','Account\DocumentType\DocumentTypeController');
+Route::resource('Tipo_Diario','Account\Journals\JournalsController');
 
 

@@ -14,11 +14,11 @@ class CreatePurchasesinvoiceTable extends Migration
     {
          Schema::create('purchasesinvoice', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('date_invoice') ;
+            $table->date('date_invoice');
             $table->integer('number');
-            $table->string('date_due');
-            $table->string('amount_total_signed');
-            $table->string('residual_signed');
+            $table->date('date_due');
+            $table->double('amount_total_signed', 6, 2);
+            $table->double('residual_signed', 6, 2);
             $table->string('state');
             $table->integer('reference')->nullable();  
             $table->string('provider_id')->references('id')->on('provider');
