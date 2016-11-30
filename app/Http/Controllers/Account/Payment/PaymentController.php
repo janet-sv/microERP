@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Account\Payment;
+use DB;
+use App\Models\Account\Partner;
 
 class PaymentController extends Controller
 {
@@ -30,7 +32,7 @@ class PaymentController extends Controller
      
     public function index()
     {
-      	$payments = Journal::
+      	$payments = Payment::
                 select('payment.id','payment.date','payment.number','payment.method','payment.type','payment.client','payment.amount','payment.reference','payment.state')
                     ->paginate(5);
 
@@ -47,7 +49,10 @@ class PaymentController extends Controller
     public function create()
     {
         
-        return view('/account/Payment/create');
+          $tipo = array( "Enviar"=>"Enviar Dinero", "Recibir"=>"Recibir Dinero");
+          $metodo = array( "Banco"=>"BANCO (PEN)", "Efectivo"=>"EFECTIVO (PEN)");
+          $Partners = Partner::lists('name','id')->prepend('Seleccione al cliente');
+        return view('/account/Payment/create',array('tipo'=>$tipo, 'metodo'=>$metodo, 'Partners'=>$Partners));
  	}
 
     /**
@@ -58,7 +63,7 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        Journal::create($request->all());
+        Payment::create($request->all());
         return redirect()->route('Pagos.index');
     }
 

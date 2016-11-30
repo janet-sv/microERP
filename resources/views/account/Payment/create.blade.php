@@ -29,25 +29,28 @@
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group">
                                     {!!form::label('Fecha de Pago')!!}
-                                    {!!form::text('date',null ,['id'=>'date','class'=>'form-control','placeholder'=>'Nombre' ])!!}
+                                    {!!form::text('date',null ,['id'=>'date','class'=>'form-control','placeholder'=>'Seleccione Fecha' ])!!}
                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group">
                                     {!!form::label('Número de Pago')!!}
-                                    {!!form::text('number',null ,['id'=>'number','class'=>'form-control','placeholder'=>'Nombre' ])!!}
+                                    {!!form::text('number',null ,['id'=>'number','class'=>'form-control' ])!!}
                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group">
                                     {!!form::label('Metodo de Pago')!!}
-                                    {!!form::text('method',null ,['id'=>'method','class'=>'form-control','placeholder'=>'Nombre' ])!!}
+
+                                      {!! Form::select('method',$metodo,null,['id'=>'method','class'=>'form-control' ,'placeholder'=>'Seleccione metodo de pago' ] ) !!}                                 
+                                   
                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group">
                                     {!!form::label('Tipo de Pago')!!}
-                                    {!!form::text('type',null ,['id'=>'type','class'=>'form-control','placeholder'=>'Nombre' ])!!}
+                                      {!! Form::select('type',$tipo,null,['id'=>'type','class'=>'form-control' ,'placeholder'=>'Seleccione tipo de pago' ] ) !!}
+                                   
                                </div>
                             </div>
                           </div>
@@ -56,25 +59,25 @@
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group">
                                     {!!form::label('Cliente')!!}
-                                    {!!form::text('client',null ,['id'=>'client','class'=>'form-control','placeholder'=>'Nombre' ])!!}
+                                    {!! Form::select('client',$Partners,null,['id'=>'client','class'=>'form-control']) !!}
                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group">
                                     {!!form::label('Cantidadad')!!}
-                                    {!!form::text('amount',null ,['id'=>'amount','class'=>'form-control','placeholder'=>'Nombre' ])!!}
+                                    {!!form::text('amount',null ,['id'=>'amount','class'=>'form-control','placeholder'=>'cantidad' ])!!}
                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group">
                                     {!!form::label('Referencia')!!}
-                                    {!!form::text('reference',null ,['id'=>'reference','class'=>'form-control','placeholder'=>'Nombre' ])!!}
+                                    {!!form::text('reference',null ,['id'=>'reference','class'=>'form-control'])!!}
                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group">
                                     {!!form::label('Estado')!!}
-                                    {!!form::text('state',null ,['id'=>'state','class'=>'form-control','placeholder'=>'Nombre' ])!!}
+                                    {!!form::text('state','Abierto' ,['id'=>'state','class'=>'form-control','placeholder'=>'Nombre' ])!!}
                                </div>
                             </div>
                           </div>
@@ -103,6 +106,10 @@
       {
           document.location.href = "{{ route('Pagos.index')}}";
       });
+
+      $( function() {
+        $( "#date" ).datepicker({ dateFormat: "yy-mm-dd" });
+      } );
 
     </script>
  

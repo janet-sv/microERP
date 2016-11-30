@@ -31,8 +31,8 @@
                             <thead>
                               <tr>
                                 <th>Fecha de Pago</th>
+                                 <th>Metodo de Pago</th>
                                 <th>Número de Pago</th>
-                                <th>Metodo de Pago</th>
                                 <th>Tipo de Pago</th>
                                 <th>Cliente</th>
                                 <th>Cantidadad</th>
@@ -46,8 +46,8 @@
                               <tr>
                                
                                 <td>{{$payment->date}}</td>
-                                <td>{{$payment->number}}</td>
                                 <td>{{$payment->method}}</td>
+                                <td>{{$payment->number}}</td>
                                 <td>{{$payment->type}}</td>
                                 <td>{{$payment->client}}</td>
                                 <td>{{$payment->amount}}</td>

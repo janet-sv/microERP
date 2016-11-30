@@ -289,7 +289,7 @@
                                     <a href="/FacturasClientes">Facturas de cliente</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Pagos</a>
+                                    <a href="/Pagos">Pagos</a>
                                 </li>
                                 <li>
                                     <a href="morris.html">Extractos de los clientes</a>
@@ -307,7 +307,7 @@
                                     <a href="/FacturasProveedores">Facturas de proveedor</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Pagos</a>
+                                    <a href="/Pagos">Pagos</a>
                                 </li>
                                 <li>
                                     <a href="morris.html">Proveedores</a>
