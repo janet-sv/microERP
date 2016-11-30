@@ -74,7 +74,15 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
+        $id =  $request['document_id'];
+        $number=DB::table('document_type')->where('id', $id)->value('numeration');
+        $request['number'] = $number;
         SalesInvoice::create($request->all());
+        $number = $number + 1;
+        DB::table('document_type')
+            ->where('id', $id)
+            ->update(['numeration' => $number]);
+
         return redirect()->route('FacturasClientes.index');
     }
 
@@ -99,7 +107,9 @@ class SalesController extends Controller
      */
     public function edit($id)
     {
+
        
+
         $Partners = Partner::lists('name','id')->prepend('Seleccioname la cliente');
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
         $Document_type = Document_type::lists('name','id')->prepend('Seleccioname el tipo de documento');
@@ -119,10 +129,6 @@ class SalesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $document=Document_type::FindOrFail($request->document_id);
-        $num = findnumber($request->document_id);
-        $document->document_id =  $num +1;
-        $document->save();
 
         $SalesInvoices = SalesInvoice::FindOrFail($id);
         $input = $request->all();
