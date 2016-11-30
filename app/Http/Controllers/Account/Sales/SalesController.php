@@ -11,6 +11,8 @@ use App\Models\Account\SalesInvoice;
 use App\Models\Account\Document_type;
 use App\User;
 use DB; 
+use Input;
+
 
 class SalesController extends Controller
 {
@@ -60,10 +62,19 @@ class SalesController extends Controller
            return view('/account/SalesInvoice/create', array('users'=>$users, 'Partners'=>$Partners,'invoices'=>$invoices , 'Document_type'=>$Document_type ));
  
     }
-    public function findnumber($id)
+    public function findnumber(Request $request, $id)
     {
-          $number=DB::table('document_type')->where('id', $id)->value('numeration');
-          return view('/account/SalesInvoice/findnumber', array('number'=>$number));
+
+           if($request->ajax()){
+               
+               $number=DB::table('document_type')->where('id', $id)->value('numeration');
+            
+            return response()->json($number);
+        }
+
+          
+
+
     }
 
     /**
