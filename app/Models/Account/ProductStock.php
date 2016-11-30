@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductStock extends Model
 {
    
-   protected $table      = 'ProductStock';
+   protected $table      = 'productStock';
    protected $primarykey = 'id';
    public    $timestamps = false;
 
