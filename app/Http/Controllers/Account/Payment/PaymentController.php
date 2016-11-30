@@ -30,11 +30,11 @@ class PaymentController extends Controller
      
     public function index()
     {
-      	$journals = Journal::
+      	$payments = Journal::
                 select('payment.id','payment.date','payment.number','payment.method','payment.type','payment.client','payment.amount','payment.reference','payment.state')
                     ->paginate(5);
 
-        return view('/account/Journal/index')->with('journals',$journals);
+        return view('/account/Payment/index')->with('payments',$payments);
     }
 
      /**
@@ -59,7 +59,7 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         Journal::create($request->all());
-        return redirect()->route('Tipo_Diario.index');
+        return redirect()->route('Pagos.index');
     }
 
    

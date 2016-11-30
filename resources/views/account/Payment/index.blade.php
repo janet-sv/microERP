@@ -5,11 +5,11 @@
    <!-- Main component for a primary marketing message or call to action -->
     <ol class="breadcrumb">
          <li class ="breadcrumb-item"><a href="{{url('/ModuloContable')}}">>Módulo Contable</a></li>
-         <li class ="breadcrumb-item active">>Pagos de Compras</a></li>
+         <li class ="breadcrumb-item active">>Modulo de Pagos</a></li>
        </ol>
    <div class="row">
       <div class="col-lg-12">
-            <h1 class="page-header">Pagos de Compras</h1>
+            <h1 class="page-header">Pagos General</h1>
       </div>
                 <!-- /.col-lg-12 -->
   </div>
@@ -18,10 +18,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
-                <div class="panel-heading"><strong>Pagos realizados en compras</strong></div>
+                <div class="panel-heading"><strong>Pagos en la empresa</strong></div>
                 <div class="panel-body">
                     
-                          <h2>Pagos realizados en compras</h2>
+                          <h2>Pagos realizados</h2>
                           <br>
                                 <p class="navbar-text navbar-left" style=" margin-top: 1px;">
                                   <button  type="button" id='nuevo'  name='nuevo' class="btn btn-warning navbar-btn" style="margin-bottom: 1px; margin-top: -5px;margin-right: 8px;padding: 3px 20px;">Nuevo </button>
@@ -75,7 +75,7 @@
 
   $("#nuevo").click(function(event)
   {
-      document.location.href = "{{ route('Pago.createShoping')}}";
+      document.location.href = "{{ route('Pagos.create')}}";
   });
 
 </script>

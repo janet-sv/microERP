@@ -15,6 +15,7 @@ class Payment extends Model
       'id','date', 'number', 'method' , 'type', 'client', 'amount' , 'reference', 'state',
    ];
 
+
    
 
 }
