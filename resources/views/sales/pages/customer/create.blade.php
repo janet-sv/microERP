@@ -125,7 +125,7 @@
                                     <label>Línea de crédito</label>
                                     <div class="form-group input-group">
                                         <span class="input-group-addon">%</span>
-                                        <input type="text" class="form-control" name="linea_credito" placeholder="Línea de créedito" maxlength="10">
+                                        <input type="text" class="form-control" name="linea_credito" placeholder="Línea de crédito" maxlength="10">
                                     </div>
                                 </div>                                
                             </div>

@@ -11,6 +11,19 @@
 |
 */
 
-Route::get('/account', function () {
+Route::auth();
+
+Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('ModuloContable', 'Account\AccountController@index');
+Route::resource('FacturasClientes','Account\Sales\SalesController');
+Route::resource('FacturasProveedores','Account\Purchases\PurchasesController');
+Route::resource('Impuestos','Account\Taxes\TaxesController');
+Route::resource('Bancos','Account\Bank\BankController');
+Route::resource('PlanContable','Account\Accountplaning\AccountplaningController');
+Route::resource('Tipo_de_documento','Account\DocumentType\DocumentTypeController');
+Route::resource('Tipo_Diario','Account\Journals\JournalsController');
+
+

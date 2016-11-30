@@ -53,6 +53,7 @@ Route::group(['prefix' => 'ventas'], function(){
                     Route::get('edit/{id}', ['as' => 'promotionbyproduct.edit', 'uses' => 'Sales\PromotionbyproductController@edit']);
                     Route::post('edit/{id}', ['as' => 'promotionbyproduct.update', 'uses' => 'Sales\PromotionbyproductController@update']);
                     Route::get('delete/{id}', ['as' => 'promotionbyproduct.delete', 'uses' => 'Sales\PromotionbyproductController@destroy']);
+                    Route::get('/findProducts', ['as' => 'promotionbyproduct.findProducts', 'uses' => 'Sales\PromotionbyproductController@findProducts']);
                 });
             });
 
@@ -69,5 +70,6 @@ Route::group(['prefix' => 'ventas'], function(){
                     Route::get('delete/{id}', ['as' => 'promotionbygroup.delete', 'uses' => 'Sales\PromotionbygroupController@destroy']);
                 });
             });
+  
 
 });

@@ -58,10 +58,10 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Categoría de producto</label>
-                                        <select class="form-control" name="categoria_producto">                                           
+                                        <select class="form-control" name="categoria_producto" id="categoria_producto">                                           
                                             <option value="0">Seleccione</option>
                                             @foreach($categoryproducts as $categoryproduct)                                    
-                                                <option value="{{$categoryproduct->id}}" >{{$categoryproduct->nombre}}</option>                                    
+                                                <option value="{{$categoryproduct->id}}" >{{$categoryproduct->name}}</option>                                    
                                             @endforeach                                            
                                         </select>
                                     </div>
@@ -69,11 +69,8 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Producto</label>
-                                        <select class="form-control" name="producto">                                           
-                                            <option value="0">Seleccione</option>
-                                            @foreach($products as $product)                                    
-                                                <option value="{{$product->id}}" >{{$product->nombre}}</option>                                    
-                                            @endforeach                                                                                             
+                                        <select class="form-control" name="producto" id="producto">                                           
+                                            <option value="0">Seleccione una categoría primero</option>                                            
                                         </select>
                                     </div>
                                 </div>                                                               
@@ -100,5 +97,25 @@
 </section>
 
 <script src="{{ URL::asset('build/js/sales/promotionbyproduct.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {        
+        //Para el select
+        $('#categoria_producto').change(function(){
+            console.log($('#categoria_producto').val());
+            $.ajax({
+                method: 'GET',
+                url: "{{ route('promotionbyproduct.findProducts')}}",            
+                data: {
+                    option: $('#categoria_producto').val(), 
+                },
+                success: function(response) {
+                    $('#producto').html(response['html']);
+                }
+             });
+        });
+    });
+
+</script>
+
 
 @endsection

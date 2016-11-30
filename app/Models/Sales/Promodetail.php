@@ -11,7 +11,9 @@ class Promodetail extends Model
 
     public function promotion(){
         return $this->belongsTo('App\Models\Sales\Promotion', 'id_promocion');
+        return $this->belongsTo('App\Models\Logistic\Product\Product', 'id_producto');
     }
 
 
 }
+	

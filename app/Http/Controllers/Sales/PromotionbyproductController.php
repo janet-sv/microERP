@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Sales\Promocondition;
 use App\Models\Sales\Promotion;
-use App\Http\Requests\Sales\PromoconditionRequest;
-use App\Http\Requests;
+use App\Models\Logistic\Product\Product;
+use App\Models\Logistic\ProductCategory\ProductCategory;
+use App\Http\PromotionbyproductRequests\Sales\PromotionbyproductRequest;
+use App\Http\PromotionbyproductRequests;
 
 class PromotionbyproductController extends Controller
 {    
@@ -32,8 +34,8 @@ class PromotionbyproductController extends Controller
     public function create()
     {
         $promoconditions  = Promocondition::get();
-        $categoryproducts = Promocondition::get();        
-        $products         = Promocondition::get();                
+        $categoryproducts = ProductCategory::get();        
+        $products         = Product::get();                
 
         $data = [
             'promoconditions'  =>  $promoconditions,
@@ -46,10 +48,10 @@ class PromotionbyproductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\PromotionbyproductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PromotionRequest $request)
+    public function store(PromotionbyproductRequest $request)
     {
         try {
             $promotion                         = new Promotion;
@@ -104,11 +106,11 @@ class PromotionbyproductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\PromotionbyproductRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PromotionRequest $request, $id)
+    public function update(PromotionbyproductRequest $request, $id)
     {
         try {
             $promotion = Promotion::find($id);            
@@ -147,15 +149,27 @@ class PromotionbyproductController extends Controller
     }
 
 
-    public function getProductsByCategory()
+    public function findProducts(Request $request)
     {
-        $promotionbyproducts = Promotion::where('tipo', 1)->orderBy('nombre', 'asc')->get();
+        $id = $request['option'];
 
-        $data = [
-            'promotionbyproducts'    =>  $promotionbyproducts,
-        ];
+        if( $id == 0 )  
+            $html       = '<option value>Seleccione Producto</option>';
+        else{
+            $products = ProductCategory::find($id)->products;
 
-        return null;
+            $html       = '<option value>Seleccione Producto</option>';
 
+            $options    = '';
+
+            foreach ($products as $product) {
+                $options = $options . '<option value=' . $product->id . '>' . $product->name . '</option>';
+            }
+            $html       = $html . $options;
+        }
+
+        
+        return response()->json(['html' => $html]);        
+        
     }
 }

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    
 
     $("#fecha_inicio").datepicker({
             format: "yyyy-mm-dd",
