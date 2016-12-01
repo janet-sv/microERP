@@ -52,12 +52,12 @@
                                 <tbody> 
                                     @foreach($promotionbyproducts as $promotionbyproduct)
                                     <tr> 
-                                        <td>{{ $promotionbyproduct->name }}</td>                                         
-                                        <td></td>
-                                        <td></td> 
-                                        <td></td>                                         
-                                        <td></td>                                         
-                                        <td></td>                                         
+                                        <td>{{ $promotionbyproduct->nombre }}</td>                                         
+                                        <td>{{ $promotionbyproduct->promodetails[0]->product->category->name }}</td>
+                                        <td>{{ $promotionbyproduct->promodetails[0]->product->name }}</td>
+                                        <td>{{ $promotionbyproduct->promocondition->nombre }}</td>
+                                        <td>{{ $promotionbyproduct->fecha_inicio }}</td>
+                                        <td>{{ $promotionbyproduct->fecha_fin }}</td>
                                         <td>
                                             <a href="{{route('promotionbyproduct.edit', $promotionbyproduct->id)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
                                             

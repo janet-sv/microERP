@@ -22,5 +22,8 @@ class DatabaseSeeder extends Seeder
           $this->call(Document_typeTableSeeder::class);
           $this->call(JournalsTableSeeder::class);
           
+          $this->call(PromoconditionsTableSeeder::class);
+          $this->call(CategoryproductsalesTableSeeder::class);
+          $this->call(ProductsalesTableSeeder::class);
     }
 }

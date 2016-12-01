@@ -23,7 +23,7 @@
                                 <form action="#" method="get">
                                     <div class="input-group">
                                         <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
-                                        <input class="form-control" id="list_price-search" name="q" placeholder="Buscar" required>
+                                        <input class="form-control" id="listprice-search" name="q" placeholder="Buscar" required>
                                         <span class="input-group-btn">
                                             <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                                         </span>
@@ -31,7 +31,7 @@
                                 </form>
                             </div>                        
                             <div class="col-lg-6">
-                                <a href="{{route('list_price.create')}}">
+                                <a href="{{route('listprice.create')}}">
                                     {{Form::button('<i class="fa fa-plus"></i> Crear precio lista',['class'=>'btn btn-success pull-right'])}}
                                 </a>
                             </div>                            
@@ -47,25 +47,26 @@
                                     </tr> 
                                 </thead> 
                                 <tbody> 
-                                    {{ -- @foreach($list_prices as $list_price)  -- }} 
+                                    @foreach($listprices as $listprice)
                                     <tr> 
-                                        <td>{{ -- $list_price->product->name -- }}</td>                                         
-                                        <td>{{ -- $list_price->razon_social -- }}</td> 
-                                        <td>{{ -- $list_price->ruc -- }}</td>                                         
+                                        <td>{{ $listprice->product->name }}</td>                                         
+                                        <td>{{ $listprice->product->category->name }}</td> 
+                                        <td>{{ round($listprice->precio,2) }}</td>                                         
                                         <td>
-                                            <a href="{{route('list_price.edit', $list_price->id)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{route('listprice.edit', $listprice->id)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
                                             
-                                            <a href="" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#{{$list_price->id}}" title="Eliminar"><i class="fa fa-remove"></i></a>
+                                            <a href="" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#{{$listprice->id}}" title="Eliminar"><i class="fa fa-remove"></i></a>
                                             
                                         </td>
                                     </tr> 
 
-                                    @include('sales.pages.modals.delete', ['id'=> $list_price->id, 'message' => '¿Está seguro que desea eliminar este precio de lista?', 'route' => route('list_price.delete', $list_price->id)])
-                                    {{ -- @endforeach -- }}
+                                    @include('sales.pages.modals.delete', ['id'=> $listprice->id, 'message' => '¿Está seguro que desea eliminar este precio de lista?', 'route' => route('listprice.delete', $listprice->id)])
+                                    @endforeach
                                      
                                 </tbody> 
                             </table>
                         </div>
+                        {{ $listprices->links() }}
                     </div>
                 </div>
             </div>

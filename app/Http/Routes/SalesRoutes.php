@@ -42,6 +42,20 @@ Route::group(['prefix' => 'ventas'], function(){
                 Route::get('delete/{id}', ['as' => 'promocondition.delete', 'uses' => 'Sales\PromoconditionController@destroy']);
             });
 
+            //Administrar condición de promociones
+
+            Route::group(['prefix' => 'preciolista'], function(){    
+                Route::get('/', ['as' => 'listprice.index', 'uses' => 'Sales\ListpriceController@index']);
+                Route::get('create', ['as' => 'listprice.create', 'uses' => 'Sales\ListpriceController@create']);
+                Route::post('create', ['as' => 'listprice.store', 'uses' => 'Sales\ListpriceController@store']);
+                //Route::get('show/{id}', ['as' => 'listpricen.show', 'uses' => 'Investigation\Listprice\ListpriceController@show']);
+                Route::get('edit/{id}', ['as' => 'listprice.edit', 'uses' => 'Sales\ListpriceController@edit']);
+                Route::post('edit/{id}', ['as' => 'listprice.update', 'uses' => 'Sales\ListpriceController@update']);
+                Route::get('delete/{id}', ['as' => 'listprice.delete', 'uses' => 'Sales\ListpriceController@destroy']);
+                Route::get('/findProducts', ['as' => 'listprice.findProducts', 'uses' => 'Sales\ListpriceController@findProducts']);
+                Route::get('/findProductsInEdit', ['as' => 'listprice.findProductsInEdit', 'uses' => 'Sales\ListpriceController@findProductsInEdit']);
+            });
+
             //Administrar promociones por producto
 
             Route::group(['prefix' => 'promociones'], function(){    
@@ -54,6 +68,7 @@ Route::group(['prefix' => 'ventas'], function(){
                     Route::post('edit/{id}', ['as' => 'promotionbyproduct.update', 'uses' => 'Sales\PromotionbyproductController@update']);
                     Route::get('delete/{id}', ['as' => 'promotionbyproduct.delete', 'uses' => 'Sales\PromotionbyproductController@destroy']);
                     Route::get('/findProducts', ['as' => 'promotionbyproduct.findProducts', 'uses' => 'Sales\PromotionbyproductController@findProducts']);
+                    Route::get('/findProductsInEdit', ['as' => 'promotionbyproduct.findProductsInEdit', 'uses' => 'Sales\PromotionbyproductController@findProductsInEdit']);
                 });
             });
 
@@ -68,6 +83,8 @@ Route::group(['prefix' => 'ventas'], function(){
                     Route::get('edit/{id}', ['as' => 'promotionbygroup.edit', 'uses' => 'Sales\PromotionbygroupController@edit']);
                     Route::post('edit/{id}', ['as' => 'promotionbygroup.update', 'uses' => 'Sales\PromotionbygroupController@update']);
                     Route::get('delete/{id}', ['as' => 'promotionbygroup.delete', 'uses' => 'Sales\PromotionbygroupController@destroy']);
+                    Route::get('/findProducts', ['as' => 'promotionbygroup.findProducts', 'uses' => 'Sales\PromotionbygroupController@findProducts']);
+                    Route::get('/findProductsInEdit', ['as' => 'promotionbygroup.findProductsInEdit', 'uses' => 'Sales\PromotionbygroupController@findProductsInEdit']);
                 });
             });
   

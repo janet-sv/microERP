@@ -8,7 +8,7 @@ $(document).ready(function() {
             autoclose: true,
             todayHighlight: true
          });    
-    $('#fecha_inicio').datepicker('setDate',"");    
+    //$('#fecha_inicio').datepicker('setDate',"");    
 
     $("#fecha_fin").datepicker({
         format: "yyyy-mm-dd",
@@ -17,15 +17,15 @@ $(document).ready(function() {
         autoclose: true,
         todayHighlight: true
      });    
-    $('#fecha_fin').datepicker('setDate',"");    
-
+    //$('#fecha_fin').datepicker('setDate',"");    
+    
     var inputStartDate = $('#fecha_inicio').children(".input-date");
     inputStartDate.change(function() {        
         var valueInputStart = $(this).val();
         $('#fecha_fin').datepicker('setStartDate', valueInputStart);
         $('#fecha_fin').datepicker('setDate', valueInputStart);
     });
-
+    
     var activeSystemClass = $('.list-group-item.active');
 
     //something is entered in search form

@@ -6,7 +6,7 @@ use App\Http\Requests\Request;
 
 
 
-class PromotionbygroupRequest extends Request
+class PromotionbyproductRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class PromotionbygroupRequest extends Request
     {           
         return [            
             'nombre'               =>  'required|max:50',
-            'descripcion'          =>  'required|max:150',            
+            'descripcion'          =>  'max:150',            
             'fecha_inicio'         =>  'required|date|before:fecha_fin|after:yesterday',
             'fecha_fin'            =>  'required|date|after:fecha_inicio',
             /*

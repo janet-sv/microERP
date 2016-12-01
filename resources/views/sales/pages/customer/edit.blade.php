@@ -18,7 +18,7 @@
                         Datos del cliente
                     </div>
                     <div class="panel-body">
-                        {{Form::open(['route' => 'customer.store', 'id'=>'formSuggestion'])}}
+                        {{Form::open(['route' => 'customer.update', 'id'=>'formSuggestion'])}}
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">

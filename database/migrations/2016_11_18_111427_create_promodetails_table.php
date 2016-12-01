@@ -14,7 +14,7 @@ class CreatePromodetailsTable extends Migration
     {
         Schema::create('promodetails', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('cantidad');
+            $table->integer('cantidad_descuento');
             $table->float('porcentaje_descuento',5,2);
             $table->softDeletes();
             $table->timestamps();

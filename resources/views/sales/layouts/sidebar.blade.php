@@ -19,10 +19,10 @@
                 <a href="#"><i class="fa fa-money fa-fw"></i> Precio de lista<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="#">Nuevo</a>
+                        <a href="{{ route('listprice.create') }}">Nuevo</a>
                     </li>
                     <li>
-                        <a href="#">Consultar</a>
+                        <a href="{{ route('listprice.index') }}">Consultar</a>
                     </li>
                 </ul>
             </li>

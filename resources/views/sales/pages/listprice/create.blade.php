@@ -18,40 +18,61 @@
                         Datos del precio de lista
                     </div>
                     <div class="panel-body">
-                        <form role="form">                        	                        	
-                            <div class="row">
+                        {{Form::open(['route' => 'listprice.store', 'id'=>'formSuggestion'])}}
+                            <div class="row">                                
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label>Categoría de producto</label>
-                                        <select class="form-control">                                           
-                                            <option value="0">Seleccione</option>                                            
+                                        <select class="form-control" name="categoria_producto" id="categoria_producto">                                           
+                                            <option value="0">Seleccione</option>
+                                            @foreach($categoryproducts as $categoryproduct)                                    
+                                                <option value="{{$categoryproduct->id}}" >{{$categoryproduct->name}}</option>                                    
+                                            @endforeach                                            
                                         </select>
                                     </div>
                                 </div>                                   
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label>Producto</label>
-                                        <select class="form-control">                                           
-                                            <option value="0">Seleccione</option>                                                                                        
+                                        <select class="form-control" name="producto" id="producto">                                           
+                                            <option value="0">Seleccione una categoría primero</option>                                            
                                         </select>
                                     </div>
-                                </div>                                                               
+                                </div>                                                                                           
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label>Precio de venta</label>
-                                        <input class="form-control" name="price" placeholder="Precio" maxlength="7">
+                                        <input class="form-control" name="precio" placeholder="Precio" maxlength="7">
                                     </div>                               
                                 </div>                                                           
                             </div>                                                        
                             <div class="col-lg-12">                                    
                                 <button class="btn btn-success pull-right" type="submit">Guardar</button>                                    
-                                <a href="#" class="btn btn-default pull-right">Cancelar</a>                                      
+                                <a class="btn btn-default pull-right" href="{{ route('listprice.index') }}">Cancelar</a>                                      
                             </div>
-                        </form>
+                        {{Form::close()}}
                     </div>                              
 				</div>
 			</div>                              
 		</div>	
 </section>
 
+<script type="text/javascript">
+    $(document).ready(function() {        
+        //Para el select
+        $('#categoria_producto').change(function(){            
+            $.ajax({
+                method: 'GET',
+                url: "{{ route('listprice.findProducts')}}",            
+                data: {
+                    option: $('#categoria_producto').val(),                     
+                },
+                success: function(response) {
+                    $('#producto').html(response['html']);
+                }
+             });
+        });
+    });
+
+</script>
 @endsection

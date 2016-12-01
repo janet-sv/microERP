@@ -23,13 +23,13 @@
                             	<div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Nombre</label>
-                                        <input class="form-control" name="name" placeholder="Nombre" maxlength="50">
+                                        <input class="form-control" name="nombre" placeholder="Nombre" maxlength="50">
                                     </div>
                             	</div>    
                             	<div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Condición de promoción</label>
-                                        <select class="form-control">                                           
+                                        <select class="form-control" name="condicion_promocion">                                           
                                                 <option value="0">Seleccione</option>
                                                 @foreach($promoconditions as $promocondition)                                    
                                                     <option value="{{$promocondition->id}}" >{{$promocondition->nombre}}</option>                                    
@@ -101,12 +101,12 @@
     $(document).ready(function() {        
         //Para el select
         $('#categoria_producto').change(function(){
-            console.log($('#categoria_producto').val());
+            
             $.ajax({
                 method: 'GET',
                 url: "{{ route('promotionbyproduct.findProducts')}}",            
                 data: {
-                    option: $('#categoria_producto').val(), 
+                    option: $('#categoria_producto').val(),                     
                 },
                 success: function(response) {
                     $('#producto').html(response['html']);

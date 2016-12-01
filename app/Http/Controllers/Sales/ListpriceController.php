@@ -4,24 +4,23 @@ namespace App\Http\Controllers\Sales;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Sales\Promocondition;
-use App\Models\Sales\Promotion;
 use App\Models\Logistic\Product\Product;
 use App\Models\Logistic\ProductCategory\ProductCategory;
-use App\Http\Requests\Sales\PromoconditionRequest;
+use App\Models\Sales\Listprice;
+use App\Http\Requests\Sales\ListpriceRequest;
 use App\Http\Requests;
 
-class PromotionbygroupController extends Controller
+class ListpriceController extends Controller
 {
     public function index()
     {
-        $promotionbygroups = Promotion::where('tipo', 2)->orderBy('nombre', 'asc')->paginate(10);
+        $listprices = Listprice::where('estado', 1)->orderBy('id_producto', 'asc')->paginate(10);
 
         $data = [
-            'promotionbygroups'    =>  $promotionbygroups,
+            'listprices'    =>  $listprices,
         ];
 
-        return view('sales.pages.promotion.bygroup.index', $data);
+        return view('sales.pages.listprice.index', $data);
 
     }
 
@@ -31,43 +30,45 @@ class PromotionbygroupController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        
+    {        
         $categoryproducts = ProductCategory::get();        
-        $products         = Product::get();          
+        $products         = Product::get();                
 
-        $data = [
+        $data = [            
             'categoryproducts' =>  $categoryproducts,
             'products'         =>  $products,
         ];
-
-        //dd($data);
-
-        return view('sales.pages.promotion.bygroup.create', $data);
+        return view('sales.pages.listprice.create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\ListpriceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PromotionRequest $request)
+    public function store(ListpriceRequest $request)
     {
+    	$id_producto = $request['producto'];
+		$listpriceAux = Listprice::where('id_producto', $id_producto)
+								->where('estado',1)->first();
+		
+		
         try {
-            $promotion                         = new Promotion;
-            $promotion->tipo                   = 1;
-            $promotion->nombre                 = $request['nombre'];
-            $promotion->descripcion            = $request['descripcion'];
-            $promotion->id_condicion_promocion = $request['direccion'];            
-            $promotion->fecha_inicio           = $request['fecha_inicio'];
-            $promotion->fecha_fin              = $request['fecha_fin'];            
-            $promotion->save();
-
-            return redirect()->route('promotionbygroup.index')->with('success', 'La promoción se ha registrado exitosamente');
-        } catch (Exception $e) {
+        	if ( count($listpriceAux) ){			
+				$listpriceNew = Listprice::find($listpriceAux->id);
+	            $listpriceNew->estado = 0;	            
+	            $listpriceNew->save();	            	        
+			}		
+			$listprice              = new Listprice;
+			$listprice->precio      = $request['precio'];
+			$listprice->estado      = 1;
+			$listprice->id_producto = $id_producto;
+			$listprice->save();
+            return redirect()->route('listprice.index')->with('success', 'El precio de lista se ha registrado exitosamente');
+        } catch (Exception $e) {            
             return redirect()->back()->with('warning', 'Ocurrió un error al hacer esta acción');
-        }
+        }    	
     }
 
     /**
@@ -78,13 +79,13 @@ class PromotionbygroupController extends Controller
      */
     public function show($id)
     {
-        $promotion = Promotion::find($id);
+        $listprice = Listprice::find($id);
 
         $data = [
-            'promotion'    =>  $promotion,
+            'listprice'    =>  $listprice,
         ];
 
-        return view('sales.pages.promotion.bygroup.show', $data);
+        return view('sales.pages.listprice.show', $data);
     }
 
     /**
@@ -95,35 +96,30 @@ class PromotionbygroupController extends Controller
      */
     public function edit($id)
     {
-        $promotion = Promotion::find($id);
+        $listprice = Listprice::find($id);        
+        $categoryproducts = ProductCategory::get();        
+        $products         = Product::get();       
 
         $data = [
-            'promotion'      =>  $promotion,
+            'listprice'      =>  $listprice,            
+            'categoryproducts' =>  $categoryproducts,
+            'products'         =>  $products,
         ];
 
-        return view('sales.pages.promotion.bygroup.edit', $data);
+        return view('sales.pages.listprice.edit', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(PromotionRequest $request, $id)
+   
+    public function update(ListpriceRequest $request, $id)
     {
         try {
-            $promotion = Promotion::find($id);            
-            $promotion->tipo                   = 1;
-            $promotion->nombre                 = $request['nombre'];
-            $promotion->descripcion            = $request['descripcion'];
-            $promotion->id_condicion_promocion = $request['direccion'];            
-            $promotion->fecha_inicio           = $request['fecha_inicio'];
-            $promotion->fecha_fin              = $request['fecha_fin'];            
-            $promotion->save();
+            $listprice = Listprice::find($id);                        
+            $listprice->precio      = $request['precio'];
+			$listprice->estado      = 1;
+			$listprice->id_producto = $id_producto;
+			$listprice->save();
 
-            return redirect()->route('promotionbygroup.index')->with('success', 'La promoción se ha actualizado exitosamente');
+            return redirect()->route('listprice.index')->with('success', 'El precio de lista se ha actualizado exitosamente');
         } catch (Exception $e) {
             return redirect()->back()->with('warning', 'Ocurrió un error al hacer esta acción');
         }
@@ -138,28 +134,15 @@ class PromotionbygroupController extends Controller
     public function destroy($id)
     {
         try {
-            $promotion   = Promotion::find($id);
+            $listprice   = Listprice::find($id);
             $message = "";
             
-            $promotion->delete();
+            $listprice->delete();
 
-            return redirect()->route('promotionbygroup.index')->with('success', 'La promoción se ha eliminado exitosamente');
+            return redirect()->route('listprice.index')->with('success', 'El precio de lista se ha eliminado exitosamente');
         } catch (Exception $e) {
             return redirect()->back()->with('warning', 'Ocurrió un error al hacer esta acción');
         }
-    }
-
-
-    public function getProductsByCategory()
-    {
-        $promotionbygroups = Promotion::where('tipo', 1)->orderBy('nombre', 'asc')->get();
-
-        $data = [
-            'promotionbygroups'    =>  $promotionbygroups,
-        ];
-
-        return null;
-
     }
 
 
