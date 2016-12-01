@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Account\Payment;
 use DB;
 use App\Models\Account\Partner;
+use App\Models\Account\Method_Payment;
 
 class PaymentController extends Controller
 {
@@ -50,10 +51,26 @@ class PaymentController extends Controller
     {
         
           $tipo = array( "Enviar"=>"Enviar Dinero", "Recibir"=>"Recibir Dinero");
-          $metodo = array( "Banco"=>"BANCO (PEN)", "Efectivo"=>"EFECTIVO (PEN)");
           $Partners = Partner::lists('name','id')->prepend('Seleccione al cliente');
-        return view('/account/Payment/create',array('tipo'=>$tipo, 'metodo'=>$metodo, 'Partners'=>$Partners));
+          $metodo = Method_Payment::lists('name','id')->prepend('Metodo de Pago');
+          $tipo = Type_Payment::lists('name','id')->prepend('Tipo de Pago');
+          
+          return view('/account/Payment/create',array('tipo'=>$tipo, 'metodo'=>$metodo, 'Partners'=>$Partners));
+
  	}
+
+     public function findnumber(Request $request, $id)
+    {
+
+           if($request->ajax()){
+               
+               $number=DB::table('paymentmethod')->where('id', $id)->value('numeration');
+            
+            return response()->json($number);
+        }
+
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -63,8 +80,20 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        Payment::create($request->all());
+         $id =  $request['method'];
+         $number=DB::table('paymentmethod')->where('id', $id)->value('numeration');
+         $request['number'] = $number;
+
+         Payment::create($request->all());
+
+         $number = $number + 1;
+         
+         DB::table('paymentmethod')
+            ->where('id', $id)
+            ->update(['numeration' => $number]);
+
         return redirect()->route('Pagos.index');
+
     }
 
    

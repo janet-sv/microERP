@@ -41,15 +41,14 @@
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group">
                                     {!!form::label('Metodo de Pago')!!}
-
-                                      {!! Form::select('method',$metodo,null,['id'=>'method','class'=>'form-control' ,'placeholder'=>'Seleccione metodo de pago' ] ) !!}                                 
+                                    {!! Form::select('method',$metodo,null,['id'=>'method','class'=>'form-control'] ) !!}                                 
                                    
                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group">
                                     {!!form::label('Tipo de Pago')!!}
-                                      {!! Form::select('type',$tipo,null,['id'=>'type','class'=>'form-control' ,'placeholder'=>'Seleccione tipo de pago' ] ) !!}
+                                      {!! Form::select('type',$tipo,null,['id'=>'type','class'=>'form-control'] ) !!}
                                    
                                </div>
                             </div>
@@ -112,6 +111,19 @@
       } );
 
     </script>
+
+    <script>
+   
+       $("#method").change(event => {
+       $.get(`/FacturasClientes/encuentra/${event.target.value}`, function(res, sta){
+          // alert(res);
+          document.getElementById("number").value = res
+        
+          
+       });
+    }); 
+
+</script>
  
 @endsection
 
