@@ -108,7 +108,7 @@ class PromotionbyproductController extends Controller
         $products         = Product::get();       
 
         $data = [
-            'promotion'      =>  $promotion,
+            'promotion'        =>  $promotion,
             'promoconditions'  =>  $promoconditions,
             'categoryproducts' =>  $categoryproducts,
             'products'         =>  $products,

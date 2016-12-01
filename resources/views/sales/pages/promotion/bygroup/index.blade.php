@@ -61,14 +61,14 @@
                                         <td>{{ $promotionbygroup->fecha_inicio }}</td>
                                         <td>{{ $promotionbygroup->fecha_fin }}</td> 
                                         <td>
-                                            <a href="{{route('promotionbygroup.edit', $promotionbygroup->id)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{route('promotionbygroup.edit', $promotionbygroup->id_promocion)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
                                             
-                                            <a href="" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#{{$promotionbygroup->id}}" title="Eliminar"><i class="fa fa-remove"></i></a>
+                                            <a href="" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#{{$promotionbygroup->id_promocion}}" title="Eliminar"><i class="fa fa-remove"></i></a>
                                             
                                         </td>
                                     </tr> 
 
-                                    @include('sales.pages.modals.delete', ['id'=> $promotionbygroup->id, 'message' => '¿Está seguro que desea eliminar esta promoción?', 'route' => route('promotionbygroup.delete', $promotionbygroup->id)])
+                                    @include('sales.pages.modals.delete', ['id'=> $promotionbygroup->id_promocion, 'message' => '¿Está seguro que desea eliminar esta promoción?', 'route' => route('promotionbygroup.delete', $promotionbygroup->id_promocion)])
                                     @endforeach
                                 </tbody> 
                             </table>

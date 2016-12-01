@@ -109,10 +109,18 @@ class PromotionbygroupController extends Controller
      */
     public function edit($id)
     {
-        $promotion = Promotion::find($id);
+        $promodetails = DB::table('promodetails')
+                                ->where('id_promocion', $id)
+                                ->get();
+        $promotion = Promotion::find($id);                                
+        $categoryproducts = ProductCategory::get();        
+        $products         = Product::get();
 
         $data = [
-            'promotion'      =>  $promotion,
+            'promodetails'     => $promodetails,
+            'promotion'        => $promotion,
+            'categoryproducts' => $categoryproducts,
+            'products'         => $products,
         ];
 
         return view('sales.pages.promotion.bygroup.edit', $data);
@@ -129,13 +137,24 @@ class PromotionbygroupController extends Controller
     {
         try {
             $promotion = Promotion::find($id);            
-            $promotion->tipo                   = 1;
+            $promotion->tipo                   = 2;
             $promotion->nombre                 = $request['nombre'];
-            $promotion->descripcion            = $request['descripcion'];
-            $promotion->id_condicion_promocion = $request['direccion'];            
+            $promotion->descripcion            = $request['descripcion'];            
             $promotion->fecha_inicio           = $request['fecha_inicio'];
-            $promotion->fecha_fin              = $request['fecha_fin'];            
+            $promotion->fecha_fin              = $request['fecha_fin'];                        
             $promotion->save();
+
+            foreach($request['categoryproduct'] as $key=> $value){
+                $promodetail                       = Promodetail::find($request['idpromodetail'][$key]);
+                if ( !$promodetail )
+                    $promodetail = new Promodetail;
+                $promodetail->cantidad_descuento   = $request['cantidad_descuento'][$key];
+                $promodetail->porcentaje_descuento = $request['porcentaje_descuento'][$key];
+                $promodetail->id_promocion         = $promotion->id;
+                $promodetail->id_producto          = $request['product'][$key];                        
+                $promodetail->save();
+            }  
+
 
             return redirect()->route('promotionbygroup.index')->with('success', 'La promoción se ha actualizado exitosamente');
         } catch (Exception $e) {
