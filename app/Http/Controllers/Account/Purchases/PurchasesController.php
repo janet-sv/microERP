@@ -51,10 +51,22 @@ class PurchasesController extends Controller
     public function create()
     {
          $invoices = DB::table('purchasesinvoice')->count();
-         $Document_type = Document_type::lists('name','id')->prepend('Seleccioname el tipo de documento');
+         $Document_type = Document_type::whereNotIn('id', [1, 2])->lists('name','id')->prepend('Seleccioname el tipo de documento');
          $Providers = Provider::lists('name','id')->prepend('Seleccioname el proveedor');
 
       return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'invoices'=>$invoices,  'Document_type'=>$Document_type  ));
+    }
+
+     public function findnumber(Request $request, $id)
+    {
+
+           if($request->ajax()){
+               
+               $number=DB::table('document_type')->where('id', $id)->value('numeration');
+            
+            return response()->json($number);
+        }
+
     }
 
     /**
@@ -65,7 +77,17 @@ class PurchasesController extends Controller
      */
     public function store(Request $request)
     {
+        $id =  $request['document_id'];
+        $number=DB::table('document_type')->where('id', $id)->value('numeration');
+        $request['number'] = $number;
+
         PurchasesInvoice::create($request->all());
+
+            $number = $number + 1;
+        DB::table('document_type')
+            ->where('id', $id)
+            ->update(['numeration' => $number]);
+
         return redirect()->route('FacturasProveedores.index');
     }
 
@@ -91,7 +113,7 @@ class PurchasesController extends Controller
     {
         
         $Providers = Provider::lists('name','id')->prepend('Seleccioname el proveedor');
-        $Document_type = Document_type::lists('name','id')->prepend('Seleccioname el tipo de documento');
+        $Document_type = Document_type::whereNotIn('id', [1, 2])->lists('name','id')->prepend('Seleccioname el tipo de documento');
         $PurchasesInvoices = PurchasesInvoice::FindOrFail($id);
 
         return view('/account/ShoppingInvoice/edit', array('PurchasesInvoices'=>$PurchasesInvoices,'Providers'=>$Providers, 'Document_type'=>$Document_type ));

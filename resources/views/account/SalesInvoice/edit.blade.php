@@ -166,6 +166,23 @@
   } );
   </script>
 
+
+  <script>
+   
+       $("#document_id").change(event => {
+       $.get(`/FacturasClientes/encuentra/${event.target.value}`, function(res, sta){
+          // alert(res);
+          document.getElementById("number").value = res
+        
+          
+       });
+    }); 
+
+
+
+
+</script>
+
   @endsection
 
 

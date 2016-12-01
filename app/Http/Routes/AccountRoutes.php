@@ -27,5 +27,5 @@ Route::resource('Tipo_de_documento','Account\DocumentType\DocumentTypeController
 Route::resource('Tipo_Diario','Account\Journals\JournalsController');
 Route::resource('Pagos','Account\Payment\PaymentController');
 Route::get('FacturasClientes/encuentra/{id}','Account\Sales\SalesController@findnumber');
-
+Route::get('FacturasProveedores/encuentra/{id}','Account\Purchases\PurchasesController@findnumber');
 

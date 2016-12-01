@@ -52,16 +52,16 @@ class SalesController extends Controller
 
     public function create()
     {
-        //
+        
         $invoices = DB::table('salesinvoice')->count();
-      
         $Partners = Partner::lists('name','id')->prepend('Seleccione al cliente');
-        $Document_type = Document_type::lists('name','id')->prepend('Seleccioname el tipo de documento');
+        $Document_type = Document_type::whereNotIn('id', [3, 4])->lists('name','id')->prepend('Seleccioname el tipo de documento');
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
         //return view('/account/SalesInvoice/create')->with('Partners',$Partners);
            return view('/account/SalesInvoice/create', array('users'=>$users, 'Partners'=>$Partners,'invoices'=>$invoices , 'Document_type'=>$Document_type ));
  
     }
+    
     public function findnumber(Request $request, $id)
     {
 
@@ -71,9 +71,6 @@ class SalesController extends Controller
             
             return response()->json($number);
         }
-
-          
-
 
     }
 
@@ -88,7 +85,9 @@ class SalesController extends Controller
         $id =  $request['document_id'];
         $number=DB::table('document_type')->where('id', $id)->value('numeration');
         $request['number'] = $number;
+
         SalesInvoice::create($request->all());
+        
         $number = $number + 1;
         DB::table('document_type')
             ->where('id', $id)
@@ -123,7 +122,7 @@ class SalesController extends Controller
 
         $Partners = Partner::lists('name','id')->prepend('Seleccioname la cliente');
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
-        $Document_type = Document_type::lists('name','id')->prepend('Seleccioname el tipo de documento');
+        $Document_type = Document_type::whereNotIn('id', [3, 4])->lists('name','id')->prepend('Seleccioname el tipo de documento');
         $SalesInvoices = SalesInvoice::FindOrFail($id);
 
        // return view('/account/SalesInvoice/edit');
