@@ -6,21 +6,27 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Sales\Promocondition;
 use App\Models\Sales\Promotion;
+use App\Models\Sales\Promodetail;
 use App\Models\Logistic\Product\Product;
 use App\Models\Logistic\ProductCategory\ProductCategory;
-use App\Http\Requests\Sales\PromoconditionRequest;
+use App\Http\Requests\Sales\PromotionbygroupRequest;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 
 class PromotionbygroupController extends Controller
 {
     public function index()
     {
-        $promotionbygroups = Promotion::where('tipo', 2)->orderBy('nombre', 'asc')->paginate(10);
+                
+        $promotionbygroups = DB::table('promodetails')
+                            ->join('promotions', 'promodetails.id_promocion', '=', 'promotions.id' )
+                            ->join('products', 'promodetails.id_producto', '=', 'products.id')                            
+                            ->where('tipo', 2)->orderBy('nombre', 'asc')->paginate(10);
 
         $data = [
-            'promotionbygroups'    =>  $promotionbygroups,
+            'promotionbygroups' =>  $promotionbygroups,            
         ];
-
+        
         return view('sales.pages.promotion.bygroup.index', $data);
 
     }
@@ -52,17 +58,25 @@ class PromotionbygroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PromotionRequest $request)
+    public function store(PromotionbygroupRequest $request)
     {
         try {
             $promotion                         = new Promotion;
-            $promotion->tipo                   = 1;
+            $promotion->tipo                   = 2;
             $promotion->nombre                 = $request['nombre'];
-            $promotion->descripcion            = $request['descripcion'];
-            $promotion->id_condicion_promocion = $request['direccion'];            
+            $promotion->descripcion            = $request['descripcion'];            
             $promotion->fecha_inicio           = $request['fecha_inicio'];
-            $promotion->fecha_fin              = $request['fecha_fin'];            
+            $promotion->fecha_fin              = $request['fecha_fin'];                        
             $promotion->save();
+
+            foreach($request['categoryproduct'] as $key=> $value){
+                $promodetail                       = new Promodetail;
+                $promodetail->cantidad_descuento   = $request['cantidad_descuento'][$key];
+                $promodetail->porcentaje_descuento = $request['porcentaje_descuento'][$key];
+                $promodetail->id_promocion         = $promotion->id;
+                $promodetail->id_producto          = $request['product'][$key];                        
+                $promodetail->save();
+            }            
 
             return redirect()->route('promotionbygroup.index')->with('success', 'La promoción se ha registrado exitosamente');
         } catch (Exception $e) {
@@ -111,7 +125,7 @@ class PromotionbygroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PromotionRequest $request, $id)
+    public function update(PromotionbygroupRequest $request, $id)
     {
         try {
             $promotion = Promotion::find($id);            

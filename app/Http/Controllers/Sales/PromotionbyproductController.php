@@ -69,7 +69,7 @@ class PromotionbyproductController extends Controller
             $promodetail->porcentaje_descuento = 0;
             $promodetail->id_promocion         = $promotion->id;
             $promodetail->id_producto          = $request['producto'];                        
-            $promodetail->save();
+            $promodetail->save();            
 
             return redirect()->route('promotionbyproduct.index')->with('success', 'La promoción se ha registrado exitosamente');
         } catch (Exception $e) {            

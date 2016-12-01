@@ -18,12 +18,12 @@
                         Datos de la promoción
                     </div>
                     <div class="panel-body">
-                        <form role="form">                          
+                        {{Form::open(['route' => 'promotionbygroup.store', 'id'=>'formSuggestion'])}}     
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Nombre</label>
-                                        <input class="form-control" name="name" placeholder="Nombre" maxlength="50">
+                                        <input class="form-control" name="nombre" placeholder="Nombre" maxlength="50">
                                     </div>
                                 </div>                                                                       
                             </div>        
@@ -47,7 +47,7 @@
                                 <div class="col-lg-6"> 
                                     <div class="form-group">                                   
                                         <label>Descripción</label>
-                                        <textarea style="resize:none;"class="form-control none-resisable" rows="3" placeholder="Descripción" ></textarea>    
+                                        <textarea style="resize:none;"class="form-control none-resisable" rows="3" placeholder="Descripción" name="descripcion"></textarea>    
                                     </div>
                                 </div>
                                 <div class="col-lg-6"> 
@@ -68,7 +68,7 @@
                                             <div class="col-lg-3">
                                                 <div class="form-group">
                                                     <label>Categoría de producto</label>
-                                                    <select class="form-control" name="categoryproduct_1" id="categoryproduct_1">                                           
+                                                    <select class="form-control" name="categoryproduct[1]" id="categoryproduct_1">                                           
                                                         <option value="0">Seleccione</option>
                                                         @foreach($categoryproducts as $categoryproduct)                                    
                                                             <option value="{{$categoryproduct->id}}" >{{$categoryproduct->name}}</option>                                    
@@ -79,7 +79,7 @@
                                             <div class="col-lg-3">
                                                 <div class="form-group">
                                                     <label>Producto</label>
-                                                    <select class="form-control" name="product1" id="product1">                                           
+                                                    <select class="form-control" name="product[1]" id="product1">                                           
                                                         <option value="0">Seleccione una categoría</option>                                            
                                                     </select>
                                                 </div>
@@ -89,7 +89,7 @@
                                                     <label>Cantidad</label>
                                                     <div class="form-group input-group">
                                                         <span class="input-group-addon">u</span>
-                                                        <input class="form-control" name="cantidad_descuento1" placeholder="Cantidad de descuento" maxlength="3">
+                                                        <input class="form-control" name="cantidad_descuento[1]" placeholder="Cantidad" maxlength="3">
                                                     </div>
                                                 </div>
                                             </div>
@@ -98,7 +98,7 @@
                                                     <label>Porcentaje de descuento</label>
                                                     <div class="form-group input-group">
                                                         <span class="input-group-addon">%</span>
-                                                        <input type="text" class="form-control" name="porcentaje_descuento1" placeholder="Porcentaje de descuento">
+                                                        <input type="text" class="form-control" name="porcentaje_descuento[1]" placeholder="Porcentaje de descuento">
                                                     </div>
                                                 </div>
                                             </div>                                
@@ -106,7 +106,7 @@
                                         <div class="row">                                                            
                                             <div class="col-lg-3">
                                                 <div class="form-group">                                                    
-                                                    <select class="form-control" name="categoryproduct_2" id="categoryproduct_2">                                           
+                                                    <select class="form-control" name="categoryproduct[2]" id="categoryproduct_2">                                           
                                                         <option value="0">Seleccione</option>
                                                         @foreach($categoryproducts as $categoryproduct)                                    
                                                             <option value="{{$categoryproduct->id}}" >{{$categoryproduct->name}}</option>                                    
@@ -116,7 +116,7 @@
                                             </div>                                   
                                             <div class="col-lg-3">
                                                 <div class="form-group">                                                    
-                                                    <select class="form-control" name="product2" id="product2">                                           
+                                                    <select class="form-control" name="product[2]" id="product2">                                           
                                                         <option value="0">Seleccione una categoría</option>                                            
                                                     </select>
                                                 </div>
@@ -125,7 +125,7 @@
                                                 <div class="form-group">                                                    
                                                     <div class="form-group input-group">
                                                         <span class="input-group-addon">u</span>
-                                                        <input class="form-control" name="cantidad_descuento2" placeholder="Cantidad" maxlength="3">
+                                                        <input class="form-control" name="cantidad_descuento[2]" placeholder="Cantidad" maxlength="3">
                                                     </div>
                                                 </div>
                                             </div>
@@ -133,7 +133,7 @@
                                                 <div class="form-group">                                                    
                                                     <div class="form-group input-group">
                                                         <span class="input-group-addon">%</span>
-                                                        <input type="text" class="form-control" name="porcentaje_descuento2" placeholder="Porcentaje de descuento">
+                                                        <input type="text" class="form-control" name="porcentaje_descuento[2]" placeholder="Porcentaje de descuento">
                                                     </div>
                                                 </div>
                                             </div>                                
@@ -143,11 +143,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">                                    
-                                    <button class="btn btn-success pull-right" type="submit">Guardar</button>                                    
+                                    {{Form::submit('Guardar', ['class'=>'btn btn-success pull-right'])}}                                      
                                     <a href="{{route('promotionbygroup.index')}}" class="btn btn-default pull-right">Cancelar</a>                                      
                                 </div>
                             </div>
-                        </form>
+                        {{Form::close()}}
                     </div>                              
                 </div>
             </div>                              
@@ -167,7 +167,7 @@ $(document).ready(function($) {
             ' <div class="row promoLine"> ' +                                                           
                 ' <div class="col-lg-3"> ' +
                     ' <div class="form-group"> ' +                        
-                        ' <select class="form-control" name="categoryproduct_' + n + '" id="categoryproduct_' + n +'"> ' +                                           
+                        ' <select class="form-control" name="categoryproduct[' + n + ']" id="categoryproduct_' + n +'"> ' +                                           
                             ' <option value="0">Seleccione</option> ' +  
                             '@foreach($categoryproducts as $categoryproduct) ' +                                   
                                 '<option value="{{$categoryproduct->id}}" >{{$categoryproduct->name}}</option>' +                                    
@@ -177,7 +177,7 @@ $(document).ready(function($) {
                 ' </div>' +                                   
                 ' <div class="col-lg-3">' +
                     ' <div class="form-group">' +                        
-                        ' <select class="form-control" name="product' + n + '" id="product' + n +'" > ' +                                           
+                        ' <select class="form-control" name="product[' + n + ']" id="product' + n +'" > ' +                                           
                             ' <option value="0"> Seleccione una categoría</option>' +                                                                                        
                         ' </select>' +
                     ' </div>' +
@@ -186,7 +186,7 @@ $(document).ready(function($) {
                     ' <div class="form-group">' +                        
                         ' <div class="form-group input-group">' +
                             ' <span class="input-group-addon"> u </span>' +
-                            ' <input class="form-control" name="cantidad_descuento' + n + '" placeholder="Cantidad" maxlength="3">' +
+                            ' <input class="form-control" name="cantidad_descuento[' + n + ']" placeholder="Cantidad" maxlength="3">' +
                         ' </div>' +
                     ' </div>' +
                 ' </div>' +
@@ -194,7 +194,7 @@ $(document).ready(function($) {
                     ' <div class="form-group">' +                        
                         ' <div class="form-group input-group">' +
                             ' <span class="input-group-addon"> % </span>' +
-                            ' <input type="text" class="form-control" name="porcentaje_descuento' + n +'" placeholder="Porcentaje de descuento">' +
+                            ' <input type="text" class="form-control" name="porcentaje_descuento[' + n +']" placeholder="Porcentaje de descuento">' +
                         ' </div>' +
                     ' </div>' +
                 ' </div>' +                                

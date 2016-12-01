@@ -7,7 +7,7 @@
 <section class="home-container">    
         <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Lista de promociones por producto</h1>
+                    <h1 class="page-header">Lista de promociones por agrupación de productoss</h1>
                 </div>
                 <!-- /.col-lg-12 -->
         </div>
@@ -15,7 +15,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Promociones por producto</h3>
+                        <h3 class="panel-title">Promociones por agrupación de productos</h3>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -40,10 +40,10 @@
                             <table class="table table-list-search table-striped responsive-utilities jambo_table bulk_action"> 
                                 <thead> 
                                     <tr class="headings"> 
-                                        <th>Nombre</th>                                                                                 
-                                        <th>Categoría</th>                                         
+                                        <th>id</th>
+                                        <th>Promoción</th>                                                                                                                         
                                         <th>Producto</th>                                         
-                                        <th>Cantidad descuento</th> 
+                                        <th>Cantidad</th> 
                                         <th>Porcentaje descuento</th> 
                                         <th>Fecha inicio</th> 
                                         <th>Fecha fin</th> 
@@ -51,14 +51,15 @@
                                     </tr> 
                                 </thead> 
                                 <tbody> 
-                                    @foreach($promotionbygroups as $promotionbygroup)
+                                    @foreach($promotionbygroups as $key => $promotionbygroup)                                    
                                     <tr> 
+                                        <td>{{ $promotionbygroup->id_promocion }}</td>                                                                                 
+                                        <td>{{ $promotionbygroup->nombre }}</td>                                                                                 
                                         <td>{{ $promotionbygroup->name }}</td>                                         
-                                        <td></td>
-                                        <td></td> 
-                                        <td></td>                                         
-                                        <td></td>                                         
-                                        <td></td>                                         
+                                        <td>{{ $promotionbygroup->cantidad_descuento}}</td>
+                                        <td>{{ $promotionbygroup->porcentaje_descuento}}</td>
+                                        <td>{{ $promotionbygroup->fecha_inicio }}</td>
+                                        <td>{{ $promotionbygroup->fecha_fin }}</td> 
                                         <td>
                                             <a href="{{route('promotionbygroup.edit', $promotionbygroup->id)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
                                             

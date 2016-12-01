@@ -15,10 +15,10 @@ class CreatePromoconditionsTable extends Migration
         Schema::create('promoconditions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre',50);
-            $table->string('descripcion',150);
+            $table->string('descripcion',150)->nullable();
             $table->integer('cantidad_requerida');
-            $table->integer('cantidad_descuento');
-            $table->float('porcentaje_descuento',5,2);
+            $table->integer('cantidad_descuento')->nullable();
+            $table->float('porcentaje_descuento',5,2)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

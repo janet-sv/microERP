@@ -13,7 +13,7 @@ class AddFkToPromotionsTable extends Migration
     public function up()
     {
         Schema::table('promotions', function (Blueprint $table) {
-            $table->integer('id_condicion_promocion')->unsigned();
+            $table->integer('id_condicion_promocion')->unsigned()->nullable();;
 
             $table->foreign('id_condicion_promocion')->references('id')->on('promoconditions');
             
