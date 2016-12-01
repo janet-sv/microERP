@@ -14,7 +14,7 @@ class Document_typeTableSeeder extends Seeder
           DB::table('document_type')->insert([
             'name'          => 'Factura Venta',
             'description'  => NULL,
-            'numeration'  => 1,
+            'numeration'  => 7,
         ]);
         
         DB::table('document_type')->insert([
@@ -26,7 +26,7 @@ class Document_typeTableSeeder extends Seeder
          DB::table('document_type')->insert([
            'name'          => 'Factura Compra',
             'description'  => NULL,
-            'numeration'  => 1,
+            'numeration'  => 7,
         ]);
 
         DB::table('document_type')->insert([

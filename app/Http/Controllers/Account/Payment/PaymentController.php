@@ -35,6 +35,7 @@ class PaymentController extends Controller
     {
       	$payments = Payment::
                 select('payment.id','payment.date','payment.number','payment.method','payment.type','payment.client','payment.amount','payment.reference','payment.state')
+                 ->orderBy('id', 'desc')
                     ->paginate(5);
 
         return view('/account/Payment/index')->with('payments',$payments);

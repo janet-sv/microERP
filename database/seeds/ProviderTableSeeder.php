@@ -33,7 +33,7 @@ class ProviderTableSeeder extends Seeder
 
 
         ]);
-    	 DB::table('partner')->insert([
+    	 DB::table('provider')->insert([
             'name' => 'Distribuidora Milenio',
             'ruc'  => '13345318914',
             'country'  => 'Perú',

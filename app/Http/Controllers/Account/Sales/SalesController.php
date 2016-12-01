@@ -38,6 +38,7 @@ class SalesController extends Controller
                     ->join('partner','partner.id','=','salesinvoice.partner_id')
                     ->join('users','users.id','=','salesinvoice.user_id')
                     ->join('document_type','document_type.id','=','salesinvoice.document_id')
+                    ->orderBy('id', 'desc')
                     ->paginate(5);
         
         return  view('/account/SalesInvoice/index')->with('SalesInvoice',$salesinvoices);

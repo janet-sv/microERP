@@ -16,6 +16,7 @@ class SalesInvoiceTableSeeder extends Seeder
     	 DB::table('salesinvoice')->insert([
             'document_id' => '1',
             'partner_id'  => '1',
+            'number'  => '1',
             'date_invoice'  => '2016-12-01',
             'user_id'  => '1' ,
             'date_due' => '2016-12-01',
@@ -27,6 +28,7 @@ class SalesInvoiceTableSeeder extends Seeder
     	 DB::table('salesinvoice')->insert([
             'document_id' => '1',
             'partner_id'  => '2',
+            'number'  => '2',
             'date_invoice'  => '2016-12-01',
             'user_id'  => '1' ,
             'date_due' => '2016-12-01',
@@ -38,6 +40,7 @@ class SalesInvoiceTableSeeder extends Seeder
     	 DB::table('salesinvoice')->insert([
             'document_id' => '1',
             'partner_id'  => '3',
+            'number'  => '3',
             'date_invoice'  => '2016-12-01',
             'user_id'  => '1' ,
             'date_due' => '2016-12-01',
@@ -49,6 +52,7 @@ class SalesInvoiceTableSeeder extends Seeder
     	 DB::table('salesinvoice')->insert([
             'document_id' => '1',
             'partner_id'  => '4',
+            'number'  => '4',
             'date_invoice'  => '2016-12-01',
             'user_id'  => '1' ,
             'date_due' => '2016-12-01',
@@ -60,6 +64,7 @@ class SalesInvoiceTableSeeder extends Seeder
     	 DB::table('salesinvoice')->insert([
             'document_id' => '1',
             'partner_id'  => '5',
+            'number'  => '5',
             'date_invoice'  => '2016-12-01',
             'user_id'  => '1' ,
             'date_due' => '2016-12-01',
@@ -71,6 +76,7 @@ class SalesInvoiceTableSeeder extends Seeder
     	 DB::table('salesinvoice')->insert([
             'document_id' => '1',
             'partner_id'  => '6',
+            'number'  => '6',
             'date_invoice'  => '2016-12-01',
             'user_id'  => '1' ,
             'date_due' => '2016-12-01',

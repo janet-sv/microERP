@@ -15,6 +15,7 @@ class PurchasesInvoiceTableSeeder extends Seeder
          DB::table('purchasesinvoice')->insert([
             'document_id' => '3',
             'provider_id'  => '1',
+            'number'  => '1',
             'date_invoice'  => '2016-12-01',
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '100.00',
@@ -22,9 +23,10 @@ class PurchasesInvoiceTableSeeder extends Seeder
             'state'  => 'Abierto' ,
             
         ]);
-         DB::table('salesinvoice')->insert([
+         DB::table('purchasesinvoice')->insert([
             'document_id' => '3',
-            'partner_id'  => '2',
+            'provider_id'  => '2',
+            'number'  => '2',
             'date_invoice'  => '2016-12-01',
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '200.00',
@@ -32,9 +34,10 @@ class PurchasesInvoiceTableSeeder extends Seeder
             'state'  => 'Abierto' ,
             
         ]);
-    	 DB::table('salesinvoice')->insert([
+    	 DB::table('purchasesinvoice')->insert([
             'document_id' => '3',
-            'partner_id'  => '3',
+            'provider_id'  => '1',
+            'number'  => '3',
             'date_invoice'  => '2016-12-01',
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '300.00',
@@ -42,9 +45,10 @@ class PurchasesInvoiceTableSeeder extends Seeder
             'state'  => 'Abierto' ,
             
         ]);
-    	 DB::table('salesinvoice')->insert([
+    	 DB::table('purchasesinvoice')->insert([
             'document_id' => '3',
-            'partner_id'  => '4',
+            'provider_id'  => '2',
+            'number'  => '4',
             'date_invoice'  => '2016-12-01',
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '400.00',
@@ -52,9 +56,10 @@ class PurchasesInvoiceTableSeeder extends Seeder
             'state'  => 'Abierto' ,
             
         ]);
-    	 DB::table('salesinvoice')->insert([
+    	 DB::table('purchasesinvoice')->insert([
             'document_id' => '3',
-            'partner_id'  => '5',
+            'provider_id'  => '1',
+            'number'  => '5',
             'date_invoice'  => '2016-12-01',
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '500.00',
@@ -62,9 +67,10 @@ class PurchasesInvoiceTableSeeder extends Seeder
             'state'  => 'Abierto' ,
             
         ]);
-    	 DB::table('salesinvoice')->insert([
+    	 DB::table('purchasesinvoice')->insert([
             'document_id' => '3',
-            'partner_id'  => '6',
+            'provider_id'  => '2',
+            'number'  => '6',
             'date_invoice'  => '2016-12-01',
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '600.00',

@@ -36,6 +36,7 @@ class PurchasesController extends Controller
                     select('purchasesinvoice.id','document_type.name as document','provider.name as provider','provider.ruc as ruc','purchasesinvoice.date_invoice','purchasesinvoice.number','purchasesinvoice.date_due','purchasesinvoice.amount_total_signed','purchasesinvoice.residual_signed','purchasesinvoice.state','purchasesinvoice.reference')
                     ->join('provider','provider.id','=','purchasesinvoice.provider_id')
                     ->join('document_type','document_type.id','=','purchasesinvoice.document_id')
+                    ->orderBy('id', 'desc')
                     ->paginate(5);
         return view('/account/ShoppingInvoice/index')->with('PurchasesInvoice',$purchasesinvoices);
 

@@ -291,12 +291,7 @@
                                 <li>
                                     <a href="/Pagos">Pagos</a>
                                 </li>
-                                <li>
-                                    <a href="morris.html">Extractos de los clientes</a>
-                                </li>
-                                <li>
-                                    <a href="morris.html">Clientes</a>
-                                </li>
+                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -309,9 +304,7 @@
                                 <li>
                                     <a href="/Pagos">Pagos</a>
                                 </li>
-                                <li>
-                                    <a href="morris.html">Proveedores</a>
-                                </li>
+                              
                                 
                             </ul>
                             <!-- /.nav-second-level -->

@@ -171,7 +171,7 @@
 <script>
    
        $("#document_id").change(event => {
-       $.get(`Pagos/encuentra/${event.target.value}`, function(res, sta){
+       $.get(`/FacturasClientes/encuentra/${event.target.value}`, function(res, sta){
           // alert(res);
           document.getElementById("number").value = res
         
