@@ -22,6 +22,12 @@ class Document_typeTableSeeder extends Seeder
             'description'  => NULL,
             'numeration'  => 1,
         ]);
+
+        DB::table('document_type')->insert([
+           'name'          => 'Boleta Venta',
+            'description'  => NULL,
+            'numeration'  => 1,
+        ]);
         
          DB::table('document_type')->insert([
            'name'          => 'Factura Compra',
@@ -36,7 +42,7 @@ class Document_typeTableSeeder extends Seeder
         ]);
         
         DB::table('document_type')->insert([
-           'name'          => 'Boleta',
+           'name'          => 'Boleta Compra',
             'description'  => NULL,
             'numeration'  => 1,
         ]);

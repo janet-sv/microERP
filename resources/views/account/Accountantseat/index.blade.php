@@ -55,7 +55,7 @@
                                 <td>{{$accountantseat->amount}}</td>
                                  <td>{{$accountantseat->state}}</td>
                                 <td>
-                                    <a href="{{route('AsientosContables.edit',$accoaccountantseatunt->id)}}">[Editar]</a> 
+                                    <a href="{{route('AsientosContables.edit',$accountantseat->id)}}">[Editar]</a> 
                                     <a href="{{route('AsientosContables.show',$accountantseat->id)}}">[Eliminar]</a>
                                 </td>
                               </tr>

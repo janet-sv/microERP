@@ -12,6 +12,7 @@ use App\Models\Account\Document_type;
 use App\User;
 use DB; 
 use Input;
+use App\Models\Account\AccountantSeat;
 
 
 class SalesController extends Controller
@@ -56,7 +57,7 @@ class SalesController extends Controller
         
         $invoices = DB::table('salesinvoice')->count();
         $Partners = Partner::lists('name','id')->prepend('Seleccione al cliente');
-        $Document_type = Document_type::whereNotIn('id', [3, 4])->lists('name','id')->prepend('Seleccioname el tipo de documento');
+        $Document_type = Document_type::whereNotIn('id', [4, 5,6])->lists('name','id')->prepend('Seleccioname el tipo de documento');
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
         //return view('/account/SalesInvoice/create')->with('Partners',$Partners);
            return view('/account/SalesInvoice/create', array('users'=>$users, 'Partners'=>$Partners,'invoices'=>$invoices , 'Document_type'=>$Document_type ));
@@ -83,10 +84,31 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
+        
         $id =  $request['document_id'];
         $number=DB::table('document_type')->where('id', $id)->value('numeration');
         $request['number'] = $number;
 
+
+        $id =  $request['partner_id'];
+        $empresa=DB::table('partner')->where('id', $id)->value('name');
+
+        $id =  $request['document_id'];
+        $code=DB::table('document_type')->where('id', $id)->value('name');
+ 
+        $regis= new AccountantSeat;
+        $regis->date=$request['date_invoice'];
+          $regis->code=$code;
+           $regis->number=$request['number'];
+            $regis->company=$empresa;
+             $regis->reference=$request['reference'];
+              $regis->diario_id=1;
+               $regis->amount=$request['amount_total_signed'];
+                $regis->state="Publicado";
+error_log($regis->code);
+    DB::table('accountantseat')->insert(
+    ['date' =>  $regis->date, 'code' => $regis->code,'number' =>  $regis->number, 'company' =>  $regis->company,'reference' => $regis->reference, 'diario_id' =>  $regis->diario_id,'amount' => $regis->amount, 'state' => $regis->state]);
+      
         SalesInvoice::create($request->all());
         
         $number = $number + 1;
@@ -118,12 +140,11 @@ class SalesController extends Controller
      */
     public function edit($id)
     {
-
-       
+      
 
         $Partners = Partner::lists('name','id')->prepend('Seleccioname la cliente');
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
-        $Document_type = Document_type::whereNotIn('id', [3, 4])->lists('name','id')->prepend('Seleccioname el tipo de documento');
+        $Document_type = Document_type::whereNotIn('id', [4, 5,6])->lists('name','id')->prepend('Seleccioname el tipo de documento');
         $SalesInvoices = SalesInvoice::FindOrFail($id);
 
        // return view('/account/SalesInvoice/edit');
