@@ -14,6 +14,10 @@ class Journal extends Model
       'id','name', 'description' ,
    ];
 
-
+   public function accountantSeat ()
+      {
+         return $this->belongsto(AccountantSeat::class);
+         
+      }
   
 }

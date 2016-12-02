@@ -30,3 +30,5 @@ Route::get('FacturasClientes/encuentra/{id}','Account\Sales\SalesController@find
 Route::get('FacturasProveedores/encuentra/{id}','Account\Purchases\PurchasesController@findnumber');
 Route::get('Pagos/encuentra/{id}','Account\Payment\PaymentController@findnumber');
 Route::get('PlanContable/encuentra/{id}','Account\Accountplaning\AccountplaningController@findnumber');
+Route::resource('AsientosContables','Account\Accountantseat\AccountantseatController');
+

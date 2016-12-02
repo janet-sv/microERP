@@ -313,7 +313,7 @@
                             <a href="#"><i class="fa fa-calculator fa-fw"></i> Asientos <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">Asientos Contables</a>
+                                    <a href="/AsientosContables">Asientos Contables</a>
                                 </li>
                                 <li>
                                     <a href="/PlanContable">Plan de Cuentas</a>
