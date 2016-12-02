@@ -87,6 +87,22 @@ Route::group(['prefix' => 'ventas'], function(){
                     Route::get('/findProductsInEdit', ['as' => 'promotionbygroup.findProductsInEdit', 'uses' => 'Sales\PromotionbygroupController@findProductsInEdit']);
                 });
             });
-  
+            
+
+            //Administrar proformas
+
+            Route::group(['prefix' => 'proformas'], function(){                    
+                Route::get('/', ['as' => 'offer.index', 'uses' => 'Sales\OfferController@index']);
+                Route::get('create', ['as' => 'offer.create', 'uses' => 'Sales\OfferController@create']);
+                Route::post('create', ['as' => 'offer.store', 'uses' => 'Sales\OfferController@store']);
+                //Route::get('show/{id}', ['as' => 'promocondition.show', 'uses' => 'Investigation\Promocondition\PromoconditionController@show']);
+                Route::get('edit/{id}', ['as' => 'offer.edit', 'uses' => 'Sales\OfferController@edit']);
+                Route::post('edit/{id}', ['as' => 'offer.update', 'uses' => 'Sales\OfferController@update']);
+                Route::get('delete/{id}', ['as' => 'offer.delete', 'uses' => 'Sales\OfferController@destroy']);
+                Route::get('/findProducts', ['as' => 'offer.findProducts', 'uses' => 'Sales\OfferController@findProducts']);
+                Route::get('/findProductsInEdit', ['as' => 'offer.findProductsInEdit', 'uses' => 'Sales\OfferController@findProductsInEdit']);
+                Route::get('/findPrice', ['as' => 'offer.findPrice', 'uses' => 'Sales\OfferController@findPrice']);
+                
+            });
 
 });

@@ -7,7 +7,7 @@
 <section class="home-container">    
         <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Lista de promociones por agrupación de productos</h1>
+                    <h1 class="page-header">Lista de proformas</h1>
                 </div>
                 <!-- /.col-lg-12 -->
         </div>

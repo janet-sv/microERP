@@ -68,7 +68,7 @@
                 <a href="#"><i class="fa fa-file-o fa-fw"></i> Proforma<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="#">Nuevo</a>
+                        <a href="{{route('offer.create')}}">Nuevo</a>
                     </li>                    
                     <li>
                         <a href="#">Consultar</a>

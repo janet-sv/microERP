@@ -6,7 +6,7 @@ use App\Http\Requests\Request;
 
 
 
-class ListpriceRequest extends Request
+class OfferRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,11 @@ class ListpriceRequest extends Request
      */
     public function rules()
     {           
-        return [                        
-            'precio' =>  'required|numeric|max:999999',            
+        return [            
+            'nombre'               =>  'required|max:50',
+            'descripcion'          =>  'max:150',            
+            'fecha_inicio'         =>  'required|date|before:fecha_fin|after:yesterday',
+            'fecha_fin'            =>  'required|date|after:fecha_inicio',
             /*
             'tiempo'               =>  'required|numeric|max:200|min:1',
             'fecha_inicio'         =>  'required|date|before:fecha_fin|after:yesterday',

@@ -206,7 +206,7 @@ $(document).ready(function($) {
     $("#remove").click(function() {
         var x = $("#remove").attr('disabled');
         if (typeof x !== typeof undefined && x !== false) {return;  }
-        if(n==1){return}
+        if(n==3){return}
             $(".promoLine:last-child").remove();
         n--;
     });   

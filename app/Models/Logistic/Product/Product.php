@@ -17,4 +17,8 @@ class Product extends Model
     {
     	return $this->belongsTo('App\Models\Purchase\Trademark\Trademark', 'id_trademark');
     }
+
+    public function listprices(){
+        return $this->hasMany('App\Models\Sales\Listprice', 'id_producto');
+    }
 }
