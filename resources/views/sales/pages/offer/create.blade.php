@@ -144,7 +144,7 @@
                             <div class="row">
                                 <div class="pull-right col-lg-3"> 
                                     <div class="form-group">                                   
-                                        <input class="form-control" name="descuento_manual" placeholder="Descuento Manual" maxlength="7">
+                                        <input class="form-control" name="descuento_manual" id="descuento_manual" placeholder="Descuento Manual" maxlength="7">
                                     </div>
                                 </div>
                                 <div class="pull-right col-lg-1">
@@ -266,6 +266,7 @@ $(document).ready(function($) {
         if(n==2){return}
             $(".promoLine:last-child").remove();
         n--;
+        calcularTotal();
     });   
     
     $("body").on('change', "[id^='categoryproduct_']", function(){        
@@ -316,7 +317,7 @@ $(document).ready(function($) {
         var precio ;                
         var descuento;                                
         if( cantidad == 0){
-            cantidad = 1
+            cantidad = 1;
             $('#cantidad_' + id).val(cantidad);        
         }
         $.ajax({
@@ -328,9 +329,7 @@ $(document).ready(function($) {
             },
             success: function(data) {                
                 precio    = data.precio;                      
-                descuento = data.descuento;                      
-                console.log("Cantidad: " + cantidad);
-                console.log("Descuento: " + descuento);
+                descuento = data.descuento;                                      
                 $('#descuento_' + id).attr("value", parseFloat(descuento*cantidad).toFixed(1));
                  descuento = $('#descuento_' + id).attr("value");
                 $('#total_' + id).attr("value", parseFloat((precio*cantidad)-descuento).toFixed(1) );   
@@ -340,17 +339,28 @@ $(document).ready(function($) {
         
         
     });
+    
+    $("body").on('keyup', "#descuento_manual", function(){                
+        calcularTotal();
+    });
 
     function calcularTotal(){
         var idLinea, total = 0;
         for( var j = 1 ; j < n ; j++){
             if (  $('#cantidad_' + j).val() ){                    
-                total = parseFloat(total) + parseFloat($('#total_' + j).attr("value"));   
-                console.log("Entro a reccorer total: " + total);
+                total = parseFloat(total) + parseFloat($('#total_' + j).attr("value"));                   
             }
         }                
-        $('#sub_total').attr("value", 0);   
-        $('#igv').attr("value", 0);   
+        var descuento_manual = $("#descuento_manual").val();  
+        if (descuento_manual == 0)      
+            descuento_manual = 0;
+        total = total - descuento_manual;
+
+        var sub_total = total / 1.18;
+        var igv  = total - sub_total;
+
+        $('#sub_total').attr("value", parseFloat(sub_total).toFixed(1));   
+        $('#igv').attr("value", parseFloat(igv).toFixed(1));   
         $('#total').attr("value", parseFloat(total).toFixed(1) ); 
     }
 });
