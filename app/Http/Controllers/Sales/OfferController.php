@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Sales\Promocondition;
 use App\Models\Sales\Promotion;
+use App\Models\Sales\Listprice;
 use App\Models\Sales\Promodetail;
 use App\Models\Sales\Customer;
+use App\Models\Sales\Offer;
+use App\Models\Sales\Offerdetail;
 use App\Models\Logistic\Product\Product;
 use App\Models\Logistic\ProductCategory\ProductCategory;
-use App\Http\Requests\Sales\PromotionbygroupRequest;
+use App\Http\Requests\Sales\OfferRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 
@@ -18,15 +21,15 @@ class OfferController extends Controller
 {
     public function index()
     {
-        /*        
-        $promotionbygroups = DB::table('promodetails')
-                            ->join('promotions', 'promodetails.id_promocion', '=', 'promotions.id' )
-                            ->join('products', 'promodetails.id_producto', '=', 'products.id')                            
-                            ->where('tipo', 2)->orderBy('nombre', 'asc')->paginate(10);
-		*/
-        $promotionbygroups = null;            
+        $offers = Offer::orderBy('numeracion', 'asc')->paginate(10);         
+
+        $date = date("Y-m-d", time());  
+        foreach ($offers as $key => $offer) {
+            if ( ( $date > $offer->fecha_fin))
+                $offer->estado = 0;
+        }  
         $data = [
-            'promotionbygroups' =>  $promotionbygroups,            
+            'offers' =>  $offers,            
         ];
         
         return view('sales.pages.offer.index', $data);
@@ -43,11 +46,12 @@ class OfferController extends Controller
         
 		$categoryproducts = ProductCategory::get();        
 		$products         = Product::get();          
-		$numeracion       = 1;
+		$numeracion       = count(Offer::get());
+        $numeracion      += +1;
 		$customers        = Customer::get();
         $data = [
-			'categoryproducts' =>  $categoryproducts,
-			'products'         =>  $products,
+			'categoryproducts' => $categoryproducts,
+			'products'         => $products,
 			'numeracion'       => $numeracion,
 			'customers'        => $customers,
         ];
@@ -63,27 +67,36 @@ class OfferController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PromotionbygroupRequest $request)
+    public function store(OfferRequest $request)
     {
         try {
-            $promotion                         = new Promotion;
-            $promotion->tipo                   = 2;
-            $promotion->nombre                 = $request['nombre'];
-            $promotion->descripcion            = $request['descripcion'];            
-            $promotion->fecha_inicio           = $request['fecha_inicio'];
-            $promotion->fecha_fin              = $request['fecha_fin'];                        
-            $promotion->save();
-
+            $offer                   = new Offer;
+            $offer->estado           = 1;
+            $offer->id_sociedad      = 1;
+            $offer->numeracion       = $request['numeracion'];
+            $offer->id_cliente       = $request['cliente'];
+            $offer->descripcion      = $request['descripcion'];            
+            $offer->fecha_inicio     = $request['fecha_inicio'];
+            $offer->fecha_fin        = $request['fecha_fin'];                        
+            $offer->descuento_manual = $request['descuento_manual'];                        
+            $offer->sub_total        = $request['sub_total'];                        
+            $offer->igv              = $request['igv'];                        
+            $offer->total            = $request['total_proforma'];                        
+            $offer->save();
+            
             foreach($request['categoryproduct'] as $key=> $value){
-                $promodetail                       = new Promodetail;
-                $promodetail->cantidad_descuento   = $request['cantidad_descuento'][$key];
-                $promodetail->porcentaje_descuento = $request['porcentaje_descuento'][$key];
-                $promodetail->id_promocion         = $promotion->id;
-                $promodetail->id_producto          = $request['product'][$key];                        
-                $promodetail->save();
+                $offerdetail                  = new Offerdetail;
+                $offerdetail->cantidad        = $request['cantidad'][$key];
+                $offerdetail->descuento       = $request['descuento'][$key];
+                $offerdetail->precio_unitario = $request['precio'][$key];
+                $offerdetail->total           = $request['total'][$key];
+                //$offerdetail->id_promocion  = $offer->id;
+                $offerdetail->id_proforma     = $offer->id;
+                $offerdetail->id_producto     = $request['product'][$key];                        
+                $offerdetail->save();
             }            
-
-            return redirect()->route('promotionbygroup.index')->with('success', 'La promoción se ha registrado exitosamente');
+            
+            return redirect()->route('offer.index')->with('success', 'La proforma se ha registrado exitosamente');
         } catch (Exception $e) {
             return redirect()->back()->with('warning', 'Ocurrió un error al hacer esta acción');
         }
@@ -97,10 +110,10 @@ class OfferController extends Controller
      */
     public function show($id)
     {
-        $promotion = Promotion::find($id);
+        $offer = Promotion::find($id);
 
         $data = [
-            'promotion'    =>  $promotion,
+            'offer'    =>  $offer,
         ];
 
         return view('sales.pages.offer.show', $data);
@@ -114,18 +127,20 @@ class OfferController extends Controller
      */
     public function edit($id)
     {
-        $promodetails = DB::table('promodetails')
-                                ->where('id_promocion', $id)
+        $offerdetails = DB::table('offerdetails')
+                                ->where('id_proforma', $id)
                                 ->get();
-        $promotion = Promotion::find($id);                                
+        $offer = Offer::find($id);                                
         $categoryproducts = ProductCategory::get();        
         $products         = Product::get();
+        $customers        = Customer::get();
 
         $data = [
-            'promodetails'     => $promodetails,
-            'promotion'        => $promotion,
+            'offerdetails'     => $offerdetails,
+            'offer'            => $offer,
             'categoryproducts' => $categoryproducts,
             'products'         => $products,
+            'customers'        => $customers,
         ];
 
         return view('sales.pages.offer.edit', $data);
@@ -138,30 +153,39 @@ class OfferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PromotionbygroupRequest $request, $id)
+    public function update(OfferRequest $request, $id)
     {
         try {
-            $promotion = Promotion::find($id);            
-            $promotion->tipo                   = 2;
-            $promotion->nombre                 = $request['nombre'];
-            $promotion->descripcion            = $request['descripcion'];            
-            $promotion->fecha_inicio           = $request['fecha_inicio'];
-            $promotion->fecha_fin              = $request['fecha_fin'];                        
-            $promotion->save();
+            $offer = Offer::find($id);            
+            $offer->estado           = 1;
+            $offer->id_sociedad      = 1;
+            $offer->numeracion       = $request['numeracion'];
+            $offer->id_cliente       = $request['cliente'];
+            $offer->descripcion      = $request['descripcion'];            
+            $offer->fecha_inicio     = $request['fecha_inicio'];
+            $offer->fecha_fin        = $request['fecha_fin'];                        
+            $offer->descuento_manual = $request['descuento_manual'];                        
+            $offer->sub_total        = $request['sub_total'];                        
+            $offer->igv              = $request['igv'];                        
+            $offer->total            = $request['total_proforma'];                        
+            $offer->save();
 
             foreach($request['categoryproduct'] as $key=> $value){
-                $promodetail                       = Promodetail::find($request['idpromodetail'][$key]);
-                if ( !$promodetail )
-                    $promodetail = new Promodetail;
-                $promodetail->cantidad_descuento   = $request['cantidad_descuento'][$key];
-                $promodetail->porcentaje_descuento = $request['porcentaje_descuento'][$key];
-                $promodetail->id_promocion         = $promotion->id;
-                $promodetail->id_producto          = $request['product'][$key];                        
-                $promodetail->save();
+                $offerdetail                       = Offerdetail::find($request['idofferdetail'][$key]);
+                if ( !$offerdetail )
+                    $offerdetail = new Offerdetail;                
+                $offerdetail->cantidad        = $request['cantidad'][$key];
+                $offerdetail->descuento       = $request['descuento'][$key];
+                $offerdetail->precio_unitario = $request['precio'][$key];
+                $offerdetail->total           = $request['total'][$key];
+                //$offerdetail->id_promocion  = $offer->id;
+                $offerdetail->id_proforma     = $offer->id;
+                $offerdetail->id_producto     = $request['product'][$key];                        
+                $offerdetail->save();
             }  
 
 
-            return redirect()->route('promotionbygroup.index')->with('success', 'La promoción se ha actualizado exitosamente');
+            return redirect()->route('offer.index')->with('success', 'La promoción se ha actualizado exitosamente');
         } catch (Exception $e) {
             return redirect()->back()->with('warning', 'Ocurrió un error al hacer esta acción');
         }
@@ -176,12 +200,12 @@ class OfferController extends Controller
     public function destroy($id)
     {
         try {
-            $promotion   = Promotion::find($id);
+            $offer   = Promotion::find($id);
             $message = "";
             
-            $promotion->delete();
+            $offer->delete();
 
-            return redirect()->route('promotionbygroup.index')->with('success', 'La promoción se ha eliminado exitosamente');
+            return redirect()->route('offer.index')->with('success', 'La promoción se ha eliminado exitosamente');
         } catch (Exception $e) {
             return redirect()->back()->with('warning', 'Ocurrió un error al hacer esta acción');
         }
@@ -190,10 +214,10 @@ class OfferController extends Controller
 
     public function getProductsByCategory()
     {
-        $promotionbygroups = Promotion::where('tipo', 1)->orderBy('nombre', 'asc')->get();
+        $offers = Promotion::where('tipo', 1)->orderBy('nombre', 'asc')->get();
 
         $data = [
-            'promotionbygroups'    =>  $promotionbygroups,
+            'offers'    =>  $offers,
         ];
 
         return null;
@@ -263,12 +287,18 @@ class OfferController extends Controller
         					->where('cantidad_descuento', 0)
         					->orderBy('updated_at', 'asc')->get();
 		$porcentaje_descuento = 0;
+        $date = date("Y-m-d", time());  
         foreach ($promodetails as $key => $promodetail) {
-        	if ($promodetail->promotion->tipo == 1 && $promodetail->promotion->promocondition->cantidad_requerida ==  1)
+        	if ($promodetail->promotion->tipo == 1 && $promodetail->promotion->promocondition->cantidad_requerida ==  1 
+                && ($promodetail->promotion->fecha_fin >=  $date)){
         		$porcentaje_descuento = $promodetail->promotion->promocondition->porcentaje_descuento;
+                break;
+            }
         }        	
-
-        $precio  = $product->listprices[count($product->listprices)-1]->precio ;
+        $listprice = Listprice::where('id_producto', $id)
+                                ->where('estado', 1)->get();        
+        $precio    = $listprice[0]->precio;
+        
         $porcentaje_descuento_cliente = 0;
         if( $cliente )
         	$porcentaje_descuento_cliente = $cliente->porcentaje_descuento;

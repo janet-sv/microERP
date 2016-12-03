@@ -15,7 +15,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Promociones por agrupación de productos</h3>
+                        <h3 class="panel-title">Proformas</h3>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -23,7 +23,7 @@
                                 <form action="#" method="get">
                                     <div class="input-group">
                                         <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
-                                        <input class="form-control" id="promotionbygroup-search" name="q" placeholder="Buscar" required>
+                                        <input class="form-control" id="offer-search" name="q" placeholder="Buscar" required>
                                         <span class="input-group-btn">
                                             <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                                         </span>
@@ -31,8 +31,8 @@
                                 </form>
                             </div>                        
                             <div class="col-lg-6">
-                                <a href="{{route('promotionbygroup.create')}}">
-                                    {{Form::button('<i class="fa fa-plus"></i> Crear promoción',['class'=>'btn btn-success pull-right'])}}
+                                <a href="{{route('offer.create')}}">
+                                    {{Form::button('<i class="fa fa-plus"></i> Crear proforma',['class'=>'btn btn-success pull-right'])}}
                                 </a>
                             </div>                            
                         </div>
@@ -40,40 +40,46 @@
                             <table class="table table-list-search table-striped responsive-utilities jambo_table bulk_action"> 
                                 <thead> 
                                     <tr class="headings"> 
-                                        <th>id</th>
-                                        <th>Promoción</th>                                                                                                                         
-                                        <th>Producto</th>                                         
-                                        <th>Cantidad</th> 
-                                        <th>Porcentaje descuento</th> 
+                                        <th>Numeración</th>
+                                        <th>Cliente</th>                                                                                                                                                                 
+                                        <th>Total</th> 
                                         <th>Fecha inicio</th> 
                                         <th>Fecha fin</th> 
+                                        <th>Estado</th> 
                                         <th colspan="2">Acciones</th>
                                     </tr> 
                                 </thead> 
                                 <tbody> 
-                                    @foreach($promotionbygroups as $key => $promotionbygroup)                                    
+                                    @foreach($offers as $key => $offer)                                    
                                     <tr> 
-                                        <td>{{ $promotionbygroup->id_promocion }}</td>                                                                                 
-                                        <td>{{ $promotionbygroup->nombre }}</td>                                                                                 
-                                        <td>{{ $promotionbygroup->name }}</td>                                         
-                                        <td>{{ $promotionbygroup->cantidad_descuento}}</td>
-                                        <td>{{ $promotionbygroup->porcentaje_descuento}}</td>
-                                        <td>{{ $promotionbygroup->fecha_inicio }}</td>
-                                        <td>{{ $promotionbygroup->fecha_fin }}</td> 
+                                        <td>{{ $offer->numeracion }}</td>                                                                                 
+                                        @if($offer->customer->tipo_contribuyente == 1) 
+                                            <td>{{ $offer->customer->nombre }}</td>                                                                                 
+                                        @else
+                                            <td>{{ $offer->customer->razon_social }}</td>                                                                                 
+                                        @endif
+                                        <td>{{ round($offer->total,1) }}</td>                                         
+                                        <td>{{ $offer->fecha_inicio }}</td>
+                                        <td>{{ $offer->fecha_fin }}</td> 
+                                        @if ( $offer->estado == 1)
+                                            <td>Vigente</td>
+                                        else
+                                            <td>Vencida</td>
+                                        @endif
                                         <td>
-                                            <a href="{{route('promotionbygroup.edit', $promotionbygroup->id_promocion)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{route('offer.edit', $offer->id)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
                                             
-                                            <a href="" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#{{$promotionbygroup->id_promocion}}" title="Eliminar"><i class="fa fa-remove"></i></a>
+                                            <a href="" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#{{$offer->id}}" title="Eliminar"><i class="fa fa-remove"></i></a>
                                             
                                         </td>
                                     </tr> 
 
-                                    @include('sales.pages.modals.delete', ['id'=> $promotionbygroup->id_promocion, 'message' => '¿Está seguro que desea eliminar esta promoción?', 'route' => route('promotionbygroup.delete', $promotionbygroup->id_promocion)])
+                                    @include('sales.pages.modals.delete', ['id'=> $offer->id, 'message' => '¿Está seguro que desea eliminar esta proforma?', 'route' => route('offer.delete', $offer->id)])
                                     @endforeach
                                 </tbody> 
                             </table>
                         </div>
-                        {{ $promotionbygroups->links() }}
+                        {{ $offers->links() }}
                     </div>
                 </div>
             </div>
@@ -81,6 +87,6 @@
 
 </section>
 
-<script src="{{ URL::asset('build/js/sales/promotion.js')}}"></script>
+<script src="{{ URL::asset('build/js/sales/offer.js')}}"></script>
 
 @endsection

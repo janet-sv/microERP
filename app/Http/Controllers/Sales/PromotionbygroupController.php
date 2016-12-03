@@ -136,13 +136,15 @@ class PromotionbygroupController extends Controller
     public function update(PromotionbygroupRequest $request, $id)
     {
         try {
-            $promotion = Promotion::find($id);            
-            $promotion->tipo                   = 2;
+            
+            $promotion = Promotion::find($id);                        
             $promotion->nombre                 = $request['nombre'];
             $promotion->descripcion            = $request['descripcion'];            
             $promotion->fecha_inicio           = $request['fecha_inicio'];
             $promotion->fecha_fin              = $request['fecha_fin'];                        
             $promotion->save();
+
+            
 
             foreach($request['categoryproduct'] as $key=> $value){
                 $promodetail                       = Promodetail::find($request['idpromodetail'][$key]);
@@ -154,10 +156,10 @@ class PromotionbygroupController extends Controller
                 $promodetail->id_producto          = $request['product'][$key];                        
                 $promodetail->save();
             }  
-
-
+            
             return redirect()->route('promotionbygroup.index')->with('success', 'La promoción se ha actualizado exitosamente');
         } catch (Exception $e) {
+
             return redirect()->back()->with('warning', 'Ocurrió un error al hacer esta acción');
         }
     }

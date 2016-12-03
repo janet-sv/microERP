@@ -127,8 +127,7 @@ class PromotionbyproductController extends Controller
     public function update(PromotionbyproductRequest $request, $id)
     {
         try {
-            $promotion = Promotion::find($id);                        
-            $promotion->tipo                   = 1;
+            $promotion = Promotion::find($id);                                    
             $promotion->nombre                 = $request['nombre'];
             $promotion->descripcion            = $request['descripcion'];
             $promotion->id_condicion_promocion = $request['condicion_promocion'];            

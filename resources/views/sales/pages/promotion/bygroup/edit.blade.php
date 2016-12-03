@@ -66,11 +66,11 @@
                                     <div id="promotion">
                                         @foreach( $promodetails as $key => $promodetail)
                                         <div class="row">
-                                            <input hidden name="idpromodetail[{{$key}}]" value="{{$promotion->promodetails[$key]->id}}"></input>                                                            
+                                            <input hidden name="idpromodetail[{{$key + 1}}]" value="{{$promotion->promodetails[$key]->id}}"></input>                                                            
                                             <div class="col-lg-3">
                                                 <div class="form-group">
                                                     @if( $key == 0 ) <label>Categoría de producto</label> @endif
-                                                    <select class="form-control" name="categoryproduct[{{$key}}]" id="categoryproduct_{{$key}}">                                           
+                                                    <select class="form-control" name="categoryproduct[{{$key + 1}}]" id="categoryproduct_{{$key + 1}}">                                           
                                                         <option value="0">Seleccione</option>
                                                         @foreach($categoryproducts as $categoryproduct)                                    
                                                             <option value="{{$categoryproduct->id}}" @if($categoryproduct->id==$promotion->promodetails[$key]->product->category->id) selected @endif >{{$categoryproduct->name}}</option>                                    
@@ -81,7 +81,7 @@
                                             <div class="col-lg-3">
                                                 <div class="form-group">
                                                     @if( $key == 0 ) <label>Producto</label> @endif
-                                                    <select class="form-control" name="product[{{$key}}]" id="product{{$key}}">                                           
+                                                    <select class="form-control" name="product[{{$key + 1}}]" id="product{{$key + 1}}">                                           
                                                         <option value="0">Seleccione una categoría</option>                                            
                                                     </select>
                                                 </div>
@@ -91,7 +91,7 @@
                                                     @if( $key == 0 ) <label>Cantidad</label> @endif
                                                     <div class="form-group input-group">
                                                         <span class="input-group-addon">u</span>
-                                                        <input value="{{$promotion->promodetails[$key]->cantidad_descuento}}" class="form-control" name="cantidad_descuento[{{$key}}]" placeholder="Cantidad" maxlength="3">
+                                                        <input value="{{$promotion->promodetails[$key]->cantidad_descuento}}" class="form-control" name="cantidad_descuento[{{$key + 1}}]" placeholder="Cantidad" maxlength="3">
                                                     </div>
                                                 </div>
                                             </div>
@@ -100,7 +100,7 @@
                                                     @if( $key == 0 ) <label>Porcentaje de descuento</label> @endif
                                                     <div class="form-group input-group">
                                                         <span class="input-group-addon">%</span>
-                                                        <input value="{{$promotion->promodetails[$key]->porcentaje_descuento}}" type="text" class="form-control" name="porcentaje_descuento[{{$key}}]" placeholder="Porcentaje de descuento">
+                                                        <input value="{{$promotion->promodetails[$key]->porcentaje_descuento}}" type="text" class="form-control" name="porcentaje_descuento[{{$key + 1}}]" placeholder="Porcentaje de descuento">
                                                     </div>
                                                 </div>
                                             </div>                                
@@ -131,11 +131,11 @@ $(document).ready(function($) {
             method: 'GET',
             url: "{{ route('promotionbygroup.findProductsInEdit')}}",            
             data: {
-                option: $('#categoryproduct_{{$key}}').val(), 
+                option: $('#categoryproduct_{{$key+1}}').val(), 
                 idProduct: {{$promotion->promodetails[$key]->product->id}},
             },
             success: function(response) {                
-                $('#product{{$key}}').html(response['html']);
+                $('#product{{$key+1}}').html(response['html']);
             }
         });
     @endforeach
@@ -147,7 +147,8 @@ $(document).ready(function($) {
         if (typeof x !== typeof undefined && x !== false) {return;  }        
         if(n==25){return;}        
         $("#promotion").append('' +  
-            ' <div class="row promoLine"> ' +                                                           
+            ' <div class="row promoLine"> ' +   
+                ' <input hidden name="idpromodetail[' + n + ']" value="0"></input> '+                                                        
                 ' <div class="col-lg-3"> ' +
                     ' <div class="form-group"> ' +                        
                         ' <select class="form-control" name="categoryproduct[' + n + ']" id="categoryproduct_' + n +'"> ' +                                           
@@ -195,8 +196,7 @@ $(document).ready(function($) {
     });   
     
     $("body").on('change', "[id^='categoryproduct_']", function(){        
-        var id = this.id.split('_')[1];    
-        console.log("entro aqui con id:" + this);
+        var id = this.id.split('_')[1];            
         $.ajax({
             method: 'GET',
             url: "{{ route('promotionbygroup.findProducts')}}",            

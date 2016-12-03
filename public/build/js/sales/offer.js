@@ -1,5 +1,5 @@
 $(document).ready(function($) {
-	    
+    
     $("#fecha_inicio").datepicker({
             format: "yyyy-mm-dd",
             startDate: "today", 
@@ -27,8 +27,8 @@ $(document).ready(function($) {
     var activeSystemClass = $('.list-group-item.active');
 
     //something is entered in search form
-    $('#promotionbygroup-search').keyup( function() {
-       var that = this;
+    $('#offer-search').keyup( function() {
+        var that = this; 
         // affect all table rows on in systems table
         var tableBody = $('.table-list-search tbody');
         var tableRowsClass = $('.table-list-search tbody tr');

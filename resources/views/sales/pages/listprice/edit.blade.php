@@ -17,8 +17,8 @@
                     <div class="panel-heading">
                         Datos del precio de lista
                     </div>
-                    <div class="panel-body">
-                        {{Form::open(['route' => 'listprice.store', 'id'=>'formSuggestion'])}}
+                    <div class="panel-body">                        
+                        {{Form::open(['route' => ['listprice.update', $listprice->id], 'id'=>'formSuggestion'])}}
                             <div class="row">                                
                                 <div class="col-lg-4">
                                     <div class="form-group">

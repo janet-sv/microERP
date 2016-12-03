@@ -124,7 +124,7 @@
                                 <div class="col-lg-6">
                                     <label>Línea de crédito</label>
                                     <div class="form-group input-group">
-                                        <span class="input-group-addon">%</span>
+                                        <span class="input-group-addon">S/</span>
                                         <input type="text" class="form-control" name="linea_credito" placeholder="Línea de crédito" maxlength="10">
                                     </div>
                                 </div>                                

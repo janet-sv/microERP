@@ -71,7 +71,7 @@
                         <a href="{{route('offer.create')}}">Nuevo</a>
                     </li>                    
                     <li>
-                        <a href="#">Consultar</a>
+                        <a href="{{route('offer.index')}}">Consultar</a>
                     </li>
                     
                     

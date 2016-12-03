@@ -17,8 +17,8 @@
                     <div class="panel-heading">
                         Datos del cliente
                     </div>
-                    <div class="panel-body">
-                        {{Form::open(['route' => 'customer.update', 'id'=>'formSuggestion'])}}
+                    <div class="panel-body">                        
+                        {{Form::open(['route' => ['customer.update', $customer->id], 'id'=>'formSuggestion'])}}
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -126,7 +126,7 @@
                                 <div class="col-lg-6">
                                     <label>Línea de crédito</label>
                                     <div class="form-group input-group">
-                                        <span class="input-group-addon">%</span>
+                                        <span class="input-group-addon">S/</span>
                                         <input type="text" class="form-control" name="linea_credito" placeholder="Línea de crédito" maxlength="10" value="{{$customer->linea_credito}}">
                                     </div>
                                 </div>                                                     

@@ -25,10 +25,9 @@ class OfferRequest extends Request
      */
     public function rules()
     {           
-        return [            
-            'nombre'               =>  'required|max:50',
+        return [                        
             'descripcion'          =>  'max:150',            
-            'fecha_inicio'         =>  'required|date|before:fecha_fin|after:yesterday',
+            'fecha_inicio'         =>  'required|date|before:fecha_fin',
             'fecha_fin'            =>  'required|date|after:fecha_inicio',
             /*
             'tiempo'               =>  'required|numeric|max:200|min:1',

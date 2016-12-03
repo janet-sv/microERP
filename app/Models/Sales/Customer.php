@@ -16,6 +16,10 @@ class Customer extends Model
     public function society(){
     	return $this->belongsTo('App\Models\Sales\Society', 'id_sociedad');	
     }
+
+    public function offers(){
+        return $this->hasMany('App\Models\Sales\Offer', 'id_cliente');   
+    }
 }
 
             
