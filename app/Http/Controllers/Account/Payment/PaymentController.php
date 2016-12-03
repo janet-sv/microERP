@@ -11,6 +11,8 @@ use DB;
 use App\Models\Account\Partner;
 use App\Models\Account\Method_Payment;
 
+use App\Models\Account\Type_Payment;
+
 class PaymentController extends Controller
 {
    	

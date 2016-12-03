@@ -82,6 +82,7 @@ class PurchasesController extends Controller
         
         $id =  $request['document_id'];
         $id = $id + 3;
+        $request['document_id'] = $id;
         $number=DB::table('document_type')->where('id', $id)->value('numeration');
         $request['number'] = $number;
 
@@ -90,7 +91,7 @@ class PurchasesController extends Controller
         $empresa=DB::table('provider')->where('id', $id)->value('name');
 
         $id =  $request['document_id'];
-         $id = $id + 3;
+       
         $code=DB::table('document_type')->where('id', $id)->value('name');
  
         $regis= new AccountantSeat;

@@ -13,7 +13,7 @@ class PurchasesInvoiceTableSeeder extends Seeder
     {
         //factory(App\Models\Account\PurchasesInvoice::class, 5 )->create();
          DB::table('purchasesinvoice')->insert([
-            'document_id' => '3',
+            'document_id' => '4',
             'provider_id'  => '1',
             'number'  => '1',
             'date_invoice'  => '2016-12-01',
@@ -24,7 +24,7 @@ class PurchasesInvoiceTableSeeder extends Seeder
             
         ]);
          DB::table('purchasesinvoice')->insert([
-            'document_id' => '3',
+            'document_id' => '4',
             'provider_id'  => '2',
             'number'  => '2',
             'date_invoice'  => '2016-12-01',
@@ -35,7 +35,7 @@ class PurchasesInvoiceTableSeeder extends Seeder
             
         ]);
     	 DB::table('purchasesinvoice')->insert([
-            'document_id' => '3',
+            'document_id' => '4',
             'provider_id'  => '1',
             'number'  => '3',
             'date_invoice'  => '2016-12-01',
@@ -46,7 +46,7 @@ class PurchasesInvoiceTableSeeder extends Seeder
             
         ]);
     	 DB::table('purchasesinvoice')->insert([
-            'document_id' => '3',
+            'document_id' => '4',
             'provider_id'  => '2',
             'number'  => '4',
             'date_invoice'  => '2016-12-01',
@@ -57,7 +57,7 @@ class PurchasesInvoiceTableSeeder extends Seeder
             
         ]);
     	 DB::table('purchasesinvoice')->insert([
-            'document_id' => '3',
+            'document_id' => '4',
             'provider_id'  => '1',
             'number'  => '5',
             'date_invoice'  => '2016-12-01',
@@ -68,7 +68,7 @@ class PurchasesInvoiceTableSeeder extends Seeder
             
         ]);
     	 DB::table('purchasesinvoice')->insert([
-            'document_id' => '3',
+            'document_id' => '4',
             'provider_id'  => '2',
             'number'  => '6',
             'date_invoice'  => '2016-12-01',
