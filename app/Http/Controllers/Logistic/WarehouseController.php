@@ -67,7 +67,7 @@ class WarehouseController extends Controller
 
         if ($warehouse) {
             $data = [
-                'category' => $warehouse,
+                'warehouse' => $warehouse,
             ];
 
             return view('logistic.pages.warehouse.edit', $data);

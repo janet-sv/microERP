@@ -71,10 +71,12 @@ class SectionController extends Controller
 
     public function edit($id) {
         $section = Section::find($id);
+        $warehouses = Warehouse::get();
 
         if ($section) {
             $data = [
-                'category' => $section,
+                'section' => $section,
+                'warehouses' => $warehouses,
             ];
 
             return view('logistic.pages.section.edit', $data);
