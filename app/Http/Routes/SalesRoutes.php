@@ -32,7 +32,7 @@ Route::group(['prefix' => 'ventas'], function(){
 
 			//Administrar condición de promociones
 
-            Route::group(['prefix' => 'condicionpromocion'], function(){    
+            Route::group(['prefix' => 'condicion-promocion'], function(){    
                 Route::get('/', ['as' => 'promocondition.index', 'uses' => 'Sales\PromoconditionController@index']);
                 Route::get('create', ['as' => 'promocondition.create', 'uses' => 'Sales\PromoconditionController@create']);
                 Route::post('create', ['as' => 'promocondition.store', 'uses' => 'Sales\PromoconditionController@store']);
@@ -44,7 +44,7 @@ Route::group(['prefix' => 'ventas'], function(){
 
             //Administrar condición de promociones
 
-            Route::group(['prefix' => 'preciolista'], function(){    
+            Route::group(['prefix' => 'precio-lista'], function(){    
                 Route::get('/', ['as' => 'listprice.index', 'uses' => 'Sales\ListpriceController@index']);
                 Route::get('create', ['as' => 'listprice.create', 'uses' => 'Sales\ListpriceController@create']);
                 Route::post('create', ['as' => 'listprice.store', 'uses' => 'Sales\ListpriceController@store']);
@@ -95,14 +95,32 @@ Route::group(['prefix' => 'ventas'], function(){
                 Route::get('/', ['as' => 'offer.index', 'uses' => 'Sales\OfferController@index']);
                 Route::get('create', ['as' => 'offer.create', 'uses' => 'Sales\OfferController@create']);
                 Route::post('create', ['as' => 'offer.store', 'uses' => 'Sales\OfferController@store']);
-                //Route::get('show/{id}', ['as' => 'promocondition.show', 'uses' => 'Investigation\Promocondition\PromoconditionController@show']);
+                Route::get('show/{id}', ['as' => 'offer.show', 'uses' => 'Sales\OfferController@show']);
                 Route::get('edit/{id}', ['as' => 'offer.edit', 'uses' => 'Sales\OfferController@edit']);
                 Route::post('edit/{id}', ['as' => 'offer.update', 'uses' => 'Sales\OfferController@update']);
                 Route::get('delete/{id}', ['as' => 'offer.delete', 'uses' => 'Sales\OfferController@destroy']);
                 Route::get('/findProducts', ['as' => 'offer.findProducts', 'uses' => 'Sales\OfferController@findProducts']);
                 Route::get('/findProductsInEdit', ['as' => 'offer.findProductsInEdit', 'uses' => 'Sales\OfferController@findProductsInEdit']);
                 Route::get('/findPrice', ['as' => 'offer.findPrice', 'uses' => 'Sales\OfferController@findPrice']);
+                Route::get('copy/{id}', ['as' => 'offer.copy', 'uses' => 'Sales\OfferController@copy']);               
                 
+            });
+
+            //Administrar pedidos de venta
+
+            Route::group(['prefix' => 'pedidos-de-venta'], function(){                    
+                Route::get('/', ['as' => 'salesorder.index', 'uses' => 'Sales\SalesorderController@index']);
+                Route::get('create', ['as' => 'salesorder.create', 'uses' => 'Sales\SalesorderController@create']);
+                Route::post('create', ['as' => 'salesorder.store', 'uses' => 'Sales\SalesorderController@store']);                
+                //Route::get('show/{id}', ['as' => 'promocondition.show', 'uses' => 'Investigation\Promocondition\PromoconditionController@show']);
+                Route::get('edit/{id}', ['as' => 'salesorder.edit', 'uses' => 'Sales\SalesorderController@edit']);
+                Route::post('edit/{id}', ['as' => 'salesorder.update', 'uses' => 'Sales\SalesorderController@update']);
+                Route::get('delete/{id}', ['as' => 'salesorder.delete', 'uses' => 'Sales\SalesorderController@destroy']);
+                Route::get('/findProducts', ['as' => 'salesorder.findProducts', 'uses' => 'Sales\SalesorderController@findProducts']);
+                Route::get('/findProductsInEdit', ['as' => 'salesorder.findProductsInEdit', 'uses' => 'Sales\SalesorderController@findProductsInEdit']);
+                Route::get('/findPrice', ['as' => 'salesorder.findPrice', 'uses' => 'Sales\SalesorderController@findPrice']);
+                Route::get('convertir-proforma/{id}', ['as' => 'salesorder.createFromOffer', 'uses' => 'Sales\SalesorderController@createFromOffer']);
+                Route::post('convertir-proforma', ['as' => 'salesorder.storeFromOffer', 'uses' => 'Sales\SalesorderController@storeFromOffer']);
             });
 
 });

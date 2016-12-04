@@ -18,32 +18,24 @@
                         Datos de la proforma
                     </div>
                     <div class="panel-body">                        
-                        {{Form::open(['route' => ['offer.update', $offer->id], 'id'=>'formSuggestion'])}}
+                        
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Numeración</label>
-                                        <input value="{{$offer->numeracion}}" readonly="readonly" class="form-control" name="numeracion" maxlength="50">
+                                        <input readonly="readonly" value="{{$offer->numeracion}}" readonly="readonly" class="form-control" name="numeracion" maxlength="50">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Cliente</label>
-                                        <select class="form-control" name="cliente" id="cliente">                                           
+                                        <select readonly="readonly" class="form-control" name="cliente" id="cliente">                                           
                                             <option value="0">Seleccione</option>
-                                            @foreach($customers as $customer)
-                                                @if($offer->customer)                                    
-                                                    @if($customer->tipo_contribuyente == 1)
-                                                        <option value="{{$customer->id}}" @if($customer->id==$offer->customer->id) selected @endif > {{$customer->nombre}} {{$customer->apellido_paterno}} - {{$customer->numero_documento}}</option>                                    
-                                                    @else
-                                                        <option value="{{$customer->id}}" @if($customer->id==$offer->customer->id) selected @endif > {{$customer->razon_social}} - {{$customer->ruc}}</option>                                    
-                                                    @endif
+                                            @foreach($customers as $customer)                                    
+                                                @if($customer->tipo_contribuyente == 1)
+                                                    <option value="{{$customer->id}}" @if($customer->id==$offer->customer->id) selected @endif > {{$customer->nombre}} {{$customer->apellido_paterno}} - {{$customer->numero_documento}}</option>                                    
                                                 @else
-                                                    @if($customer->tipo_contribuyente == 1)
-                                                        <option value="{{$customer->id}}" > {{$customer->nombre}} {{$customer->apellido_paterno}} - {{$customer->numero_documento}}</option>                                    
-                                                    @else
-                                                        <option value="{{$customer->id}}" > {{$customer->razon_social}} - {{$customer->ruc}}</option>                                    
-                                                    @endif
+                                                    <option value="{{$customer->id}}" @if($customer->id==$offer->customer->id) selected @endif > {{$customer->razon_social}} - {{$customer->ruc}}</option>                                    
                                                 @endif
                                             @endforeach  
                                         </select>
@@ -54,14 +46,14 @@
                                 <div class="form-group col-lg-6">
                                     {{Form::label('Fecha inicio ',null, ['class'=>'control-label'] )}}                                    
                                     <div class="input-group date" id="fecha_inicio">
-                                        <input value="{{$offer->fecha_inicio}}" type="text" class="form-control input-date" name="fecha_inicio" placeholder="aaaa-mm-dd" maxlength="10" required/>
+                                        <input readonly="readonly" value="{{$offer->fecha_inicio}}" type="text" class="form-control input-date" name="fecha_inicio" placeholder="aaaa-mm-dd" maxlength="10" required/>
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                     </div>                                      
                                 </div>
                                 <div class="form-group col-lg-6">
                                     {{Form::label('Fecha fin ',null,['class'=>'control-label'])}}                                    
                                     <div class="input-group date" id="fecha_fin">
-                                        <input value="{{$offer->fecha_fin}}" type="text" class="form-control input-date" name="fecha_fin" placeholder="aaaa-mm-dd" maxlength="10" required/>
+                                        <input readonly="readonly" value="{{$offer->fecha_fin}}" type="text" class="form-control input-date" name="fecha_fin" placeholder="aaaa-mm-dd" maxlength="10" required/>
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                     </div>                                      
                                 </div>
@@ -70,17 +62,9 @@
                                 <div class="col-lg-6"> 
                                     <div class="form-group">                                   
                                         <label>Comentario</label>
-                                        <textarea style="resize:none;"class="form-control none-resisable" rows="3" placeholder="Descripción" name="descripcion">{{$offer->descripcion}}</textarea>    
+                                        <textarea readonly="readonly" style="resize:none;"class="form-control none-resisable" rows="3" placeholder="Descripción" name="descripcion">{{$offer->descripcion}}</textarea>    
                                     </div>
-                                </div>
-                                <div class="col-lg-6"> 
-                                    <label>Detalle de proforma</label>                                                                          
-                                    <div class="form-group"> 
-                                        <a id="add_promocion" class="btn btn-success">Agregar promoción</a>
-                                        <a id="add" class="btn btn-warning">Agregar detalle</a>
-                                        <a id="remove" class="btn btn-danger">Eliminar detalle</a>
-                                    </div>                                    
-                                </div>    
+                                </div>                                
                             </div>
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -94,7 +78,7 @@
                                             <div class="col-lg-2">
                                                 <div class="form-group">
                                                     @if( $key == 0 ) <label>Categoría de producto</label> @endif
-                                                    <select class="form-control" name="categoryproduct[{{$key+1}}]" id="categoryproduct_{{$key + 1}}">                                           
+                                                    <select readonly="readonly" class="form-control" name="categoryproduct[{{$key+1}}]" id="categoryproduct_{{$key + 1}}">                                           
                                                         <option value="0">Seleccione</option>
                                                         @foreach($categoryproducts as $categoryproduct)                                    
                                                             <option value="{{$categoryproduct->id}}" @if($categoryproduct->id==$offer->offerdetails[$key]->product->category->id) selected @endif >{{$categoryproduct->name}}</option>                                    
@@ -105,8 +89,8 @@
                                             <div class="col-lg-2">
                                                 <div class="form-group">
                                                     @if( $key == 0 ) <label>Producto</label> @endif
-                                                    <select class="form-control" name="product[{{$key+1}}]" id="product_{{$key + 1}}">                                           
-                                                        <option value="0">Seleccione</option>                                            
+                                                    <select readonly="readonly" class="form-control" name="product[{{$key+1}}]" id="product_{{$key + 1}}">                                           
+                                                        <option readonly="readonly" value="0">Seleccione</option>                                            
                                                     </select>
                                                 </div>
                                             </div>                                                               
@@ -115,7 +99,7 @@
                                                     @if( $key == 0 ) <label>Cantidad</label> @endif
                                                     <div class="form-group input-group">
                                                         <span class="input-group-addon">u</span>
-                                                        <input value="{{$offer->offerdetails[$key]->cantidad}}" max="999" type="number" class="form-control" name="cantidad[{{$key+1}}]" id="cantidad_{{$key + 1}}" placeholder="Cantidad" >
+                                                        <input readonly="readonly" value="{{$offer->offerdetails[$key]->cantidad}}" max="999" type="number" class="form-control" name="cantidad[{{$key+1}}]" id="cantidad_{{$key + 1}}" placeholder="Cantidad" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -155,7 +139,7 @@
                             <div class="row">
                                 <div class="pull-right col-lg-3"> 
                                     <div class="form-group">                                   
-                                        <input value="{{$offer->descuento_manual}}" class="form-control" name="descuento_manual" id="descuento_manual" placeholder="Descuento Manual" maxlength="7">
+                                        <input value="{{$offer->descuento_manual}}" readonly="readonly" class="form-control" name="descuento_manual" id="descuento_manual" placeholder="Descuento Manual" maxlength="7">
                                     </div>
                                 </div>
                                 <div class="pull-right col-lg-1">
@@ -193,13 +177,12 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-12">                                    
-                                    {{Form::submit('Guardar', ['class'=>'btn btn-success pull-right'])}}                                      
+                                <div class="col-lg-12">                                                                        
                                     <a href="{{route('offer.index')}}" class="btn btn-default pull-right">Cancelar</a>                                      
                                 </div>
                             </div>
                                 
-                        {{Form::close()}}
+                        
                     </div>                              
                 </div>
             </div>                              
@@ -290,7 +273,7 @@ $(document).ready(function($) {
     $("#remove").click(function() {
         var x = $("#remove").attr('readonly="readonly"');
         if (typeof x !== typeof undefined && x !== false) {return;  }
-        if(n=={{count($offerdetails)}} +1 ){return}
+        if(n==2){return}
             $(".promoLine:last-child").remove();
         n--;
         calcularTotal();

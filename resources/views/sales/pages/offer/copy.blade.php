@@ -18,12 +18,12 @@
                         Datos de la proforma
                     </div>
                     <div class="panel-body">                        
-                        {{Form::open(['route' => ['offer.update', $offer->id], 'id'=>'formSuggestion'])}}
+                        {{Form::open(['route' => 'offer.store', 'id'=>'formSuggestion'])}}
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Numeración</label>
-                                        <input value="{{$offer->numeracion}}" readonly="readonly" class="form-control" name="numeracion" maxlength="50">
+                                        <input value="{{$numeracion}}" readonly="readonly" class="form-control" name="numeracion" maxlength="50">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -54,7 +54,7 @@
                                 <div class="form-group col-lg-6">
                                     {{Form::label('Fecha inicio ',null, ['class'=>'control-label'] )}}                                    
                                     <div class="input-group date" id="fecha_inicio">
-                                        <input value="{{$offer->fecha_inicio}}" type="text" class="form-control input-date" name="fecha_inicio" placeholder="aaaa-mm-dd" maxlength="10" required/>
+                                        <input type="text" class="form-control input-date" name="fecha_inicio" placeholder="aaaa-mm-dd" maxlength="10" required/>
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                     </div>                                      
                                 </div>
@@ -89,8 +89,7 @@
                                 <div class="panel-body">                                                                                   
                                     <div id="promotion">
                                         @foreach( $offerdetails as $key => $offerdetail)
-                                        <div class="row">  
-                                            <input hidden name="idofferdetail[{{$key+1}}]" value="{{$offer->offerdetails[$key]->id}}"></input>                                                          
+                                        <div class="row">                                              
                                             <div class="col-lg-2">
                                                 <div class="form-group">
                                                     @if( $key == 0 ) <label>Categoría de producto</label> @endif
@@ -209,6 +208,10 @@
 <script src="{{ URL::asset('build/js/sales/offer.js')}}"></script>
 <script type="text/javascript">
 $(document).ready(function($) {
+    
+    var date = new Date();
+    
+    $("#fecha_inicio").datepicker("setDate", date);
     
     @foreach( $offerdetails as $key => $offerdetail)
         $.ajax({

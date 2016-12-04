@@ -46,30 +46,44 @@
                                         <th>Fecha inicio</th> 
                                         <th>Fecha fin</th> 
                                         <th>Estado</th> 
-                                        <th colspan="2">Acciones</th>
+                                        <th colspan="4">Acciones</th>
                                     </tr> 
                                 </thead> 
                                 <tbody> 
                                     @foreach($offers as $key => $offer)                                    
                                     <tr> 
                                         <td>{{ $offer->numeracion }}</td>                                                                                 
-                                        @if($offer->customer->tipo_contribuyente == 1) 
-                                            <td>{{ $offer->customer->nombre }}</td>                                                                                 
+                                        @if($offer->customer)
+                                            @if( $offer->customer->tipo_contribuyente == 1 ) 
+                                                <td>{{ $offer->customer->nombre }}</td>                                                                                 
+                                            @else
+                                                <td>{{ $offer->customer->razon_social }}</td>                                                                                 
+                                            @endif
                                         @else
-                                            <td>{{ $offer->customer->razon_social }}</td>                                                                                 
+                                            <td>-</td>
                                         @endif
                                         <td>{{ round($offer->total,1) }}</td>                                         
                                         <td>{{ $offer->fecha_inicio }}</td>
                                         <td>{{ $offer->fecha_fin }}</td> 
                                         @if ( $offer->estado == 1)
                                             <td>Vigente</td>
-                                        else
+                                        @else
                                             <td>Vencida</td>
                                         @endif
                                         <td>
                                             <a href="{{route('offer.edit', $offer->id)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
                                             
                                             <a href="" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#{{$offer->id}}" title="Eliminar"><i class="fa fa-remove"></i></a>
+                                            
+                                            <a href="{{route('offer.copy', $offer->id)}}" class="btn btn-primary btn-xs" title="Copiar">
+                                                <i class="fa fa-copy"></i>
+                                            </a> 
+                                            
+                                            @if( $offer->estado == 1) 
+                                                <a href="{{route('salesorder.createFromOffer', $offer->id)}}" class="btn btn-primary btn-xs" title="Convertir">
+                                                    <i class="fa fa-hand-o-right"></i>
+                                                </a> 
+                                            @endif
                                             
                                         </td>
                                     </tr> 

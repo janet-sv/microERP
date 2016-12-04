@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFkToOfferdetailsTable extends Migration
+class AddFkToSalesorderdetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,13 @@ class AddFkToOfferdetailsTable extends Migration
      */
     public function up()
     {
-        Schema::table('offerdetails', function (Blueprint $table) {
+        Schema::table('salesorderdetails', function (Blueprint $table) {
             $table->integer('id_promocion')->unsigned()->nullable();            
             $table->integer('id_producto')->unsigned();
-            $table->integer('id_proforma')->unsigned();
+            $table->integer('id_pedido_venta')->unsigned();
             $table->foreign('id_promocion')->references('id')->on('promotions');
             $table->foreign('id_producto')->references('id')->on('products');            
-            $table->foreign('id_proforma')->references('id')->on('offers');
+            $table->foreign('id_pedido_venta')->references('id')->on('salesorders');
         });
     }
 
@@ -29,10 +29,10 @@ class AddFkToOfferdetailsTable extends Migration
      */
     public function down()
     {
-        Schema::table('offerdetails', function (Blueprint $table) {
+        Schema::table('salesorderdetails', function (Blueprint $table) {
             $table->dropForeign(['id_promocion'])->onDelete('cascade');
             $table->dropForeign(['id_producto'])->onDelete('cascade');
-            $table->dropForeign(['id_proforma'])->onDelete('cascade');
+            $table->dropForeign(['id_pedido_venta'])->onDelete('cascade');
         });
     }
 }

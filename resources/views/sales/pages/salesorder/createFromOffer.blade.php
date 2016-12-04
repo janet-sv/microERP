@@ -7,7 +7,7 @@
 <section class="home-container">    
         <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Proformas</h1>
+                    <h1 class="page-header">Pedidos de venta</h1>
                 </div>
                 <!-- /.col-lg-12 -->
         </div>
@@ -15,15 +15,15 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Datos de la proforma
+                        Datos del pedido de venta
                     </div>
                     <div class="panel-body">                        
-                        {{Form::open(['route' => ['offer.update', $offer->id], 'id'=>'formSuggestion'])}}
+                        {{Form::open(['route' => 'salesorder.store', 'id'=>'formSuggestion'])}} 
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Numeración</label>
-                                        <input value="{{$offer->numeracion}}" readonly="readonly" class="form-control" name="numeracion" maxlength="50">
+                                        <input value="{{$numeracion}}" readonly="readonly" class="form-control" name="numeracion" maxlength="50">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -51,30 +51,23 @@
                                 </div>                                                                          
                             </div>        
                             <div class="row">
-                                <div class="form-group col-lg-6">
-                                    {{Form::label('Fecha inicio ',null, ['class'=>'control-label'] )}}                                    
-                                    <div class="input-group date" id="fecha_inicio">
-                                        <input value="{{$offer->fecha_inicio}}" type="text" class="form-control input-date" name="fecha_inicio" placeholder="aaaa-mm-dd" maxlength="10" required/>
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                    </div>                                      
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    {{Form::label('Fecha fin ',null,['class'=>'control-label'])}}                                    
-                                    <div class="input-group date" id="fecha_fin">
-                                        <input value="{{$offer->fecha_fin}}" type="text" class="form-control input-date" name="fecha_fin" placeholder="aaaa-mm-dd" maxlength="10" required/>
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                    </div>                                      
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-lg-6"> 
                                     <div class="form-group">                                   
                                         <label>Comentario</label>
                                         <textarea style="resize:none;"class="form-control none-resisable" rows="3" placeholder="Descripción" name="descripcion">{{$offer->descripcion}}</textarea>    
                                     </div>
                                 </div>
+                                <div class="form-group col-lg-6">
+                                    {{Form::label('Fecha creacion ',null, ['class'=>'control-label'] )}}                                    
+                                    <div class="input-group date" id="fecha_inicio">
+                                        <input type="text" class="form-control input-date" name="fecha_creacion" placeholder="aaaa-mm-dd" maxlength="10" required/>
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>                                      
+                                </div>                                
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-6"> 
-                                    <label>Detalle de proforma</label>                                                                          
+                                    <label>Detalle del pedido de venta</label>                                                                          
                                     <div class="form-group"> 
                                         <a id="add_promocion" class="btn btn-success">Agregar promoción</a>
                                         <a id="add" class="btn btn-warning">Agregar detalle</a>
@@ -89,8 +82,7 @@
                                 <div class="panel-body">                                                                                   
                                     <div id="promotion">
                                         @foreach( $offerdetails as $key => $offerdetail)
-                                        <div class="row">  
-                                            <input hidden name="idofferdetail[{{$key+1}}]" value="{{$offer->offerdetails[$key]->id}}"></input>                                                          
+                                        <div class="row">                                              
                                             <div class="col-lg-2">
                                                 <div class="form-group">
                                                     @if( $key == 0 ) <label>Categoría de producto</label> @endif
@@ -185,7 +177,7 @@
                             <div class="row">
                                 <div class="pull-right col-lg-3"> 
                                     <div class="form-group">                                   
-                                        <input value="{{$offer->total}}" readonly="readonly" class="form-control" name="total_proforma" id="total_proforma" placeholder="Total" maxlength="50">
+                                        <input value="{{$offer->total}}" readonly="readonly" class="form-control" name="total_pedido_venta" id="total_pedido_venta" placeholder="Total" maxlength="50">
                                     </div>                                   
                                 </div>    
                                 <div class="pull-right col-lg-1">
@@ -206,14 +198,14 @@
         </div>  
 </section>
 
-<script src="{{ URL::asset('build/js/sales/offer.js')}}"></script>
+<script src="{{ URL::asset('build/js/sales/salesorder.js')}}"></script>
 <script type="text/javascript">
 $(document).ready(function($) {
     
     @foreach( $offerdetails as $key => $offerdetail)
         $.ajax({
             method: 'GET',
-            url: "{{ route('offer.findProductsInEdit')}}",            
+            url: "{{ route('salesorder.findProductsInEdit')}}",            
             data: {
                 option: $('#categoryproduct_{{$key+1}}').val(), 
                 idProduct: {{$offer->offerdetails[$key]->product->id}},
@@ -300,7 +292,7 @@ $(document).ready(function($) {
         var id = this.id.split('_')[1];            
         $.ajax({
             method: 'GET',
-            url: "{{ route('offer.findProducts')}}",            
+            url: "{{ route('salesorder.findProducts')}}",            
             data: {
                 option: $('#categoryproduct_'+ id).val(),                     
             },
@@ -322,7 +314,7 @@ $(document).ready(function($) {
         $('#cantidad_' + id).val(1);        
         $.ajax({
             method: 'GET',
-            url: "{{ route('offer.findPrice')}}",            
+            url: "{{ route('salesorder.findPrice')}}",            
             data: {
                 option: idProduct,
                 cliente: idCustomer                    
@@ -352,7 +344,7 @@ $(document).ready(function($) {
 
         $.ajax({
             method: 'GET',
-            url: "{{ route('offer.findPrice')}}",            
+            url: "{{ route('salesorder.findPrice')}}",            
             data: {
                 option: idProduct,
                 cliente: idCustomer                    
@@ -391,7 +383,7 @@ $(document).ready(function($) {
 
         $('#sub_total').attr("value", parseFloat(sub_total).toFixed(1));   
         $('#igv').attr("value", parseFloat(igv).toFixed(1));   
-        $('#total_proforma').attr("value", parseFloat(total).toFixed(1) ); 
+        $('#total_pedido_venta').attr("value", parseFloat(total).toFixed(1) ); 
     }
 });
 

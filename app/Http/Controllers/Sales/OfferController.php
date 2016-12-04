@@ -70,11 +70,15 @@ class OfferController extends Controller
     public function store(OfferRequest $request)
     {
         try {
+            $id_cliente = null;
+            if( $request['cliente'] != 0)
+                $id_cliente = $request['cliente'];
+
             $offer                   = new Offer;
             $offer->estado           = 1;
             $offer->id_sociedad      = 1;
             $offer->numeracion       = $request['numeracion'];
-            $offer->id_cliente       = $request['cliente'];
+            $offer->id_cliente       = $id_cliente;
             $offer->descripcion      = $request['descripcion'];            
             $offer->fecha_inicio     = $request['fecha_inicio'];
             $offer->fecha_fin        = $request['fecha_fin'];                        
@@ -110,12 +114,21 @@ class OfferController extends Controller
      */
     public function show($id)
     {
-        $offer = Promotion::find($id);
+        $offerdetails = DB::table('offerdetails')
+                                ->where('id_proforma', $id)
+                                ->get();
+        $offer = Offer::find($id);                                
+        $categoryproducts = ProductCategory::get();        
+        $products         = Product::get();
+        $customers        = Customer::get();
 
         $data = [
-            'offer'    =>  $offer,
+            'offerdetails'     => $offerdetails,
+            'offer'            => $offer,
+            'categoryproducts' => $categoryproducts,
+            'products'         => $products,
+            'customers'        => $customers,
         ];
-
         return view('sales.pages.offer.show', $data);
     }
 
@@ -156,11 +169,15 @@ class OfferController extends Controller
     public function update(OfferRequest $request, $id)
     {
         try {
+            $id_cliente = null;
+            if( $request['cliente'] != 0)
+                $id_cliente = $request['cliente'];
+
             $offer = Offer::find($id);            
             $offer->estado           = 1;
             $offer->id_sociedad      = 1;
             $offer->numeracion       = $request['numeracion'];
-            $offer->id_cliente       = $request['cliente'];
+            $offer->id_cliente       = $id_cliente;
             $offer->descripcion      = $request['descripcion'];            
             $offer->fecha_inicio     = $request['fecha_inicio'];
             $offer->fecha_fin        = $request['fecha_fin'];                        
@@ -312,5 +329,29 @@ class OfferController extends Controller
         
         return response()->json( $data );         
         
+    }
+
+    public function copy($id)
+    {
+        $offerdetails = DB::table('offerdetails')
+                                ->where('id_proforma', $id)
+                                ->get();
+        $offer = Offer::find($id);                                
+        $categoryproducts = ProductCategory::get();        
+        $products         = Product::get();
+        $customers        = Customer::get();
+        $numeracion       = count(Offer::get());
+        $numeracion      += +1;        
+
+        $data = [
+            'offerdetails'     => $offerdetails,
+            'offer'            => $offer,
+            'categoryproducts' => $categoryproducts,
+            'products'         => $products,
+            'customers'        => $customers,
+            'numeracion'       => $numeracion,
+        ];
+
+        return view('sales.pages.offer.copy', $data);
     }
 }

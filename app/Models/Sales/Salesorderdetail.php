@@ -5,9 +5,9 @@ namespace App\Models\Sales;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Offerdetail extends Model
+class Salesorderdetail extends Model
 {
-   	use SoftDeletes;
+    use SoftDeletes;
 
    	public function promotion(){
         return $this->belongsTo('App\Models\Sales\Promotion', 'id_promocion');
@@ -15,7 +15,7 @@ class Offerdetail extends Model
     public function product(){
         return $this->belongsTo('App\Models\Logistic\Product\Product', 'id_producto');
   	}
-  	public function offer(){
-          return $this->belongsTo('App\Models\Sales\Offer', 'id_offer');
+  	public function salesorder(){
+          return $this->belongsTo('App\Models\Sales\Salesorder', 'id_pedido_venta');
     }
 }

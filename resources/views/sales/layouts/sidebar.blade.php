@@ -16,7 +16,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-money fa-fw"></i> Precio de lista<span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-money fa-fw"></i> Precios de lista<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="{{ route('listprice.create') }}">Nuevo</a>
@@ -65,7 +65,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-file-o fa-fw"></i> Proforma<span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-file-o fa-fw"></i> Proformas<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="{{route('offer.create')}}">Nuevo</a>
@@ -79,7 +79,18 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Pedido de venta<span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Pedidos de venta<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{route('salesorder.create')}}">Nuevo</a>
+                    </li>                    
+                    <li>
+                        <a href="{{route('salesorder.index')}}">Consultar</a>
+                    </li>                                    
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Reportes<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="#">Nuevo</a>
@@ -88,7 +99,7 @@
                         <a href="#">Consultar</a>
                     </li>                                    
                 </ul>
-            </li>            
+            </li>             
         </ul>
     </div>
 </div>
