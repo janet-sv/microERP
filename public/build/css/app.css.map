@@ -1,0 +1,10 @@
+{
+	"version": 3,
+	"file": "app.css",
+	"sources": [
+		"../../../resources/assets/scss/app.scss",
+		"../../../resources/assets/scss/logistic/pages/_product-category.scss"
+	],
+	"mappings": "ACAA,AAAoB,mBAAD,CAAC,IAAI,CAAC;EACxB,UAAU,EAAE,IAAK,GACjB;;AAED,AAAmB,kBAAD,CAAC,KAAK,CAAC;EACxB,WAAW,EAAE,MAAO,GACpB;;AAED,AAAmB,kBAAD,CAAC,MAAM,CAAC;EACzB,WAAW,EAAE,GAAI;EACjB,YAAY,EAAE,GAAI,GAClB;;AAED,AAAmB,kBAAD,CAAC,KAAK,CAAC;EACxB,WAAW,EAAE,MAAO,GACpB;;AAED,AAAmB,kBAAD,CAAC,KAAK,CAAC;EACxB,WAAW,EAAE,GAAI,GACjB",
+	"names": []
+}
