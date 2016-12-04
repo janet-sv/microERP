@@ -10,11 +10,15 @@ class Product extends Model
 
     public function category() 
     {
-    	return $this->belongsTo('App\Model\Logistic\ProductCategory\ProductCategory', 'id_category');
+    	return $this->belongsTo('App\Models\Logistic\ProductCategory\ProductCategory', 'id_category');
     }
 
     public function trademark() 
     {
-    	return $this->belongsTo('App\Model\Purchase\Trademark\Trademark', 'id_trademark');
+    	return $this->belongsTo('App\Models\Purchase\Trademark\Trademark', 'id_trademark');
+    }
+
+    public function listprices(){
+        return $this->hasMany('App\Models\Sales\Listprice', 'id_producto');
     }
 }
