@@ -11,6 +11,8 @@
 	<link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link type="text/css" href="/build/css/app.css" rel="stylesheet">
 	<title>MicroERP | @yield('title')</title>
+	<script src="/vendor/jquery/jquery.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 	@include('logistic.layouts.header')
@@ -19,10 +21,9 @@
 	</div>
 	@include('logistic.layouts.footer')
 	
-	<script src="/vendor/jquery/jquery.min.js"></script>
-	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/vendor/metisMenu/metisMenu.min.js"></script>
 	<script src="/vendor/sb-admin-2/js/sb-admin-2.min.js"></script>
+
 	<script type="text/javascript" src="/build/js/app.js"></script>
 </body>
 </html>

@@ -16,21 +16,16 @@
                 <a href="#"><i class="fa fa-sitemap fa-fw"></i> Administraciones<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="#">Almacenes</a>
+                        <a href="{{ route('logistic.warehouse.index') }}">Almacenes</a>
                     </li>
                     <li>
-                        <a href="#">Secciones</a>
+                        <a href="{{ route('logistic.section.index') }}">Secciones</a>
                     </li>
                     <li>
                         <a href="#">Productos</a>
                     </li>
                     <li>
-                        <a href="#">Categorías de Productos <span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li>
-                                <a href="#">Third Level Item</a>
-                            </li>
-                        </ul>
+                        <a href="{{ route('logistic.product_category.index') }}">Categorías de Productos</a>
                     </li>
                 </ul>
             </li>
