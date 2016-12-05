@@ -204,11 +204,12 @@ error_log($regis->code);
         $customers         = Customer::get();
         $document_types    = Document_type::take(3)->get();
         $date              = date("Y-m-d", time());
-        $days              = $salesorder->customer->plazo_credito;
+        if( $salesorder->customer )
+            $days = $salesorder->customer->plazo_credito;
+        else
+            $days = 0;
         $fecha_vencimiento = date("Y-m-d", strtotime($date . '+' . $days . 'day'));
         
-
-
         $data = [
             'salesorderdetails' => $salesorderdetails,
             'salesorder'        => $salesorder,
