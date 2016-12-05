@@ -12,7 +12,7 @@ class PurchasesInvoice extends Model
 
    protected  $fillable= [
       'id','document_id','provider_id', 'date_invoice', 'number' , 'date_due', 'amount_total_signed',
-      'residual_signed', 'state_id','reference',
+      'residual_signed','subtotal','igv', 'state_id','reference',
    ];
 
    public function provider()
@@ -20,9 +20,9 @@ class PurchasesInvoice extends Model
       return $this->hasmany(Provider::class);
     }  
 
- public function invoicedetailpurchase()
+ public function detailpurchase()
    {
-      return $this->belongsto(InvoiceDetailPurchase::class);
+      return $this->belongsto(Detailpurchase::class);
     }
     
      public function document_type()

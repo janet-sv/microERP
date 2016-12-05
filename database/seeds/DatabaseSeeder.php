@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
           $this->call(SocietysTableSeeder::class);
           $this->call(UserTableSeeder::class);
           $this->call(Document_typeTableSeeder::class);
+          $this->call(StateinvoiceTableSeeder::class);
           $this->call(PartnerTableSeeder::class);
           $this->call(SalesInvoiceTableSeeder::class);
           $this->call(ProviderTableSeeder::class);
@@ -27,7 +28,10 @@ class DatabaseSeeder extends Seeder
           $this->call(BankTableSeeder::class);
           $this->call(TaxesTableSeeder::class);
           $this->call(AccountsplanTableSeeder::class);
+
           $this->call(StateinvoiceTableSeeder::class);
+          $this->call(DetailpurchaseTableSeeder::class);
+          $this->call(DetailsalesTableSeeder::class);
 
 
 
@@ -37,11 +41,7 @@ class DatabaseSeeder extends Seeder
           $this->call(PromoconditionsTableSeeder::class);
           $this->call(CategoryproductsalesTableSeeder::class);
           $this->call(ProductsalesTableSeeder::class);
-          $this->call(ListpricesTableSeeder::class);
-
-          
-
-
+          $this->call(ListpricesTableSeeder::class);          
 
     }
 }

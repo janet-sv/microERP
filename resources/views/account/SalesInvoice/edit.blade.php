@@ -25,23 +25,37 @@
                                 
                         <div class="container">
                          <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="col-xs-12 col-sm-4 col-md-4">
                                 <div class="form-group">
                                     {!!form::label('Tipo de documento')!!}
                                        {!! Form::select('document_id',$Document_type,null,['id'=>'document_id','class'=>'form-control'],['readonly']) !!}
                                </div>
                             </div>
-                            
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="col-xs-12 col-sm-4 col-md-4">
                                 <div class="form-group">
                        
                                     {!!form::label('Numero de Factura')!!}
                                     {!!form::text('number',null,['id'=>'number','class'=>'form-control','placeholder'=>'Numero de Factura' ,'readonly' => 'true'])!!}
                                </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                 <div class="form-group">
+                       
+                                        {!!form::label('Referencia')!!}
+                                       {!!form::text('reference',null,['id'=>'reference','class'=>'form-control','readonly' => 'true'])!!}
+                                   </div>
+                                  
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                  <div class="form-group">
+                                      {!!form::label('Cliente')!!}
+                                       {!! Form::select('partner_id',$Partners,null,['id'=>'partner_id','class'=>'form-control'],['readonly']) !!}
+                                    
+                                 </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
                                   <div class="form-group">
                        
                                       {!!form::label('Estado')!!}
@@ -49,19 +63,17 @@
 
                                  </div>
                             </div>
-
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                  <div class="form-group">
-                                      {!!form::label('Cliente')!!}
-                                       {!! Form::select('partner_id',$Partners,null,['id'=>'partner_id','class'=>'form-control'],['readonly']) !!}
-                                    
-                                 </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                 <div class="form-group">
+                       
+                                        {!!form::label('Usuario')!!}
+                                        {!! Form::select('user_id',$users,null,['id'=>'user_id','class'=>'form-control']) !!}
+                                   </div>
+                                  
                             </div>
-                           
 
                           </div>
+                         
                           <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                    <div class="form-group">
@@ -78,29 +90,47 @@
                             </div>
 
                           </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                 <div class="form-group">
-                       
-                                        {!!form::label('Usuario')!!}
-                                        {!! Form::select('user_id',$users,null,['id'=>'user_id','class'=>'form-control']) !!}
-                                   </div>
-                                  
-                            </div>
+
+                          <div class="row col-xs-12 col-sm-12 col-md-12">
+                              
+                              <div class="panel panel-primary ">
+                                <div class="panel-heading">Panel with panel-primary class</div>
+                                <div class="panel-body">
+                                      
+                                     <table class="table table-hover">
+                                          <thead>
+                                            <tr>
+                                              <th>Item</th>
+                                              <th>Cuenta</th>
+                                              <th>Cantidad</th>
+                                              <th>Precio Unitario</th>
+                                              <th>Importe</th>
+                                            </tr>
+                                          </thead>
+                                           <tbody>
+                                              @foreach($details as $detail)
+                                                <tr class="row">
+                                                 
+                                                  <td>{{$detail->product}}</td>
+                                                  <td>{{$detail->account}}</td>
+                                                  <td>{{$detail->amount}}</td>
+                                                  <td>{{$detail->unitprice}}</td>
+                                                  <td>{{$detail->total}}</td>
+                                                 
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                    </table> 
+                                     <div class="text-center">
+                                         {!!$details->links()!!}
+                                     </div>
+
+
+                                </div>
+                              </div>
 
                           </div>
-                          <div class="row">
-                           <div class="col-xs-12 col-sm-6 col-md-6">
-                                 <div class="form-group">
-                       
-                                        {!!form::label('Referencia')!!}
-                                       {!!form::text('reference',null,['id'=>'reference','class'=>'form-control'])!!}
-                                   </div>
-                                  
-                            </div>
-                            
-
-                          </div>
+                         
 
                           <div class="row">
                             <div class="col-xs-12 col-sm-3 col-md-3">

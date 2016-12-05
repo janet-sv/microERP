@@ -7,22 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 class ProductStock extends Model
 {
    
-   protected $table      = 'productstock';
+   protected $table      = 'product';
    protected $primarykey = 'id';
    public    $timestamps = false;
 
    protected  $fillable= [
-      'id','name', 'description', 'stock' , 'unit price',
+      'id','name', 'description', 'stock' , 'unitprice',
    ];
 
    public function invoicedetailpurchase()
    {
-      return $this->belongsto(InvoiceDetailPurchase::class);
+      return $this->belongsto(Detailpurchase::class);
    }
 
    public function invoicedetailsales()
    {
-      return $this->belongsto(InvoiceDetailSales::class);
+      return $this->belongsto(DetailSales::class);
    }
 
 

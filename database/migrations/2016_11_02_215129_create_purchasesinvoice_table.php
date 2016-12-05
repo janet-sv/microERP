@@ -21,10 +21,10 @@ class CreatePurchasesinvoiceTable extends Migration
             $table->double('residual_signed', 6, 2);
             $table->double('subtotal', 6, 2);
             $table->double('igv', 6, 2);
-            $table->string('state');
             $table->integer('reference')->nullable();  
             $table->string('provider_id')->references('id')->on('provider');
             $table->string('document_id')->references('id')->on('document_type');
+            $table->string('state_id')->references('id')->on('stateinvoice');
         });
     }
 
