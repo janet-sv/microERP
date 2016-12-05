@@ -13,6 +13,7 @@ use App\User;
 use DB; 
 use Input;
 use App\Models\Account\AccountantSeat;
+use App\Models\Account\Stateinvoice;
 
 use App\Models\Sales\Salesorder;
 use App\Models\Sales\Salesorderdetail;
@@ -40,8 +41,9 @@ class SalesController extends Controller
     public function index()
     {
       $salesinvoices = SalesInvoice::
-                    select('salesinvoice.id','document_type.name as document','partner.name as client','partner.ruc as ruc','salesinvoice.date_invoice','salesinvoice.number','users.name as user','salesinvoice.date_due','salesinvoice.amount_total_signed','salesinvoice.residual_signed','salesinvoice.state','salesinvoice.reference')
+                    select('salesinvoice.id','document_type.name as document','partner.name as client','partner.ruc as ruc','salesinvoice.date_invoice','salesinvoice.number','users.name as user','salesinvoice.date_due','salesinvoice.amount_total_signed','salesinvoice.residual_signed','salesinvoice.state_id as state','salesinvoice.reference')
                     ->join('partner','partner.id','=','salesinvoice.partner_id')
+                    ->join('stateinvoice','stateinvoice.id','=','salesinvoice.state_id')
                     ->join('users','users.id','=','salesinvoice.user_id')
                     ->join('document_type','document_type.id','=','salesinvoice.document_id')
                     ->orderBy('id', 'desc')
@@ -64,8 +66,9 @@ class SalesController extends Controller
         $Partners = Partner::lists('name','id')->prepend('Seleccione al cliente');
         $Document_type = Document_type::whereNotIn('id', [4, 5,6])->lists('name','id')->prepend('Seleccioname el tipo de documento');
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
+        $state = Stateinvoice::lists('name','id')->prepend('Seleccionar estado');
         //return view('/account/SalesInvoice/create')->with('Partners',$Partners);
-           return view('/account/SalesInvoice/create', array('users'=>$users, 'Partners'=>$Partners,'invoices'=>$invoices , 'Document_type'=>$Document_type ));
+           return view('/account/SalesInvoice/create', array('users'=>$users, 'Partners'=>$Partners,'invoices'=>$invoices , 'Document_type'=>$Document_type ,'state'=>$state));
  
     }
     
@@ -151,9 +154,10 @@ error_log($regis->code);
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
         $Document_type = Document_type::whereNotIn('id', [4, 5,6])->lists('name','id')->prepend('Seleccioname el tipo de documento');
         $SalesInvoices = SalesInvoice::FindOrFail($id);
+        $state = Stateinvoice::lists('name','id')->prepend('Seleccionar estado');
 
        // return view('/account/SalesInvoice/edit');
-        return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices,'users'=>$users, 'Partners'=>$Partners , 'Document_type'=>$Document_type  ));
+        return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices,'users'=>$users, 'Partners'=>$Partners , 'Document_type'=>$Document_type ,'state'=>$state ));
 
     }
 

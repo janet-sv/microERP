@@ -11,7 +11,8 @@ use App\Models\Account\PurchasesInvoice;
 use App\Models\Account\Document_type;
 use App\User;
 use DB; 
-use App\Models\Account\AccountantSeat;
+use App\Models\Account\AccountantSeat; 
+use App\Models\Account\Stateinvoice;
 
 class PurchasesController extends Controller
 {
@@ -34,8 +35,9 @@ class PurchasesController extends Controller
     {
        
         $purchasesinvoices = PurchasesInvoice::
-                    select('purchasesinvoice.id','document_type.name as document','provider.name as provider','provider.ruc as ruc','purchasesinvoice.date_invoice','purchasesinvoice.number','purchasesinvoice.date_due','purchasesinvoice.amount_total_signed','purchasesinvoice.residual_signed','purchasesinvoice.state','purchasesinvoice.reference')
+                    select('purchasesinvoice.id','document_type.name as document','provider.name as provider','provider.ruc as ruc','purchasesinvoice.date_invoice','purchasesinvoice.number','purchasesinvoice.date_due','purchasesinvoice.amount_total_signed','purchasesinvoice.residual_signed','purchasesinvoice.state_id as state','purchasesinvoice.reference')
                     ->join('provider','provider.id','=','purchasesinvoice.provider_id')
+                    ->join('stateinvoice','stateinvoice.id','=','purchasesinvoice.state_id')
                     ->join('document_type','document_type.id','=','purchasesinvoice.document_id')
                     ->orderBy('id', 'desc')
                     ->paginate(5);
@@ -54,9 +56,11 @@ class PurchasesController extends Controller
     {
          $invoices = DB::table('purchasesinvoice')->count();
          $Document_type = Document_type::whereNotIn('id', [1, 2,3])->lists('name','id')->prepend('Seleccioname el tipo de documento');
-         $Providers = Provider::lists('name','id')->prepend('Seleccioname el proveedor');
+         $Providers = Provider::lists('name','id')->prepend('Seleccionar el proveedor');
+         $state = Stateinvoice::lists('name','id')->prepend('Seleccionar estado');
+     
+return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'invoices'=>$invoices,  'Document_type'=>$Document_type , 'state'=>$state  ));
 
-      return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'invoices'=>$invoices,  'Document_type'=>$Document_type  ));
     }
 
      public function findnumber(Request $request, $id)
@@ -142,8 +146,10 @@ error_log($regis->code);
         $Providers = Provider::lists('name','id')->prepend('Seleccioname el proveedor');
         $Document_type = Document_type::whereNotIn('id', [1, 2,3])->lists('name','id')->prepend('Seleccioname el tipo de documento');
         $PurchasesInvoices = PurchasesInvoice::FindOrFail($id);
+        $state = Stateinvoice::lists('name','id')->prepend('Seleccionar estado');
 
-        return view('/account/ShoppingInvoice/edit', array('PurchasesInvoices'=>$PurchasesInvoices,'Providers'=>$Providers, 'Document_type'=>$Document_type ));
+
+        return view('/account/ShoppingInvoice/edit', array('PurchasesInvoices'=>$PurchasesInvoices,'Providers'=>$Providers, 'Document_type'=>$Document_type, 'state'=>$state ));
 
     }
 

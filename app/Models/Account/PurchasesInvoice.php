@@ -12,7 +12,7 @@ class PurchasesInvoice extends Model
 
    protected  $fillable= [
       'id','document_id','provider_id', 'date_invoice', 'number' , 'date_due', 'amount_total_signed',
-      'residual_signed', 'state','reference',
+      'residual_signed', 'state_id','reference',
    ];
 
    public function provider()
@@ -29,6 +29,13 @@ class PurchasesInvoice extends Model
    {
       // hasmany - tiene muchas
       return $this->hasmany(Document_type::class);
+      
+   }
+   
+ public function stateinvoice()
+   {
+      // hasmany - tiene muchas
+      return $this->hasmany(Stateinvoice::class);
       
    }
 

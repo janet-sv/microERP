@@ -13,7 +13,7 @@ class SalesInvoice extends Model
 
    protected  $fillable= [
       'id','document_id','partner_id', 'date_invoice', 'number' , 'user_id','date_due', 'amount_total_signed',
-      'residual_signed', 'state', 'reference', 
+      'residual_signed', 'state_id', 'reference', 
    ];
 
 
@@ -37,6 +37,14 @@ class SalesInvoice extends Model
       
    }
 
+
+ public function stateinvoice()
+   {
+      // hasmany - tiene muchas
+      return $this->hasmany(Stateinvoice::class);
+      
+   }
+   
     public function invoicedetailsales()
    {
       return $this->belongsto(InvoiceDetailSales::class);

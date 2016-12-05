@@ -27,8 +27,7 @@ class DatabaseSeeder extends Seeder
           $this->call(BankTableSeeder::class);
           $this->call(TaxesTableSeeder::class);
           $this->call(AccountsplanTableSeeder::class);
-          
-
+          $this->call(StateinvoiceTableSeeder::class);
 
 
 
@@ -41,6 +40,8 @@ class DatabaseSeeder extends Seeder
           $this->call(ListpricesTableSeeder::class);
 
           
+
+
 
     }
 }
