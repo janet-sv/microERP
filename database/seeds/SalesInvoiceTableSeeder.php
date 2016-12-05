@@ -22,7 +22,7 @@ class SalesInvoiceTableSeeder extends Seeder
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '100.00',
             'residual_signed'  => '0.00',
-            'state'  => 'Abierto' ,
+            'state_id'  => '1',
             
         ]);
     	 DB::table('salesinvoice')->insert([
@@ -34,7 +34,7 @@ class SalesInvoiceTableSeeder extends Seeder
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '200.00',
             'residual_signed'  => '0.00',
-            'state'  => 'Abierto' ,
+            'state_id'  => '1',
             
         ]);
     	 DB::table('salesinvoice')->insert([
@@ -46,7 +46,7 @@ class SalesInvoiceTableSeeder extends Seeder
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '300.00',
             'residual_signed'  => '0.00',
-            'state'  => 'Abierto' ,
+            'state_id'  => '1',
             
         ]);
     	 DB::table('salesinvoice')->insert([
@@ -58,7 +58,7 @@ class SalesInvoiceTableSeeder extends Seeder
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '400.00',
             'residual_signed'  => '0.00',
-            'state'  => 'Abierto' ,
+            'state_id'  => '1',
             
         ]);
     	 DB::table('salesinvoice')->insert([
@@ -70,7 +70,7 @@ class SalesInvoiceTableSeeder extends Seeder
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '500.00',
             'residual_signed'  => '0.00',
-            'state'  => 'Abierto' ,
+            'state_id'  => '1',
             
         ]);
     	 DB::table('salesinvoice')->insert([
@@ -82,7 +82,7 @@ class SalesInvoiceTableSeeder extends Seeder
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '600.00',
             'residual_signed'  => '0.00',
-            'state'  => 'Abierto' ,
+            'state_id'  => '1',
             
         ]);
     }

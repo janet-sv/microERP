@@ -18,7 +18,7 @@ class StateinvoiceTableSeeder extends Seeder
         ]);
          DB::table('stateinvoice')->insert([
            
-            'name' => 'estado',
+            'name' => 'pagado',
                        
         ]);
 

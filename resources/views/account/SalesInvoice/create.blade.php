@@ -52,7 +52,7 @@
                                   <div class="form-group">
                        
                                       {!!form::label('Estado')!!}
-                                      {!!form::text('state',"Abierto",['id'=>'state','class'=>'form-control','placeholder'=>'Estado','readonly' => 'true'])!!}
+                                     {!! Form::select('state',$state,null,['id'=>'state','class'=>'form-control'],['readonly']) !!}
                                     
 
                                  </div>

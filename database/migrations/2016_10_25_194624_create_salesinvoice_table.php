@@ -19,12 +19,14 @@ class CreateSalesinvoiceTable extends Migration
             $table->date('date_due');
             $table->double('amount_total_signed', 6, 2);
             $table->double('residual_signed', 6, 2);
-            $table->string('state');
+            $table->double('subtotal', 6, 2);
+            $table->double('igv', 6, 2);
             $table->integer('reference')->nullable();            
             $table->string('partner_id')->references('id')->on('partner');
             $table->string('user_id')->references('id')->on('user');
             $table->string('document_id')->references('id')->on('document_type');
-
+            $table->string('state_id')->references('id')->on('stateinvoice');
+            
         });
     }
 

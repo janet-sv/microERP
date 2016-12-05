@@ -16,7 +16,7 @@ class CreateStateinvoiceTable extends Migration
          Schema::create('stateinvoice', function (Blueprint $table) {
             
             $table->increments('id');
-            $table->date('name');
+            $table->string('name');
             $table->string('desription');
            
                         
