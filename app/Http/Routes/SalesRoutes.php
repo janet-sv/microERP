@@ -123,4 +123,12 @@ Route::group(['prefix' => 'ventas'], function(){
                 Route::post('convertir-proforma', ['as' => 'salesorder.storeFromOffer', 'uses' => 'Sales\SalesorderController@storeFromOffer']);
             });
 
+            Route::group(['prefix' => 'documentos-de-venta'], function(){                    
+                Route::get('/', ['as' => 'salesinvoice.index', 'uses' => 'Account\Sales\SalesController@index']);                
+                Route::post('create', ['as' => 'salesinvoice.store', 'uses' => 'Account\Sales\SalesController@store']);                
+                Route::get('show/{id}', ['as' => 'salesinvoice.show', 'uses' => 'Account\Sales\SalesController@show']);
+                Route::get('convertir-pedido-de-venta/{id}', ['as' => 'salesinvoice.createFromSalesorder', 'uses' => 'Account\Sales\SalesController@createFromSalesorder']);                
+                Route::get('/findNumberDocument', ['as' => 'salesinvoice.findNumberDocument', 'uses' => 'Account\Sales\SalesController@findNumberDocument']);
+            });            
+
 });

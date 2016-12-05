@@ -71,7 +71,7 @@
                                         <td>
                                             <a href="{{route('salesorder.edit', $salesorder->id)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
 
-                                            <a href="#" class="btn btn-primary btn-xs" title="Convertir en documento"><i class="fa fa-list-alt"></i></a>
+                                            <a href="{{route('salesinvoice.createFromSalesorder', $salesorder->id)}}" class="btn btn-primary btn-xs" title="Convertir en documento de venta"><i class="fa fa-list-alt"></i></a>
                                             
                                             <a href="" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#{{$salesorder->id}}" title="Eliminar"><i class="fa fa-remove"></i></a>
                                             

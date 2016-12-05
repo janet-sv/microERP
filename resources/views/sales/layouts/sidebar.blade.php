@@ -90,6 +90,14 @@
                 </ul>
             </li>
             <li>
+                <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Documentos de venta<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">                    
+                    <li>
+                        <a href="{{route('salesinvoice.index')}}">Consultar</a>
+                    </li>                                    
+                </ul>
+            </li>
+            <li>
                 <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Reportes<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
