@@ -12,7 +12,7 @@ class PurchasesInvoice extends Model
 
    protected  $fillable= [
       'id','document_id','provider_id', 'date_invoice', 'number' , 'date_due', 'amount_total_signed',
-      'residual_signed', 'state_id','reference',
+      'residual_signed','subtotal','igv', 'state_id','reference',
    ];
 
    public function provider()
