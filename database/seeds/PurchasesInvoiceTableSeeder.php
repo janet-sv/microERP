@@ -19,7 +19,7 @@ class PurchasesInvoiceTableSeeder extends Seeder
             'date_invoice'  => '2016-12-01',
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '100.00',
-            'residual_signed'  => '0.00',
+            'residual_signed'  => '100.00',
             'state_id'  => '1',
             
             
@@ -31,11 +31,13 @@ class PurchasesInvoiceTableSeeder extends Seeder
             'date_invoice'  => '2016-12-01',
             'date_due' => '2016-12-01',
             'amount_total_signed'  => '200.00',
-            'residual_signed'  => '0.00',
+            'residual_signed'  => '200.00',
             'state_id'  => '1',
             
         ]);
-    	 DB::table('purchasesinvoice')->insert([
+    	
+  /*
+         DB::table('purchasesinvoice')->insert([
             'document_id' => '4',
             'provider_id'  => '1',
             'number'  => '3',
@@ -79,5 +81,6 @@ class PurchasesInvoiceTableSeeder extends Seeder
             'state_id'  => '1',
             
         ]);
+        */
     }
 }

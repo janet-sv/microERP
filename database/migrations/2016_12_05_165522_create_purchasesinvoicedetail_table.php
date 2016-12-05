@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSalesinvoicedatailTable extends Migration
+class CreatePurchasesinvoicedetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,11 @@ class CreateSalesinvoicedatailTable extends Migration
      */
     public function up()
     {
-         Schema::create('payment', function (Blueprint $table) {
+         Schema::create('purchasesinvoicedetail', function (Blueprint $table) {
             
             $table->increments('id');
-            $table->integer('invoice_id')->references('id')->on('salesinvoice');
-            $table->integer('order');
+            $table->integer('invoice_id')->references('id')->on('purchasesinvoice');
+           
             $table->integer('product_id')->references('id')->on('product');
             $table->integer('amount');
             $table->double('unitprice', 6, 2);
@@ -33,6 +33,6 @@ class CreateSalesinvoicedatailTable extends Migration
      */
     public function down()
     {
-        //
+          Schema::drop('purchasesinvoicedetail');
     }
 }

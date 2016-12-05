@@ -20,8 +20,10 @@ class SalesInvoiceTableSeeder extends Seeder
             'date_invoice'  => '2016-12-01',
             'user_id'  => '1' ,
             'date_due' => '2016-12-01',
+            'igv'  => '18' ,
+            'subtotal' => '82',
             'amount_total_signed'  => '100.00',
-            'residual_signed'  => '0.00',
+            'residual_signed'  => '100.00',
             'state_id'  => '1',
             
         ]);
@@ -32,12 +34,14 @@ class SalesInvoiceTableSeeder extends Seeder
             'date_invoice'  => '2016-12-01',
             'user_id'  => '1' ,
             'date_due' => '2016-12-01',
-            'amount_total_signed'  => '200.00',
-            'residual_signed'  => '0.00',
+            'igv'  => '18' ,
+            'subtotal' => '82',
+            'amount_total_signed'  => '100.00',
+            'residual_signed'  => '100.00',
             'state_id'  => '1',
             
         ]);
-    	 DB::table('salesinvoice')->insert([
+    	/* DB::table('salesinvoice')->insert([
             'document_id' => '1',
             'partner_id'  => '3',
             'number'  => '3',
@@ -84,6 +88,7 @@ class SalesInvoiceTableSeeder extends Seeder
             'residual_signed'  => '0.00',
             'state_id'  => '1',
             
-        ]);
+        ]);  */
+
     }
 }
