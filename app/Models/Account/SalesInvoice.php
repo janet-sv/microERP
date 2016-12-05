@@ -45,9 +45,9 @@ class SalesInvoice extends Model
       
    }
    
-    public function invoicedetailsales()
+    public function detailSales()
    {
-      return $this->belongsto(InvoiceDetailSales::class);
+      return $this->belongsto(DetailSales::class);
     }
  
 }

@@ -14,6 +14,7 @@ use DB;
 use Input;
 use App\Models\Account\AccountantSeat;
 use App\Models\Account\Stateinvoice;
+use App\Models\Account\DetailSales;
 
 
 class SalesController extends Controller
@@ -150,6 +151,11 @@ error_log($regis->code);
         $Document_type = Document_type::whereNotIn('id', [4, 5,6])->lists('name','id')->prepend('Seleccioname el tipo de documento');
         $SalesInvoices = SalesInvoice::FindOrFail($id);
         $state = Stateinvoice::lists('name','id')->prepend('Seleccionar estado');
+
+        $banks = DetailSales::
+                    select('salesinvoicedetail.id','salesinvoicedetail.name_bank','salesinvoicedetail.number','salesinvoicedetail.debit','salesinvoicedetail.payment')
+                    ->paginate(5);
+
 
        // return view('/account/SalesInvoice/edit');
         return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices,'users'=>$users, 'Partners'=>$Partners , 'Document_type'=>$Document_type ,'state'=>$state ));

@@ -47,7 +47,7 @@
                             </thead>
                             <tbody>
                             @foreach($SalesInvoice as $salesinvoice)
-                              <tr class="rows">
+                              <tr class="clickable-row" data-href="{{route('FacturasClientes.edit',$salesinvoice->id)}}" >
                                
                                 <td>{{$salesinvoice->document}}</td>
                                 <td>{{$salesinvoice->client}}</td>
@@ -89,6 +89,11 @@
       document.location.href = "{{ route('FacturasClientes.create')}}";
   });
 
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.document.location = $(this).data("href");
+    });
+});
 
 </script>
 

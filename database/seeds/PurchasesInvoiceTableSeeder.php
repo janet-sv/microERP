@@ -18,6 +18,8 @@ class PurchasesInvoiceTableSeeder extends Seeder
             'number'  => '1',
             'date_invoice'  => '2016-12-01',
             'date_due' => '2016-12-01',
+            'igv'  => '18' ,
+            'subtotal' => '82',
             'amount_total_signed'  => '100.00',
             'residual_signed'  => '100.00',
             'state_id'  => '1',
@@ -30,8 +32,10 @@ class PurchasesInvoiceTableSeeder extends Seeder
             'number'  => '2',
             'date_invoice'  => '2016-12-01',
             'date_due' => '2016-12-01',
-            'amount_total_signed'  => '200.00',
-            'residual_signed'  => '200.00',
+             'igv'  => '18' ,
+            'subtotal' => '82',
+            'amount_total_signed'  => '100.00',
+            'residual_signed'  => '100.00',
             'state_id'  => '1',
             
         ]);
