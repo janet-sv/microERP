@@ -14,7 +14,11 @@ use App\Http\Requests;
 
 class PromotionbyproductController extends Controller
 {    
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $promotionbyproducts = Promotion::where('tipo', 1)->orderBy('nombre', 'asc')->paginate(10);

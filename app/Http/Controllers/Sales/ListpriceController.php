@@ -12,6 +12,12 @@ use App\Http\Requests;
 
 class ListpriceController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $listprices = Listprice::where('estado', 1)->orderBy('id_producto', 'asc')->paginate(10);
@@ -114,9 +120,7 @@ class ListpriceController extends Controller
     {
         try {
             $listprice = Listprice::find($id);                        
-            $listprice->precio      = $request['precio'];
-			$listprice->estado      = 1;
-			$listprice->id_producto = $id_producto;
+            $listprice->precio      = $request['precio'];			
 			$listprice->save();
 
             return redirect()->route('listprice.index')->with('success', 'El precio de lista se ha actualizado exitosamente');

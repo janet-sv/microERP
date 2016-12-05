@@ -240,4 +240,18 @@ error_log($regis->code);
 
     }
 
+    public function indexSalesDocuments()
+    {
+        $salesinvoices = SalesInvoice::
+                    select('salesinvoice.id','document_type.name as document','partner.name as client','partner.ruc as ruc','salesinvoice.date_invoice','salesinvoice.number','users.name as user','salesinvoice.date_due','salesinvoice.amount_total_signed','salesinvoice.residual_signed','salesinvoice.state_id as state','salesinvoice.reference')
+                    ->join('partner','partner.id','=','salesinvoice.partner_id')
+                    ->join('stateinvoice','stateinvoice.id','=','salesinvoice.state_id')
+                    ->join('users','users.id','=','salesinvoice.user_id')
+                    ->join('document_type','document_type.id','=','salesinvoice.document_id')
+                    ->orderBy('id', 'desc')
+                    ->paginate(10);
+        
+        return  view('/sales/pages/salesdocument/index')->with('SalesInvoice',$salesinvoices);
+    }
+
 }
