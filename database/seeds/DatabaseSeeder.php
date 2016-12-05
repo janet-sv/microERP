@@ -15,17 +15,32 @@ class DatabaseSeeder extends Seeder
           $this->call(TrademarksTableSeeder::class);
           $this->call(SocietysTableSeeder::class);
           $this->call(UserTableSeeder::class);
+          $this->call(Document_typeTableSeeder::class);
           $this->call(PartnerTableSeeder::class);
           $this->call(SalesInvoiceTableSeeder::class);
           $this->call(ProviderTableSeeder::class);
           $this->call(PurchasesInvoiceTableSeeder::class);
-          $this->call(Document_typeTableSeeder::class);
           $this->call(JournalsTableSeeder::class);
           
+          $this->call(PaymentmethodTableSeeder::class);
+          $this->call(PaymenttypeTableSeede::class);
+          $this->call(BankTableSeeder::class);
+          $this->call(TaxesTableSeeder::class);
+          $this->call(AccountsplanTableSeeder::class);
+          
+
+
+
+
+
+          //Modulo ventas          
           $this->call(CustomersTableSeeder::class);
           $this->call(PromoconditionsTableSeeder::class);
           $this->call(CategoryproductsalesTableSeeder::class);
           $this->call(ProductsalesTableSeeder::class);
           $this->call(ListpricesTableSeeder::class);
+
+          
+
     }
 }

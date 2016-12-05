@@ -22,8 +22,8 @@ class CreateAccountsTable extends Migration
             $table->string('analysis_type');
             $table->integer('debit');
             $table->integer('credit');
-            $table->string('bank_name');
-            $table->string('bank_cuenta');
+            $table->integer('bank_id')->nullable();
+            $table->string('bank_cuenta')->nullable();
 
         });
     }

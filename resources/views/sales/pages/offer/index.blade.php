@@ -73,17 +73,17 @@
                                         <td>
                                             <a href="{{route('offer.edit', $offer->id)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
                                             
-                                            <a href="" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#{{$offer->id}}" title="Eliminar"><i class="fa fa-remove"></i></a>
                                             
                                             <a href="{{route('offer.copy', $offer->id)}}" class="btn btn-primary btn-xs" title="Copiar">
                                                 <i class="fa fa-copy"></i>
                                             </a> 
                                             
                                             @if( $offer->estado == 1) 
-                                                <a href="{{route('salesorder.createFromOffer', $offer->id)}}" class="btn btn-primary btn-xs" title="Convertir">
-                                                    <i class="fa fa-hand-o-right"></i>
+                                                <a href="{{route('salesorder.createFromOffer', $offer->id)}}" class="btn btn-primary btn-xs" title="Convertir en pedido">
+                                                    <i class="fa fa-file"></i>
                                                 </a> 
                                             @endif
+                                            <a href="" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#{{$offer->id}}" title="Eliminar"><i class="fa fa-remove"></i></a>
                                             
                                         </td>
                                     </tr> 

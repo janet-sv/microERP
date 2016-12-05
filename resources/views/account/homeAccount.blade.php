@@ -289,14 +289,9 @@
                                     <a href="/FacturasClientes">Facturas de cliente</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Pagos</a>
+                                    <a href="/Pagos">Pagos</a>
                                 </li>
-                                <li>
-                                    <a href="morris.html">Extractos de los clientes</a>
-                                </li>
-                                <li>
-                                    <a href="morris.html">Clientes</a>
-                                </li>
+                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -307,11 +302,9 @@
                                     <a href="/FacturasProveedores">Facturas de proveedor</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Pagos</a>
+                                    <a href="/Pagos">Pagos</a>
                                 </li>
-                                <li>
-                                    <a href="morris.html">Proveedores</a>
-                                </li>
+                              
                                 
                             </ul>
                             <!-- /.nav-second-level -->
@@ -320,7 +313,7 @@
                             <a href="#"><i class="fa fa-calculator fa-fw"></i> Asientos <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">Asientos Contables</a>
+                                    <a href="/AsientosContables">Asientos Contables</a>
                                 </li>
                                 <li>
                                     <a href="/PlanContable">Plan de Cuentas</a>

@@ -17,12 +17,12 @@ class CreatePaymentsTable extends Migration
             $table->increments('id');
             $table->date('date');
             $table->integer('number');
-            $table->string('method');
-            $table->string('type');
             $table->string('client');
             $table->double('amount', 6, 2);
             $table->integer('reference')->nullable();
             $table->string('state');
+            $table->integer('method')->references('id')->on('paymentmethod');
+            $table->integer('type')->references('id')->on('paymenttype');
                         
         }); 
     }

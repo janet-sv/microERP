@@ -32,8 +32,9 @@ class AccountplaningController extends Controller
     public function index()
     {
       	$accounts = Accounts::
-                    select('accounts.id','accounts.code','accounts.name','accounts.account_level','accounts.account_type','accounts.analysis_type','accounts.debit','accounts.credit','accounts.bank_name','accounts.bank_cuenta')
-                    ->paginate(5);
+                    select('accounts.id','accounts.code','accounts.name','accounts.account_level','accounts.account_type','accounts.analysis_type','accounts.debit','accounts.credit')
+                    ->orderBy('id')
+                    ->paginate(20);
 
         return view('/account/Accountplaning/index')->with('accounts',$accounts);
     }
@@ -51,9 +52,21 @@ class AccountplaningController extends Controller
        $cuenta = array( "A"=>"Activo", "P"=>"Pasivo","R"=>"Resultado", "N"=>"Naturaleza","F"=>"Funcion", "O"=>"Orden","M"=>"Mayor");
        $analisis = array( "S"=>"Sin Análisis", "P"=>"Por Documento", "C"=>"Cuenta de Banco", "D"=>"Solo Detalle");  
        // $bank = DB::select('select * from bank');  
-       $bank = Bank::lists('number','id')->prepend('Seleccione al Banco');
+       $bank = Bank::lists('name_bank','id')->prepend('Seleccione al Banco');
         return view('/account/Accountplaning/create',array('nivel'=>$nivel,'cuenta'=>$cuenta,'analisis'=>$analisis,'bank'=>$bank));
  	}
+
+    public function findnumber(Request $request, $id)
+    {
+
+           if($request->ajax()){
+               
+               $number=DB::table('bank')->where('id', $id)->value('number');
+            
+            return response()->json($number);
+        }
+
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -93,7 +106,7 @@ class AccountplaningController extends Controller
        $cuenta = array( "A"=>"Activo", "P"=>"Pasivo","R"=>"Resultado", "N"=>"Naturaleza","F"=>"Funcion", "O"=>"Orden","M"=>"Mayor");
        $analisis = array( "S"=>"Sin Análisis", "P"=>"Por Documento", "C"=>"Cuenta de Banco", "D"=>"Solo Detalle");
          //$bank = DB::select('select * from bank');  
-         $bank = Bank::lists('number','id')->prepend('Seleccione al banco');
+         $bank = Bank::lists('name_bank','id')->prepend('Seleccione al banco');
         
         $accounts = Accounts::FindOrFail($id);
         return view('/account/Accountplaning/edit', array('accounts'=>$accounts,'nivel'=>$nivel,'cuenta'=>$cuenta,'analisis'=>$analisis,'bank'=>$bank));

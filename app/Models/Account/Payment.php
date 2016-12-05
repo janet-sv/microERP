@@ -15,6 +15,18 @@ class Payment extends Model
       'id','date', 'number', 'method' , 'type', 'client', 'amount' , 'reference', 'state',
    ];
 
+    public function method_Payment()
+   {
+      // hasmany - tiene muchas
+      return $this->hasmany(Method_Payment::class);
+      
+   }
    
+   public function type_Payment()
+   {
+      // hasmany - tiene muchas
+      return $this->hasmany(Type_Payment::class);
+      
+   }
 
 }

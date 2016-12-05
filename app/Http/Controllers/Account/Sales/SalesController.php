@@ -11,6 +11,9 @@ use App\Models\Account\SalesInvoice;
 use App\Models\Account\Document_type;
 use App\User;
 use DB; 
+use Input;
+use App\Models\Account\AccountantSeat;
+
 
 class SalesController extends Controller
 {
@@ -36,6 +39,7 @@ class SalesController extends Controller
                     ->join('partner','partner.id','=','salesinvoice.partner_id')
                     ->join('users','users.id','=','salesinvoice.user_id')
                     ->join('document_type','document_type.id','=','salesinvoice.document_id')
+                    ->orderBy('id', 'desc')
                     ->paginate(5);
         
         return  view('/account/SalesInvoice/index')->with('SalesInvoice',$salesinvoices);
@@ -50,20 +54,26 @@ class SalesController extends Controller
 
     public function create()
     {
-        //
+        
         $invoices = DB::table('salesinvoice')->count();
-      
         $Partners = Partner::lists('name','id')->prepend('Seleccione al cliente');
-        $Document_type = Document_type::lists('name','id')->prepend('Seleccioname el tipo de documento');
+        $Document_type = Document_type::whereNotIn('id', [4, 5,6])->lists('name','id')->prepend('Seleccioname el tipo de documento');
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
         //return view('/account/SalesInvoice/create')->with('Partners',$Partners);
            return view('/account/SalesInvoice/create', array('users'=>$users, 'Partners'=>$Partners,'invoices'=>$invoices , 'Document_type'=>$Document_type ));
  
     }
-    public function findnumber($id)
+    
+    public function findnumber(Request $request, $id)
     {
-          $number=DB::table('document_type')->where('id', $id)->value('numeration');
-          return view('/account/SalesInvoice/findnumber', array('number'=>$number));
+
+           if($request->ajax()){
+               
+               $number=DB::table('document_type')->where('id', $id)->value('numeration');
+            
+            return response()->json($number);
+        }
+
     }
 
     /**
@@ -74,7 +84,38 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $id =  $request['document_id'];
+        $number=DB::table('document_type')->where('id', $id)->value('numeration');
+        $request['number'] = $number;
+
+
+        $id =  $request['partner_id'];
+        $empresa=DB::table('partner')->where('id', $id)->value('name');
+
+        $id =  $request['document_id'];
+        $code=DB::table('document_type')->where('id', $id)->value('name');
+ 
+        $regis= new AccountantSeat;
+        $regis->date=$request['date_invoice'];
+          $regis->code=$code;
+           $regis->number=$request['number'];
+            $regis->company=$empresa;
+             $regis->reference=$request['reference'];
+              $regis->diario_id=1;
+               $regis->amount=$request['amount_total_signed'];
+                $regis->state="Publicado";
+error_log($regis->code);
+    DB::table('accountantseat')->insert(
+    ['date' =>  $regis->date, 'code' => $regis->code,'number' =>  $regis->number, 'company' =>  $regis->company,'reference' => $regis->reference, 'diario_id' =>  $regis->diario_id,'amount' => $regis->amount, 'state' => $regis->state]);
+      
         SalesInvoice::create($request->all());
+        
+        $number = $number + 1;
+        DB::table('document_type')
+            ->where('id', $id)
+            ->update(['numeration' => $number]);
+
         return redirect()->route('FacturasClientes.index');
     }
 
@@ -99,10 +140,11 @@ class SalesController extends Controller
      */
     public function edit($id)
     {
-       
+      
+
         $Partners = Partner::lists('name','id')->prepend('Seleccioname la cliente');
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
-        $Document_type = Document_type::lists('name','id')->prepend('Seleccioname el tipo de documento');
+        $Document_type = Document_type::whereNotIn('id', [4, 5,6])->lists('name','id')->prepend('Seleccioname el tipo de documento');
         $SalesInvoices = SalesInvoice::FindOrFail($id);
 
        // return view('/account/SalesInvoice/edit');
@@ -119,10 +161,6 @@ class SalesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $document=Document_type::FindOrFail($request->document_id);
-        $num = findnumber($request->document_id);
-        $document->document_id =  $num +1;
-        $document->save();
 
         $SalesInvoices = SalesInvoice::FindOrFail($id);
         $input = $request->all();

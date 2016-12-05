@@ -4,20 +4,19 @@ namespace App\Models\Account;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Journal extends Model
+class Type_Payment extends Model
 {
-   protected $table      = 'journal';
+   protected $table      = 'paymenttype';
    protected $primarykey = 'id';
    public    $timestamps = false;
 
    protected  $fillable= [
-      'id','name', 'description' ,
+      'id','name',
    ];
 
-   public function accountantSeat ()
+	public function payment ()
       {
-         return $this->belongsto(AccountantSeat::class);
+         return $this->belongsto(Payment::class);
          
       }
-  
 }

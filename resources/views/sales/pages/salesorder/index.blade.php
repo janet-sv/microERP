@@ -45,7 +45,7 @@
                                         <th>Total</th> 
                                         <th>Fecha creación</th>                                         
                                         <th>Estado</th> 
-                                        <th colspan="2">Acciones</th>
+                                        <th colspan="3">Acciones</th>
                                     </tr> 
                                 </thead> 
                                 <tbody> 
@@ -70,6 +70,8 @@
                                         @endif
                                         <td>
                                             <a href="{{route('salesorder.edit', $salesorder->id)}}" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
+
+                                            <a href="#" class="btn btn-primary btn-xs" title="Convertir en documento"><i class="fa fa-list-alt"></i></a>
                                             
                                             <a href="" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#{{$salesorder->id}}" title="Eliminar"><i class="fa fa-remove"></i></a>
                                             

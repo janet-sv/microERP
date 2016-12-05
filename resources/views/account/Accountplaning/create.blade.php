@@ -44,16 +44,30 @@
                                 </div>
                           </div>
                             <div class="row">
-                                <div class="col-xs-12 col-sm-2 col-md-2">
+                                
+                                 <div class="col-xs-12 col-sm-2 col-md-2">
                                     <div class="form-group">
-                                        {!!form::label('Numero de la entidad finaciera')!!}
+                                        {!!form::label('Nombre del Banco')!!}
                                        
+                                   </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form-group">
+                                        
+                                          {!! Form::select('bank_id',$bank,null,['id'=>'bank_id','class'=>'form-control']) !!} 
                                    </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-2 col-md-2">
                                     <div class="form-group">
+                                        {!!form::label('Numero de cuenta')!!}
+                                       
+                                   </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form-group">
                                         
-                                          {!! Form::select('bank_name',$bank,null,['id'=>'bank_name','class'=>'form-control'],['readonly']) !!} 
+                                         {!!form::text('bank_cuenta',null ,['id'=>'bank_cuenta','class'=>'form-control','readonly' => 'true'])!!}
+
                                    </div>
                                 </div>
                                
@@ -126,7 +140,18 @@
       });
 
     </script>
- 
+ <script>
+   
+       $("#bank_id").change(event => {
+       $.get(`/PlanContable/encuentra/${event.target.value}`, function(res, sta){
+          // alert(res);
+          document.getElementById("bank_cuenta").value = res
+        
+          
+       });
+    }); 
+
+</script>
 
 
   @endsection

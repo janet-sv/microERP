@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductStock extends Model
 {
    
-   protected $table      = 'ProductStock';
+   protected $table      = 'productstock';
    protected $primarykey = 'id';
    public    $timestamps = false;
 
@@ -23,7 +23,7 @@ class ProductStock extends Model
    public function invoicedetailsales()
    {
       return $this->belongsto(InvoiceDetailSales::class);
-    }
+   }
 
 
 

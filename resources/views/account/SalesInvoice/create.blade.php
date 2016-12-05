@@ -38,11 +38,15 @@
                           </div>
                           <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    {!!form::label('Numero de Factura')!!}
-                                  
-                                    {!!form::text('number',null,['id'=>'number','class'=>'form-control'])!!}
-                               </div>
+                                
+                                <div id="numero"></div>
+
+                                  <div class="form-group">
+                                      {!!form::label('Numero de Factura')!!}
+                                      {!!form::text('number',null,['id'=>'number','class'=>'form-control','readonly' => 'true'])!!}
+                                  </div>
+                                
+
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                   <div class="form-group">
@@ -164,7 +168,18 @@
   } );
   </script>
 
+<script>
+   
+       $("#document_id").change(event => {
+       $.get(`/FacturasClientes/encuentra/${event.target.value}`, function(res, sta){
+          // alert(res);
+          document.getElementById("number").value = res
+        
+          
+       });
+    }); 
 
+</script>
 
   @endsection
 
