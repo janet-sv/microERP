@@ -37,7 +37,7 @@ class SalesController extends Controller
     public function index()
     {
       $salesinvoices = SalesInvoice::
-                    select('salesinvoice.id','document_type.name as document','partner.name as client','partner.ruc as ruc','salesinvoice.date_invoice','salesinvoice.number','users.name as user','salesinvoice.date_due','salesinvoice.amount_total_signed','salesinvoice.residual_signed','salesinvoice.state_id as state','salesinvoice.reference')
+                    select('salesinvoice.id','document_type.name as document','partner.name as client','partner.ruc as ruc','salesinvoice.date_invoice','salesinvoice.number','users.name as user','salesinvoice.date_due','salesinvoice.amount_total_signed','salesinvoice.residual_signed','stateinvoice.name as state','salesinvoice.reference')
                     ->join('partner','partner.id','=','salesinvoice.partner_id')
                     ->join('stateinvoice','stateinvoice.id','=','salesinvoice.state_id')
                     ->join('users','users.id','=','salesinvoice.user_id')
@@ -96,10 +96,8 @@ class SalesController extends Controller
 
         $id =  $request['partner_id'];
         $empresa=DB::table('partner')->where('id', $id)->value('name');
-
         $id =  $request['document_id'];
         $code=DB::table('document_type')->where('id', $id)->value('name');
- 
         $regis= new AccountantSeat;
         $regis->date=$request['date_invoice'];
           $regis->code=$code;
@@ -109,16 +107,22 @@ class SalesController extends Controller
               $regis->diario_id=1;
                $regis->amount=$request['amount_total_signed'];
                 $regis->state="Publicado";
-error_log($regis->code);
+    error_log($regis->code);
     DB::table('accountantseat')->insert(
     ['date' =>  $regis->date, 'code' => $regis->code,'number' =>  $regis->number, 'company' =>  $regis->company,'reference' => $regis->reference, 'diario_id' =>  $regis->diario_id,'amount' => $regis->amount, 'state' => $regis->state]);
       
+
+
         SalesInvoice::create($request->all());
         
+      
+
         $number = $number + 1;
         DB::table('document_type')
             ->where('id', $id)
             ->update(['numeration' => $number]);
+
+
 
         return redirect()->route('FacturasClientes.index');
     }
@@ -152,13 +156,16 @@ error_log($regis->code);
         $SalesInvoices = SalesInvoice::FindOrFail($id);
         $state = Stateinvoice::lists('name','id')->prepend('Seleccionar estado');
 
-        $banks = DetailSales::
-                    select('salesinvoicedetail.id','salesinvoicedetail.name_bank','salesinvoicedetail.number','salesinvoicedetail.debit','salesinvoicedetail.payment')
+        $details = DetailSales::
+                    select('salesinvoicedetail.id','salesinvoicedetail.invoice_id','product.name as product','accounts.code as name','salesinvoicedetail.amount','salesinvoicedetail.unitprice','salesinvoicedetail.discounts','salesinvoicedetail.total')
+                    ->where('invoice_id','=',  $id)
+                   ->join('accounts','accounts.id','=','salesinvoicedetail.code')
+                   ->join('product','product.id','=','salesinvoicedetail.product_id')
                     ->paginate(5);
 
 
        // return view('/account/SalesInvoice/edit');
-        return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices,'users'=>$users, 'Partners'=>$Partners , 'Document_type'=>$Document_type ,'state'=>$state ));
+        return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices,'users'=>$users, 'Partners'=>$Partners , 'Document_type'=>$Document_type ,'state'=>$state,'details'=>$details ));
 
     }
 
