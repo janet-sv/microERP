@@ -49,17 +49,17 @@
                             @foreach($SalesInvoice as $salesinvoice)
                               <tr class="clickable-row" data-href="{{route('FacturasClientes.edit',$salesinvoice->id)}}" >
                                
-                                <td>{{$salesinvoice->document}}</td>
-                                <td>{{$salesinvoice->client}}</td>
-                                <td>{{$salesinvoice->ruc}}</td>
+                                <td>{{$salesinvoice->document_type->name}}</td>
+                                <td>{{ $salesinvoice->customer->razon_social }}</td> 
+                                <td>{{ $salesinvoice->customer->ruc }}</td>
                                 <td>{{$salesinvoice->date_invoice}}</td>
                                 <td>{{$salesinvoice->number}}</td>
-                                <td>{{$salesinvoice->user}}</td>
+                                <td>{{$salesinvoice->user->name}}</td>
                                 <td>{{$salesinvoice->date_due}}</td>
                                 <td>{{$salesinvoice->reference}}</td>
                                 <td>{{$salesinvoice->amount_total_signed}}</td>
                                 <td>{{$salesinvoice->residual_signed}}</td>
-                                <td>{{$salesinvoice->state}}</td>
+                                <td>{{$salesinvoice->stateinvoice->name}}</td>
 
                                 <td>
                                     <a href="{{route('FacturasClientes.edit',$salesinvoice->id)}}">[Editar]</a> 

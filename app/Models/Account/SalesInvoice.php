@@ -17,37 +17,33 @@ class SalesInvoice extends Model
    ];
 
 
-   public function partner()
-   {
-      // hasmany - tiene muchas
-      return $this->hasmany(Partner::class);
-      
-   }
+    public function customer(){
+      return $this->belongsTo('App\Models\Sales\Customer', 'partner_id');  
+    }
 
       public function document_type()
    {
       // hasmany - tiene muchas
-      return $this->hasmany(Document_type::class);
+      return $this->belongsTo('App\Models\Account\Document_type', 'document_id');
       
    }
      public function user()
    {
       // hasmany - tiene muchas
-      return $this->hasmany(User::class);
+      return $this->belongsTo('App\User', 'user_id');
       
    }
 
-
- public function stateinvoice()
+   public function stateinvoice()
    {
       // hasmany - tiene muchas
-      return $this->hasmany(Stateinvoice::class);
+      return $this->belongsTo('App\Models\Account\Stateinvoice','state_id');
       
    }
    
     public function detailSales()
    {
-      return $this->belongsto(DetailSales::class);
+      return $this->hasMany('App\Models\Account\DetailSales', 'invoice_id');   
     }
  
 

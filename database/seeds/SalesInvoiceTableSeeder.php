@@ -15,7 +15,7 @@ class SalesInvoiceTableSeeder extends Seeder
 
     	 DB::table('salesinvoice')->insert([
             'document_id' => '1',
-            'partner_id'  => '1',
+            'partner_id'  => '2',
             'number'  => '1',
             'date_invoice'  => '2016-12-01',
             'user_id'  => '1' ,

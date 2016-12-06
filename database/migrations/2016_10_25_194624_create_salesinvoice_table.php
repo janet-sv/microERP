@@ -22,7 +22,7 @@ class CreateSalesinvoiceTable extends Migration
             $table->double('subtotal', 6, 2);
             $table->double('igv', 6, 2);
             $table->integer('reference')->nullable();            
-            $table->string('partner_id')->references('id')->on('partner');
+            $table->string('partner_id')->nullable()->references('id')->on('customers');
             $table->string('user_id')->references('id')->on('user');
             $table->string('document_id')->references('id')->on('document_type');
             $table->string('state_id')->references('id')->on('stateinvoice');

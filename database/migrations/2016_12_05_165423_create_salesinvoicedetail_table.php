@@ -16,7 +16,7 @@ class CreateSalesinvoicedetailTable extends Migration
             
             $table->increments('id');
             $table->integer('invoice_id')->references('id')->on('salesinvoice');
-            $table->integer('product_id')->references('id')->on('product');
+            $table->integer('product_id')->references('id')->on('products');
             $table->integer('code')->references('id')->on('accounts');
             $table->integer('amount');
             $table->double('unitprice', 6, 2);

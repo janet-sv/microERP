@@ -41,15 +41,19 @@ class SalesController extends Controller
      */
     public function index()
     {
+      /*  
       $salesinvoices = SalesInvoice::
-                    select('salesinvoice.id','document_type.name as document','partner.name as client','partner.ruc as ruc','salesinvoice.date_invoice','salesinvoice.number','users.name as user','salesinvoice.date_due','salesinvoice.amount_total_signed','salesinvoice.residual_signed','stateinvoice.name as state','salesinvoice.reference')
-                    ->join('partner','partner.id','=','salesinvoice.partner_id')
+                    select('salesinvoice.id','document_type.name as document','customers.name as client','customers.ruc as ruc','salesinvoice.date_invoice','salesinvoice.number','users.name as user','salesinvoice.date_due','salesinvoice.amount_total_signed','salesinvoice.residual_signed','stateinvoice.name as state','salesinvoice.reference')
+                    ->join('customers','customers.id','=','salesinvoice.partner_id')
                     ->join('stateinvoice','stateinvoice.id','=','salesinvoice.state_id')
                     ->join('users','users.id','=','salesinvoice.user_id')
                     ->join('document_type','document_type.id','=','salesinvoice.document_id')
                     ->orderBy('id', 'desc')
                     ->paginate(5);
-        
+        */
+        $salesinvoices = SalesInvoice::whereIn('id', [1, 2])->orderBy('id', 'desc')->paginate(10);   
+
+
         return  view('/account/SalesInvoice/index')->with('SalesInvoice',$salesinvoices);
     }
 
@@ -107,20 +111,7 @@ class SalesController extends Controller
 
 
         $code=DB::table('document_type')->where('id', $id)->value('name');
-        $regis= new AccountantSeat;
-        $regis->date=$request['fecha_creacion'];
-          $regis->code=$code;
-           $regis->number=$request['number'];
-            $regis->company=$empresa;
-             $regis->reference=$request['reference'];
-              $regis->diario_id=1;
-               $regis->amount=$request['total_documento_venta'];
-                $regis->state="Publicado";
-
-        error_log($regis->code);
-        DB::table('accountantseat')->insert(
-        ['date' =>  $regis->date, 'code' => $regis->code,'number' =>  $regis->number, 'company' =>  $regis->company,'reference' => $regis->reference, 'diario_id' =>  $regis->diario_id,'amount' => $regis->amount, 'state' => $regis->state]);
-          
+        
         //SalesInvoice::create($request->all());
         $id_cliente = null;
         if( $request['cliente'] != 0)
@@ -153,6 +144,25 @@ class SalesController extends Controller
             $salesinvoicedetail->code = 1607;                                
             $salesinvoicedetail->save();
         } 
+
+        if ( $id == 1 || $id == 2 ){
+            $regis= new AccountantSeat;
+            $regis->date=$request['fecha_creacion'];
+            $regis->code=$code;
+            $regis->number=$request['number'];
+            $regis->company=$empresa;
+            $regis->reference=$request['reference'];
+            $regis->diario_id=1;
+            $regis->amount=$request['total_documento_venta'];
+            $regis->state="Publicado";            
+            DB::table('accountantseat')->insert(
+            ['date' =>  $regis->date, 'code' => $regis->code,'number' =>  $regis->number, 'company' =>  $regis->company,'reference' => $regis->reference, 'diario_id' =>  $regis->diario_id,'amount' => $regis->amount, 'state' => $regis->state]);
+            $SalesInvoiceAux = SalesInvoice::find($salesinvoice->id);
+            foreach ($SalesInvoiceAux->detailSales as $key => $detailSale) {
+                
+            }
+
+        }
 
         $number = $number + 1;
         DB::table('document_type')

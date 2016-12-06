@@ -14,21 +14,23 @@ class DetailSales extends Model
       'id','invoice_id', 'product_id','code', 'amount' , 'unitprice', 'discounts' , 'total',
    ];
 
- public function salesInvoice()
+   public function salesInvoice()
    {
       // hasmany - tiene muchas
-      return $this->hasmany(SalesInvoice::class);
+      return $this->belongsTo('App\Models\Sales\SalesInvoice', 'invoice_id');
       
    }
 
     public function accounts()
    {
       // hasmany - tiene muchas
-      return $this->hasmany(Accounts::class);
+      return $this->belongsTo('App\Models\Sales\Accounts', 'code');
       
    }
 
-   
+    public function product(){
+        return $this->belongsTo('App\Models\Logistic\Product\Product', 'product_id');
+    }
 
-
+    
 }
