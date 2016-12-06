@@ -108,13 +108,13 @@ class SalesController extends Controller
 
         $code=DB::table('document_type')->where('id', $id)->value('name');
         $regis= new AccountantSeat;
-        $regis->date=$request['date_invoice'];
+        $regis->date=$request['fecha_creacion'];
           $regis->code=$code;
            $regis->number=$request['number'];
             $regis->company=$empresa;
              $regis->reference=$request['reference'];
               $regis->diario_id=1;
-               $regis->amount=$request['amount_total_signed'];
+               $regis->amount=$request['total_documento_venta'];
                 $regis->state="Publicado";
 
         error_log($regis->code);
@@ -127,29 +127,30 @@ class SalesController extends Controller
             $id_cliente = $request['cliente'];
         $salesinvoice                      = new SalesInvoice;        
         $salesinvoice->date_invoice        = $request['fecha_creacion'];            
-        $salesinvoice->numeracion          = $request['numeracion'];
+        $salesinvoice->number          = $request['numeracion'];
         $salesinvoice->date_due            = $request['fecha_vencimiento'];            
         $salesinvoice->amount_total_signed = $request['total_documento_venta'];                        
         $salesinvoice->residual_signed     = $request['total_documento_venta'];                        
         $salesinvoice->subtotal            = $request['sub_total'];                        
         $salesinvoice->igv                 = $request['igv'];                        
-        $salesinvoice->partner_id        = $id_cliente;
+        $salesinvoice->partner_id          = $id_cliente;
         $salesinvoice->user_id             = $request['user'];                        
         $salesinvoice->document_id         = $request['tipo_documento'];                        
         $salesinvoice->state_id            = 1;        
         $salesinvoice->id_salesorder       = $request['salesorder'];                             
         $salesinvoice->description         = $request['descripcion'];                    
-        $salesinvoice->discount            = $request['descuento_manual'];                                
+        $salesinvoice->discount           = $request['descuento_manual'];                                
         $salesinvoice->save();
         
-        foreach($request['categoryproduct'] as $key=> $value){
+        foreach($request['product'] as $key=> $value){
             $salesinvoicedetail             = new DetailSales;
             $salesinvoicedetail->amount     = $request['cantidad'][$key];
-            $salesinvoicedetail->discount   = $request['descuento'][$key];
-            $salesinvoicedetail->unitprice  = $request['precio'][$key];
+            $salesinvoicedetail->discounts  = $request['descuento'][$key];
+            $salesinvoicedetail->unitprice  = $request['precio_unitario'][$key];
             $salesinvoicedetail->total      = $request['total'][$key];            
-            $salesinvoicedetail->invoice_id =    $salesinvoice->id;
+            $salesinvoicedetail->invoice_id = $salesinvoice->id;
             $salesinvoicedetail->product_id = $request['product'][$key];                        
+            $salesinvoicedetail->code = 1607;                                
             $salesinvoicedetail->save();
         } 
 

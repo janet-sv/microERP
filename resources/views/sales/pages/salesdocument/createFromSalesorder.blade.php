@@ -99,11 +99,11 @@
                                             <tbody> 
                                                 @foreach( $salesorderdetails as $key => $salesorderdetail)
                                                 <tr> 
-                                                    <input hidden value="{{$salesorder->salesorderdetails[$key]->product->id}}"  name="produc[{{$key+1}}]" >
+                                                    <input hidden value="{{$salesorder->salesorderdetails[$key]->product->id}}"  name="product[{{$key+1}}]" >
                                                     <input hidden value="{{$salesorder->salesorderdetails[$key]->cantidad}}"  name="cantidad[{{$key+1}}]" >
                                                     <input hidden value="{{$salesorder->salesorderdetails[$key]->precio_unitario}}" name="precio_unitario[{{$key+1}}]" >
-                                                    <input hidden value="{{$salesorder->salesorderdetails[$key]->descuento}}" name="[{{$key+1}}]" >
-                                                    <input hidden value="{{$salesorder->salesorderdetails[$key]->total}}" name="[{{$key+1}}]" >
+                                                    <input hidden value="{{$salesorder->salesorderdetails[$key]->descuento}}" name="descuento[{{$key+1}}]" >
+                                                    <input hidden value="{{$salesorder->salesorderdetails[$key]->total}}" name="total[{{$key+1}}]" >
                                                     <td>{{$key+1}}</td>                                                                                 
                                                     <td>{{ $salesorder->salesorderdetails[$key]->product->name }}</td>                                                                                             
                                                     <td>{{ $salesorder->salesorderdetails[$key]->cantidad }}</td>
