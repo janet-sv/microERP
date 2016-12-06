@@ -9,7 +9,7 @@
    </ol>
 
    <div class="page-header">
-     <h1> Editar Factura </h1>
+     <h1> Mostrar Detalle Factura </h1>
    </div>
 
    <div class="row">

@@ -19,7 +19,7 @@ class CreateAccountantseatTable extends Migration
             $table->string('code');
             $table->integer('number');
             $table->string('company')->references('id')->on('journal');
-            $table->string('reference');
+            $table->string('reference')->nullable();
             $table->string('diario_id')->references('id')->on('journal');
             $table->double('amount', 6, 2);
             $table->string('state');
