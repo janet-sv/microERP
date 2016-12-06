@@ -11,7 +11,7 @@ class DetailSales extends Model
    public    $timestamps = false;
 
    protected  $fillable= [
-      'id','invoice_id', 'product_id', 'amount' , 'unitprice', 'discounts' , 'total',
+      'id','invoice_id', 'product_id','code', 'amount' , 'unitprice', 'discounts' , 'total',
    ];
 
  public function salesInvoice()
@@ -20,6 +20,15 @@ class DetailSales extends Model
       return $this->hasmany(SalesInvoice::class);
       
    }
+
+    public function accounts()
+   {
+      // hasmany - tiene muchas
+      return $this->hasmany(Accounts::class);
+      
+   }
+
+   
 
 
 }
