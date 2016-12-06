@@ -185,12 +185,15 @@ class SalesController extends Controller
         $salesinvoicedetails = DB::table('salesinvoicedetail')
                                 ->where('invoice_id', $id)
                                 ->get();                                    
-        $salesinvoice        = Offer::find($id);
+        $salesinvoice        = SalesInvoice::find($id);
 
         $data = [
             'salesinvoicedetails'     => $salesinvoicedetails,
             'salesinvoice'            => $salesinvoice,            
         ];
+        
+        return view('sales.pages.salesdocument.show', $data);
+
     }
 
     /**
@@ -313,7 +316,7 @@ class SalesController extends Controller
                     ->orderBy('id', 'desc')
                     ->paginate(10);
         
-        return  view('/sales/pages/salesdocument/index')->with('SalesInvoice',$salesinvoices);
+        return  view('sales.pages.salesdocument.index')->with('SalesInvoice',$salesinvoices);
     }
 
 }

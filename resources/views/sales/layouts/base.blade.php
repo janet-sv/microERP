@@ -11,7 +11,7 @@
 	<link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link type="text/css" href="/build/css/app.css" rel="stylesheet">
 	<link type="text/css" href="/build/css/bootstrap-datepicker.css" rel="stylesheet">
-	<link type="text/css" href="/build/css/sales/sales.css" rel="stylesheet">
+	<link type="text/css" href="/build/css/sales/sales.css" rel="stylesheet">	
 	<script type="text/javascript" src="/build/js/jquery.min.js"></script>				
 	<script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>	
 	<title>MicroERP | @yield('title')</title>
