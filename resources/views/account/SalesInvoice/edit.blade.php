@@ -9,7 +9,7 @@
    </ol>
 
    <div class="page-header">
-     <h1> Mostrar Detalle Factura </h1>
+     <h1> Detalle Factura </h1>
    </div>
 
    <div class="row">
@@ -59,7 +59,7 @@
                                   <div class="form-group">
                        
                                       {!!form::label('Estado')!!}
-                                     {!! Form::select('state',$state,null,['id'=>'state','class'=>'form-control']) !!}
+                                     {!! Form::select('state',$state,null,['id'=>'state','class'=>'form-control','readonly' => 'true']) !!}
 
                                  </div>
                             </div>
@@ -67,7 +67,7 @@
                                  <div class="form-group">
                        
                                         {!!form::label('Usuario')!!}
-                                        {!! Form::select('user_id',$users,null,['id'=>'user_id','class'=>'form-control']) !!}
+                                        {!! Form::select('user_id',$users,null,['id'=>'user_id','class'=>'form-control','readonly' => 'true']) !!}
                                    </div>
                                   
                             </div>
@@ -135,7 +135,7 @@
                                  <div class="form-group">
                        
                                       {!!form::label('Total Facturado')!!}
-                                      {!!form::text('amount_total_signed',null,['id'=>'amount_total_signed','class'=>'form-control','placeholder'=>'Monto Total'])!!}
+                                      {!!form::text('amount_total_signed',null,['id'=>'amount_total_signed','class'=>'form-control','placeholder'=>'Monto Total','readonly' => 'true'])!!}
                                  </div>
                                   
                             </div>
@@ -143,7 +143,7 @@
                                   <div class="form-group">
                        
                                       {!!form::label('Importe Adeudado')!!}
-                                      {!!form::text('residual_signed',null,['id'=>'residual_signed','class'=>'form-control','placeholder'=>'Importe Adeudado'])!!}
+                                      {!!form::text('residual_signed',null,['id'=>'residual_signed','class'=>'form-control','placeholder'=>'Importe Adeudado','readonly' => 'true'])!!}
                                  </div>
                                   
                             </div>
@@ -153,8 +153,7 @@
                             </div>
                           </div>
              
-                             {!!form::submit('Grabar',['name'=>'grabar','id'=>'grabar','content'=>'<span>Grabar</span>','class'=>'btn btn-warning btn-sm m-t-10'])!!}
-                             
+                            
                            
                                <a href="#" class="btn btn-success" role="button">Registrar Pago</a>
 
@@ -179,7 +178,9 @@
       {
           document.location.href = "{{ route('FacturasClientes.index')}}";
       });
+      
 
+      $(#grabar).hide();
     </script>
  
   <script>

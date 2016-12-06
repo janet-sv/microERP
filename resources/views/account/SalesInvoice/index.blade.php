@@ -24,9 +24,7 @@
                     
                           <h2>Facturas de Clientes</h2>
                           <br>
-                                <p class="navbar-text navbar-left" style=" margin-top: 1px;">
-                                  <button  type="button" id='nuevo'  name='nuevo' class="btn btn-warning navbar-btn" style="margin-bottom: 1px; margin-top: -5px;margin-right: 8px;padding: 3px 20px;">Nuevo</button>
-                                 </p>  <br><br><br>
+                                <br>
                           <div class="table-responsive ">
                           <table class="table table-hover table-bordered table-responsive">
                             <thead>
@@ -62,7 +60,7 @@
                                 <td>{{$salesinvoice->stateinvoice->name}}</td>
 
                                 <td>
-                                    <a href="{{route('FacturasClientes.edit',$salesinvoice->id)}}">[Editar]</a> 
+                                    <a href="{{route('FacturasClientes.edit',$salesinvoice->id)}}">[Mostrar]</a> 
                                     <a href="{{route('FacturasClientes.show',$salesinvoice->id)}}">[Eliminar]</a>
                                 </td>
                               </tr>
