@@ -3,8 +3,8 @@
 @section('content')
 
    <ol class="breadcrumb">
-     <li class="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Módulo Contable</a></li>
-     <li class="breadcrumb-item"><a href="{{url('FacturasClientes')}}">>Menu de Ventas</a></li>
+     <li class="breadcrumb-item"><a href="{{url('/ModuloContable')}}">>Módulo Contable</a></li>
+     <li class="breadcrumb-item"><a href="{{url('/FacturasClientes')}}">>Menu de Ventas</a></li>
      <li class="breadcrumb-item active">>Editar Factura</li>
    </ol>
 
@@ -59,7 +59,7 @@
                                   <div class="form-group">
                        
                                       {!!form::label('Estado')!!}
-                                     {!! Form::select('state',$state,null,['id'=>'state','class'=>'form-control','readonly' => 'true']) !!}
+                                     {!! Form::select('state_id',$state,null,['id'=>'state','class'=>'form-control','readonly' => 'true']) !!}
 
                                  </div>
                             </div>
@@ -111,7 +111,7 @@
                                               @foreach($details as $detail)
                                                 <tr>                                                   
                                                   <td>{{$detail->product->name}}</td>
-                                                  <td>{{$detail->account->name}}</td>
+                                             <td><strong>{{$detail->account->name}}</strong></td>
                                                   <td>{{$detail->amount}}</td>
                                                   <td>{{$detail->unitprice}}</td>
                                                   <td>{{$detail->total}}</td>                        
@@ -157,7 +157,8 @@
                            
                                <a href="#" class="btn btn-success" role="button">Registrar Pago</a>
 
-                             <button type="button" id='cancelar'  name='cancelar' class="btn btn-danger btn-sm m-t-10" >Volver</button>  
+   <a href="/FacturasClientes" class="btn btn-danger" role="button">Volver</a>
+                            
 
                         </div>
 

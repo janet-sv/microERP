@@ -40,7 +40,7 @@
                                 <th>Total</th>
                                 <th>Importe Adeuado</th>
                                 <th>Estado</th>
-                                <th>Acción</th>
+                               
                               </tr>
                             </thead>
                             <tbody>
@@ -59,10 +59,7 @@
                                 <td>{{$salesinvoice->residual_signed}}</td>
                                 <td>{{$salesinvoice->stateinvoice->name}}</td>
 
-                                <td>
-                                    <a href="{{route('FacturasClientes.edit',$salesinvoice->id)}}">[Mostrar]</a> 
-                                    <a href="{{route('FacturasClientes.show',$salesinvoice->id)}}">[Eliminar]</a>
-                                </td>
+                                
                               </tr>
                               @endforeach
                             </tbody>

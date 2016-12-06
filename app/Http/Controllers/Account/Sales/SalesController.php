@@ -104,7 +104,7 @@ class SalesController extends Controller
 
 
         $id =  $request['cliente'];
-        $empresa=DB::table('partner')->where('id', $id)->value('name');
+        $empresa=DB::table('customers')->where('id', $id)->value('razon_social');
 
 
         $id =  $request['tipo_documento'];
@@ -159,7 +159,17 @@ class SalesController extends Controller
             ['date' =>  $regis->date, 'code' => $regis->code,'number' =>  $regis->number, 'company' =>  $regis->company,'reference' => $regis->reference, 'diario_id' =>  $regis->diario_id,'amount' => $regis->amount, 'state' => $regis->state]);
             $SalesInvoiceAux = SalesInvoice::find($salesinvoice->id);
             foreach ($SalesInvoiceAux->detailSales as $key => $detailSale) {
-                
+               
+                $accountseatdetail = new Accountseatdetail;
+                $accountseatdetail->accountseat_id  = 
+                $accountseatdetail->account_id     =  
+                $accountseatdetail->empresa_id =
+                $accountseatdetail->etiqueta =
+                $accountseatdetail->debe =
+                $accountseatdetail->haber =
+                $accountseatdetail->save();
+
+
             }
 
         }
@@ -196,7 +206,7 @@ class SalesController extends Controller
     {
       
 
-        $Partners = Partner::lists('name','id')->prepend('Seleccioname la cliente');
+        $Partners = Customer::lists('razon_social','id')->prepend('Seleccioname la cliente');
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
         $Document_type = Document_type::whereNotIn('id', [4, 5,6])->lists('name','id')->prepend('Seleccioname el tipo de documento');
         $SalesInvoices = SalesInvoice::FindOrFail($id);

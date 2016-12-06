@@ -18,6 +18,7 @@
     {!!Html::style('contable/vendor/font-awesome/css/font-awesome.min.css')!!}
     {!!Html::style('contable/style.css')!!}
     {!!Html::style('contable/vendor/jquery/jquery-ui.css')!!}
+      <link rel="stylesheet"  type="text/css" href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -393,6 +394,8 @@
 {!!Html::script('contable/data/morris-data.js')!!}
 {!!Html::script('contable/dist/js/sb-admin-2.js')!!}
 {!!Html::script('contable/vendor/jquery/jquery-ui.js')!!}
+
+  {!!Html::script('http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js')!!}
 
     @yield('page-script')
 
