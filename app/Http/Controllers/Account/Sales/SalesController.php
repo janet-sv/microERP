@@ -16,6 +16,11 @@ use App\Models\Account\AccountantSeat;
 use App\Models\Account\Stateinvoice;
 use App\Models\Account\DetailSales;
 
+use App\Models\Sales\Salesorder;
+use App\Models\Sales\Salesorderdetail;
+use App\Models\Logistic\Product\Product;
+use App\Models\Logistic\ProductCategory\ProductCategory;
+use App\Models\Sales\Customer;
 
 class SalesController extends Controller
 {
@@ -201,5 +206,51 @@ class SalesController extends Controller
                 
     }
 
-   
+   public function createFromSalesorder($id)
+    {
+        $salesorderdetails = DB::table('salesorderdetails')
+                                ->where('id_pedido_venta', $id)
+                                ->get();                                    
+        $salesorder        = Salesorder::find($id);
+        $categoryproducts  = ProductCategory::get();        
+        $products          = Product::get();                  
+        $customers         = Customer::get();
+        $document_types    = Document_type::take(3)->get();
+        $date              = date("Y-m-d", time());
+        if( $salesorder->customer )
+            $days = $salesorder->customer->plazo_credito;
+        else
+            $days = 0;
+        $fecha_vencimiento = date("Y-m-d", strtotime($date . '+' . $days . 'day'));
+        
+        $data = [
+            'salesorderdetails' => $salesorderdetails,
+            'salesorder'        => $salesorder,
+            'categoryproducts'  => $categoryproducts,
+            'products'          => $products,            
+            'customers'         => $customers,
+            'document_types'    => $document_types,
+            'fecha_creacion'    => $date,
+            'fecha_vencimiento' => $fecha_vencimiento,
+        ];
+
+        //dd($data);
+
+        return view('sales.pages.salesdocument.createFromSalesorder', $data);
+    }
+
+    public function findNumberDocument(Request $request)
+    {
+        $id =  $request['id'];
+
+        $document_type = Document_type::find($id);
+
+        $data = [
+            'numeracion'    => $document_type->numeration,                                 
+        ];      
+        
+        return response()->json( $data );    
+
+    }
+
 }

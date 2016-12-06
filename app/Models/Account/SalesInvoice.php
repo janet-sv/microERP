@@ -50,4 +50,5 @@ class SalesInvoice extends Model
       return $this->belongsto(DetailSales::class);
     }
  
+
 }

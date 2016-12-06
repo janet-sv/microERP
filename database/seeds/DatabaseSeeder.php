@@ -11,6 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+
+          $this->call(CustomersTableSeeder::class);
+          $this->call(TrademarksTableSeeder::class);
+          $this->call(SocietysTableSeeder::class);
           $this->call(UserTableSeeder::class);
           $this->call(Document_typeTableSeeder::class);
           $this->call(StateinvoiceTableSeeder::class);
@@ -19,13 +24,30 @@ class DatabaseSeeder extends Seeder
           $this->call(ProviderTableSeeder::class);
           $this->call(PurchasesInvoiceTableSeeder::class);
           $this->call(JournalsTableSeeder::class);
+          
           $this->call(PaymentmethodTableSeeder::class);
           $this->call(PaymenttypeTableSeede::class);
           $this->call(BankTableSeeder::class);
           $this->call(TaxesTableSeeder::class);
           $this->call(AccountsplanTableSeeder::class);
+
           $this->call(DetailpurchaseTableSeeder::class);
           $this->call(DetailsalesTableSeeder::class);
           
+          $this->call(StateinvoiceTableSeeder::class);
+
+
+
+
+          //Modulo ventas          
+         
+          $this->call(PromoconditionsTableSeeder::class);
+          $this->call(CategoryproductsalesTableSeeder::class);
+          $this->call(ProductsalesTableSeeder::class);
+          $this->call(ListpricesTableSeeder::class);
+
+          
+
+
     }
 }

@@ -110,13 +110,13 @@
                                            <tbody>
                                               @foreach($details as $detail)
                                                 <tr class="row">
-                                                  
+                                                   
                                                   <td>{{$detail->product}}</td>
                                                   <td>{{$detail->name}}</td>
                                                   <td>{{$detail->amount}}</td>
                                                   <td>{{$detail->unitprice}}</td>
                                                   <td>{{$detail->total}}</td>
-                                                 
+                                                   
                                                 </tr>
                                                 @endforeach
                                             </tbody>

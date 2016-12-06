@@ -1,0 +1,9 @@
+#!/bin/bash
+browserify \
+-x jquery \
+-g uglifyify \
+resources/assets/js/app.js \
+| uglifyjs \
+--compress warnings=false \
+--mangle \
+-o public/build/js/app.js

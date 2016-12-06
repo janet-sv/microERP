@@ -11,6 +11,124 @@
 |
 */
 
-Route::get('/sale', function () {
-    return view('welcome');
+
+
+Route::group(['prefix' => 'ventas'], function(){
+
+			Route::get('/', 'Sales\SalesController@index');
+
+            //Administrar condición de promociones
+
+            Route::group(['prefix' => 'cliente'], function(){    
+                Route::get('/', ['as' => 'customer.index', 'uses' => 'Sales\CustomerController@index']);
+                Route::get('create', ['as' => 'customer.create', 'uses' => 'Sales\CustomerController@create']);
+                Route::post('create', ['as' => 'customer.store', 'uses' => 'Sales\CustomerController@store']);
+                //Route::get('show/{id}', ['as' => 'promocondition.show', 'uses' => 'Investigation\Promocondition\PromoconditionController@show']);
+                Route::get('edit/{id}', ['as' => 'customer.edit', 'uses' => 'Sales\CustomerController@edit']);
+                Route::post('edit/{id}', ['as' => 'customer.update', 'uses' => 'Sales\CustomerController@update']);
+                Route::get('delete/{id}', ['as' => 'customer.delete', 'uses' => 'Sales\CustomerController@destroy']);
+            });
+
+
+			//Administrar condición de promociones
+
+            Route::group(['prefix' => 'condicion-promocion'], function(){    
+                Route::get('/', ['as' => 'promocondition.index', 'uses' => 'Sales\PromoconditionController@index']);
+                Route::get('create', ['as' => 'promocondition.create', 'uses' => 'Sales\PromoconditionController@create']);
+                Route::post('create', ['as' => 'promocondition.store', 'uses' => 'Sales\PromoconditionController@store']);
+                //Route::get('show/{id}', ['as' => 'promocondition.show', 'uses' => 'Investigation\Promocondition\PromoconditionController@show']);
+                Route::get('edit/{id}', ['as' => 'promocondition.edit', 'uses' => 'Sales\PromoconditionController@edit']);
+                Route::post('edit/{id}', ['as' => 'promocondition.update', 'uses' => 'Sales\PromoconditionController@update']);
+                Route::get('delete/{id}', ['as' => 'promocondition.delete', 'uses' => 'Sales\PromoconditionController@destroy']);
+            });
+
+            //Administrar condición de promociones
+
+            Route::group(['prefix' => 'precio-lista'], function(){    
+                Route::get('/', ['as' => 'listprice.index', 'uses' => 'Sales\ListpriceController@index']);
+                Route::get('create', ['as' => 'listprice.create', 'uses' => 'Sales\ListpriceController@create']);
+                Route::post('create', ['as' => 'listprice.store', 'uses' => 'Sales\ListpriceController@store']);
+                //Route::get('show/{id}', ['as' => 'listpricen.show', 'uses' => 'Investigation\Listprice\ListpriceController@show']);
+                Route::get('edit/{id}', ['as' => 'listprice.edit', 'uses' => 'Sales\ListpriceController@edit']);
+                Route::post('edit/{id}', ['as' => 'listprice.update', 'uses' => 'Sales\ListpriceController@update']);
+                Route::get('delete/{id}', ['as' => 'listprice.delete', 'uses' => 'Sales\ListpriceController@destroy']);
+                Route::get('/findProducts', ['as' => 'listprice.findProducts', 'uses' => 'Sales\ListpriceController@findProducts']);
+                Route::get('/findProductsInEdit', ['as' => 'listprice.findProductsInEdit', 'uses' => 'Sales\ListpriceController@findProductsInEdit']);
+            });
+
+            //Administrar promociones por producto
+
+            Route::group(['prefix' => 'promociones'], function(){    
+                Route::group(['prefix' => 'por-producto'], function(){    
+                    Route::get('/', ['as' => 'promotionbyproduct.index', 'uses' => 'Sales\PromotionbyproductController@index']);
+                    Route::get('create', ['as' => 'promotionbyproduct.create', 'uses' => 'Sales\PromotionbyproductController@create']);
+                    Route::post('create', ['as' => 'promotionbyproduct.store', 'uses' => 'Sales\PromotionbyproductController@store']);
+                    //Route::get('show/{id}', ['as' => 'promocondition.show', 'uses' => 'Investigation\Promocondition\PromoconditionController@show']);
+                    Route::get('edit/{id}', ['as' => 'promotionbyproduct.edit', 'uses' => 'Sales\PromotionbyproductController@edit']);
+                    Route::post('edit/{id}', ['as' => 'promotionbyproduct.update', 'uses' => 'Sales\PromotionbyproductController@update']);
+                    Route::get('delete/{id}', ['as' => 'promotionbyproduct.delete', 'uses' => 'Sales\PromotionbyproductController@destroy']);
+                    Route::get('/findProducts', ['as' => 'promotionbyproduct.findProducts', 'uses' => 'Sales\PromotionbyproductController@findProducts']);
+                    Route::get('/findProductsInEdit', ['as' => 'promotionbyproduct.findProductsInEdit', 'uses' => 'Sales\PromotionbyproductController@findProductsInEdit']);
+                });
+            });
+
+            //Administrar promociones por agrupacion de productos
+
+            Route::group(['prefix' => 'promociones'], function(){    
+                Route::group(['prefix' => 'por-agrupacion-de-producto'], function(){    
+                    Route::get('/', ['as' => 'promotionbygroup.index', 'uses' => 'Sales\PromotionbygroupController@index']);
+                    Route::get('create', ['as' => 'promotionbygroup.create', 'uses' => 'Sales\PromotionbygroupController@create']);
+                    Route::post('create', ['as' => 'promotionbygroup.store', 'uses' => 'Sales\PromotionbygroupController@store']);
+                    //Route::get('show/{id}', ['as' => 'promocondition.show', 'uses' => 'Investigation\Promocondition\PromoconditionController@show']);
+                    Route::get('edit/{id}', ['as' => 'promotionbygroup.edit', 'uses' => 'Sales\PromotionbygroupController@edit']);
+                    Route::post('edit/{id}', ['as' => 'promotionbygroup.update', 'uses' => 'Sales\PromotionbygroupController@update']);
+                    Route::get('delete/{id}', ['as' => 'promotionbygroup.delete', 'uses' => 'Sales\PromotionbygroupController@destroy']);
+                    Route::get('/findProducts', ['as' => 'promotionbygroup.findProducts', 'uses' => 'Sales\PromotionbygroupController@findProducts']);
+                    Route::get('/findProductsInEdit', ['as' => 'promotionbygroup.findProductsInEdit', 'uses' => 'Sales\PromotionbygroupController@findProductsInEdit']);
+                });
+            });
+            
+
+            //Administrar proformas
+
+            Route::group(['prefix' => 'proformas'], function(){                    
+                Route::get('/', ['as' => 'offer.index', 'uses' => 'Sales\OfferController@index']);
+                Route::get('create', ['as' => 'offer.create', 'uses' => 'Sales\OfferController@create']);
+                Route::post('create', ['as' => 'offer.store', 'uses' => 'Sales\OfferController@store']);
+                Route::get('show/{id}', ['as' => 'offer.show', 'uses' => 'Sales\OfferController@show']);
+                Route::get('edit/{id}', ['as' => 'offer.edit', 'uses' => 'Sales\OfferController@edit']);
+                Route::post('edit/{id}', ['as' => 'offer.update', 'uses' => 'Sales\OfferController@update']);
+                Route::get('delete/{id}', ['as' => 'offer.delete', 'uses' => 'Sales\OfferController@destroy']);
+                Route::get('/findProducts', ['as' => 'offer.findProducts', 'uses' => 'Sales\OfferController@findProducts']);
+                Route::get('/findProductsInEdit', ['as' => 'offer.findProductsInEdit', 'uses' => 'Sales\OfferController@findProductsInEdit']);
+                Route::get('/findPrice', ['as' => 'offer.findPrice', 'uses' => 'Sales\OfferController@findPrice']);
+                Route::get('copy/{id}', ['as' => 'offer.copy', 'uses' => 'Sales\OfferController@copy']);               
+                
+            });
+
+            //Administrar pedidos de venta
+
+            Route::group(['prefix' => 'pedidos-de-venta'], function(){                    
+                Route::get('/', ['as' => 'salesorder.index', 'uses' => 'Sales\SalesorderController@index']);
+                Route::get('create', ['as' => 'salesorder.create', 'uses' => 'Sales\SalesorderController@create']);
+                Route::post('create', ['as' => 'salesorder.store', 'uses' => 'Sales\SalesorderController@store']);                
+                //Route::get('show/{id}', ['as' => 'promocondition.show', 'uses' => 'Investigation\Promocondition\PromoconditionController@show']);
+                Route::get('edit/{id}', ['as' => 'salesorder.edit', 'uses' => 'Sales\SalesorderController@edit']);
+                Route::post('edit/{id}', ['as' => 'salesorder.update', 'uses' => 'Sales\SalesorderController@update']);
+                Route::get('delete/{id}', ['as' => 'salesorder.delete', 'uses' => 'Sales\SalesorderController@destroy']);
+                Route::get('/findProducts', ['as' => 'salesorder.findProducts', 'uses' => 'Sales\SalesorderController@findProducts']);
+                Route::get('/findProductsInEdit', ['as' => 'salesorder.findProductsInEdit', 'uses' => 'Sales\SalesorderController@findProductsInEdit']);
+                Route::get('/findPrice', ['as' => 'salesorder.findPrice', 'uses' => 'Sales\SalesorderController@findPrice']);
+                Route::get('convertir-proforma/{id}', ['as' => 'salesorder.createFromOffer', 'uses' => 'Sales\SalesorderController@createFromOffer']);
+                Route::post('convertir-proforma', ['as' => 'salesorder.storeFromOffer', 'uses' => 'Sales\SalesorderController@storeFromOffer']);
+            });
+
+            Route::group(['prefix' => 'documentos-de-venta'], function(){                    
+                Route::get('/', ['as' => 'salesinvoice.index', 'uses' => 'Account\Sales\SalesController@index']);                
+                Route::post('create', ['as' => 'salesinvoice.store', 'uses' => 'Account\Sales\SalesController@store']);                
+                Route::get('show/{id}', ['as' => 'salesinvoice.show', 'uses' => 'Account\Sales\SalesController@show']);
+                Route::get('convertir-pedido-de-venta/{id}', ['as' => 'salesinvoice.createFromSalesorder', 'uses' => 'Account\Sales\SalesController@createFromSalesorder']);                
+                Route::get('/findNumberDocument', ['as' => 'salesinvoice.findNumberDocument', 'uses' => 'Account\Sales\SalesController@findNumberDocument']);
+            });            
+
 });
