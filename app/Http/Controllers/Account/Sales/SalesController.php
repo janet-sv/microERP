@@ -51,7 +51,7 @@ class SalesController extends Controller
                     ->orderBy('id', 'desc')
                     ->paginate(5);
         */
-        $salesinvoices = SalesInvoice::whereIn('id', [1, 2])->orderBy('id', 'desc')->paginate(10);   
+        $salesinvoices = SalesInvoice::whereIn('document_id', [1, 2])->orderBy('id', 'desc')->paginate(10);   
 
 
         return  view('/account/SalesInvoice/index')->with('SalesInvoice',$salesinvoices);
@@ -201,14 +201,15 @@ class SalesController extends Controller
         $Document_type = Document_type::whereNotIn('id', [4, 5,6])->lists('name','id')->prepend('Seleccioname el tipo de documento');
         $SalesInvoices = SalesInvoice::FindOrFail($id);
         $state = Stateinvoice::lists('name','id')->prepend('Seleccionar estado');
-
+        /*
         $details = DetailSales::
                     select('salesinvoicedetail.id','salesinvoicedetail.invoice_id','product.name as product','accounts.code as name','salesinvoicedetail.amount','salesinvoicedetail.unitprice','salesinvoicedetail.discounts','salesinvoicedetail.total')
                     ->where('invoice_id','=',  $id)
                    ->join('accounts','accounts.id','=','salesinvoicedetail.code')
                    ->join('product','product.id','=','salesinvoicedetail.product_id')
                     ->paginate(5);
-
+        */
+        $details = DetailSales::where('invoice_id', $id)->paginate(10);
 
        // return view('/account/SalesInvoice/edit');
         return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices,'users'=>$users, 'Partners'=>$Partners , 'Document_type'=>$Document_type ,'state'=>$state,'details'=>$details ));

@@ -28,7 +28,7 @@
                             <div class="col-xs-12 col-sm-4 col-md-4">
                                 <div class="form-group">
                                     {!!form::label('Tipo de documento')!!}
-                                       {!! Form::select('document_id',$Document_type,null,['id'=>'document_id','class'=>'form-control'],['readonly']) !!}
+                                       {!! Form::select('document_id',$Document_type,null,['id'=>'document_id','class'=>'form-control' ,'readonly' => 'true'],['readonly']) !!}
                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-4 col-md-4">
@@ -51,7 +51,7 @@
                             <div class="col-xs-12 col-sm-4 col-md-4">
                                   <div class="form-group">
                                       {!!form::label('Cliente')!!}
-                                       {!! Form::select('partner_id',$Partners,null,['id'=>'partner_id','class'=>'form-control'],['readonly']) !!}
+                                       {!! Form::select('partner_id',$Partners,null,['id'=>'partner_id','class'=>'form-control','readonly' => 'true'],['readonly']) !!}
                                     
                                  </div>
                             </div>
@@ -79,13 +79,13 @@
                                    <div class="form-group">
                                
                                       {!!form::label('Fecha de Vencimiento')!!}
-                                      {!!form::text('date_due',null,['id'=>'date_due','class'=>'form-control','placeholder'=>'Seleccione la fecha'])!!}
+                                      {!!form::text('date_due',null,['id'=>'date_due','class'=>'form-control','placeholder'=>'Seleccione la fecha','readonly' => 'true'])!!}
                                  </div>
                             </div>
                              <div class="col-xs-12 col-sm-6 col-md-6">
                                        <div class="form-group">
                                             {!!form::label('Fecha de emisión')!!}
-                                            {!!form::text('date_invoice',null,['id'=>'date_invoice','class'=>'form-control','placeholder'=>'Seleccione la Fecha'])!!}
+                                            {!!form::text('date_invoice',null,['id'=>'date_invoice','class'=>'form-control','placeholder'=>'Seleccione la Fecha','readonly' => 'true'])!!}
                                        </div>
                             </div>
 
@@ -109,16 +109,14 @@
                                           </thead>
                                            <tbody>
                                               @foreach($details as $detail)
-                                                <tr class="row">
-                                                   
-                                                  <td>{{$detail->product}}</td>
-                                                  <td>{{$detail->name}}</td>
+                                                <tr>                                                   
+                                                  <td>{{$detail->product->name}}</td>
+                                                  <td>{{$detail->account->name}}</td>
                                                   <td>{{$detail->amount}}</td>
                                                   <td>{{$detail->unitprice}}</td>
-                                                  <td>{{$detail->total}}</td>
-                                                   
+                                                  <td>{{$detail->total}}</td>                        
                                                 </tr>
-                                                @endforeach
+                                              @endforeach
                                             </tbody>
                                     </table> 
                                      <div class="text-center">

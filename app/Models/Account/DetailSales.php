@@ -17,14 +17,14 @@ class DetailSales extends Model
    public function salesInvoice()
    {
       // hasmany - tiene muchas
-      return $this->belongsTo('App\Models\Sales\SalesInvoice', 'invoice_id');
+      return $this->belongsTo('App\Models\Account\SalesInvoice', 'invoice_id');
       
    }
 
-    public function accounts()
+    public function account()
    {
       // hasmany - tiene muchas
-      return $this->belongsTo('App\Models\Sales\Accounts', 'code');
+      return $this->belongsTo('App\Models\Account\Accounts', 'code');
       
    }
 
