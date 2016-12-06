@@ -114,7 +114,7 @@ class SalesorderController extends Controller
      */
     public function show($id)
     {
-        $salesorder = Promotion::find($id);
+        $salesorder = Salesorder::find($id);
 
         $data = [
             'salesorder'    =>  $salesorder,

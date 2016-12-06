@@ -181,9 +181,16 @@ class SalesController extends Controller
      */
     public function show($id)
     {
-        $SalesInvoices = SalesInvoice::FindOrFail($id);
+        
+        $salesinvoicedetails = DB::table('salesinvoicedetail')
+                                ->where('invoice_id', $id)
+                                ->get();                                    
+        $salesinvoice        = Offer::find($id);
 
-        return view('/account/SalesInvoice/show', array('SalesInvoices'=>$SalesInvoices));
+        $data = [
+            'salesinvoicedetails'     => $salesinvoicedetails,
+            'salesinvoice'            => $salesinvoice,            
+        ];
     }
 
     /**

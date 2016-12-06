@@ -34,7 +34,8 @@
                               <th>Referencia</th>
                               <th>Total</th>
                               <th>Importe Adeuado</th>
-                              <th>Estado</th>                            
+                              <th>Estado</th>  
+                              <th colspan="1">Acciones</th>                          
                             </tr>
                           </thead>
                           <tbody>
@@ -51,6 +52,9 @@
                               <td>{{$salesinvoice->amount_total_signed}}</td>
                               <td>{{$salesinvoice->residual_signed}}</td>
                               <td>{{$salesinvoice->state}}</td>
+                              <td>
+                                  <a href="{{route('salesinvoice.show', $salesinvoice->id)}}" class="btn btn-primary btn-xs" title="Mostrar"><i class="fa fa-eye"></i></a>                                  
+                              </td>
                             </tr>
                             @endforeach
                           </tbody>
