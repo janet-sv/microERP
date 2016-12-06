@@ -23,6 +23,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Numeración</label>
+                                        <input hidden value="{{ Auth::user()->id }}" name="user" maxlength="50">
                                         <input value="{{$numeracion}}" readonly="readonly" class="form-control" name="numeracion" maxlength="50">
                                     </div>
                                 </div>

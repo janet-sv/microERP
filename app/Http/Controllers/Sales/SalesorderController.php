@@ -89,7 +89,7 @@ class SalesorderController extends Controller
             $salesorder->save();
             
             foreach($request['categoryproduct'] as $key=> $value){
-                $salesorderdetail                     = new Salesorderdetail;
+                $salesorderdetail                     = new DetailSales;
                 $salesorderdetail->cantidad           = $request['cantidad'][$key];
                 $salesorderdetail->descuento          = $request['descuento'][$key];
                 $salesorderdetail->precio_unitario    = $request['precio'][$key];

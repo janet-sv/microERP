@@ -21,7 +21,7 @@
               <div class="panel-heading"><strong>Tabla de Facturas</strong></div>
                   <div class="panel-body">                                          
                       <div class="table-responsive ">
-                        <table class="table table-hover table-bordered table-responsive">
+                        <table class="table table-list-search table-striped responsive-utilities jambo_table bulk_action"> 
                           <thead>
                             <tr>
                               <th>Documento</th>

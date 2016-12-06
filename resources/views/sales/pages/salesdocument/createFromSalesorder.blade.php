@@ -35,6 +35,8 @@
                                 </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
+                                        <input hidden value="{{ Auth::user()->id }}" name="user" maxlength="50">
+                                        <input hidden value="{{ $salesorder->id }}" name="salesorder" maxlength="50">
                                         <label>Cliente</label>
                                         @if($salesorder->customer)                                    
                                             @if($salesorder->customer->tipo_contribuyente == 1)
