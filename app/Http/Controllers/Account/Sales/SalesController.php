@@ -94,42 +94,73 @@ class SalesController extends Controller
     public function store(Request $request)
     {
         
-        $id =  $request['document_id'];
+        $id =  $request['tipo_documento'];
         $number=DB::table('document_type')->where('id', $id)->value('numeration');
         $request['number'] = $number;
 
 
-        $id =  $request['partner_id'];
+        $id =  $request['cliente'];
         $empresa=DB::table('partner')->where('id', $id)->value('name');
-        $id =  $request['document_id'];
+
+
+        $id =  $request['tipo_documento'];
+
+
         $code=DB::table('document_type')->where('id', $id)->value('name');
         $regis= new AccountantSeat;
-        $regis->date=$request['date_invoice'];
+        $regis->date=$request['fecha_creacion'];
           $regis->code=$code;
            $regis->number=$request['number'];
             $regis->company=$empresa;
              $regis->reference=$request['reference'];
               $regis->diario_id=1;
-               $regis->amount=$request['amount_total_signed'];
+               $regis->amount=$request['total_documento_venta'];
                 $regis->state="Publicado";
-    error_log($regis->code);
-    DB::table('accountantseat')->insert(
-    ['date' =>  $regis->date, 'code' => $regis->code,'number' =>  $regis->number, 'company' =>  $regis->company,'reference' => $regis->reference, 'diario_id' =>  $regis->diario_id,'amount' => $regis->amount, 'state' => $regis->state]);
-      
 
-
-        SalesInvoice::create($request->all());
+        error_log($regis->code);
+        DB::table('accountantseat')->insert(
+        ['date' =>  $regis->date, 'code' => $regis->code,'number' =>  $regis->number, 'company' =>  $regis->company,'reference' => $regis->reference, 'diario_id' =>  $regis->diario_id,'amount' => $regis->amount, 'state' => $regis->state]);
+          
+        //SalesInvoice::create($request->all());
+        $id_cliente = null;
+        if( $request['cliente'] != 0)
+            $id_cliente = $request['cliente'];
+        $salesinvoice                      = new SalesInvoice;        
+        $salesinvoice->date_invoice        = $request['fecha_creacion'];            
+        $salesinvoice->number          = $request['numeracion'];
+        $salesinvoice->date_due            = $request['fecha_vencimiento'];            
+        $salesinvoice->amount_total_signed = $request['total_documento_venta'];                        
+        $salesinvoice->residual_signed     = $request['total_documento_venta'];                        
+        $salesinvoice->subtotal            = $request['sub_total'];                        
+        $salesinvoice->igv                 = $request['igv'];                        
+        $salesinvoice->partner_id          = $id_cliente;
+        $salesinvoice->user_id             = $request['user'];                        
+        $salesinvoice->document_id         = $request['tipo_documento'];                        
+        $salesinvoice->state_id            = 1;        
+        $salesinvoice->id_salesorder       = $request['salesorder'];                             
+        $salesinvoice->description         = $request['descripcion'];                    
+        $salesinvoice->discount           = $request['descuento_manual'];                                
+        $salesinvoice->save();
         
-      
+        foreach($request['product'] as $key=> $value){
+            $salesinvoicedetail             = new DetailSales;
+            $salesinvoicedetail->amount     = $request['cantidad'][$key];
+            $salesinvoicedetail->discounts  = $request['descuento'][$key];
+            $salesinvoicedetail->unitprice  = $request['precio_unitario'][$key];
+            $salesinvoicedetail->total      = $request['total'][$key];            
+            $salesinvoicedetail->invoice_id = $salesinvoice->id;
+            $salesinvoicedetail->product_id = $request['product'][$key];                        
+            $salesinvoicedetail->code = 1607;                                
+            $salesinvoicedetail->save();
+        } 
 
         $number = $number + 1;
         DB::table('document_type')
             ->where('id', $id)
             ->update(['numeration' => $number]);
 
+        return redirect()->route('salesinvoice.index')->with('success', 'El documento de venta se ha registrado exitosamente');
 
-
-        return redirect()->route('FacturasClientes.index');
     }
 
     /**
@@ -251,6 +282,20 @@ class SalesController extends Controller
         
         return response()->json( $data );    
 
+    }
+
+    public function indexSalesDocuments()
+    {
+        $salesinvoices = SalesInvoice::
+                    select('salesinvoice.id','document_type.name as document','partner.name as client','partner.ruc as ruc','salesinvoice.date_invoice','salesinvoice.number','users.name as user','salesinvoice.date_due','salesinvoice.amount_total_signed','salesinvoice.residual_signed','stateinvoice.name as state','salesinvoice.reference')
+                    ->join('partner','partner.id','=','salesinvoice.partner_id')
+                    ->join('stateinvoice','stateinvoice.id','=','salesinvoice.state_id')
+                    ->join('users','users.id','=','salesinvoice.user_id')
+                    ->join('document_type','document_type.id','=','salesinvoice.document_id')
+                    ->orderBy('id', 'desc')
+                    ->paginate(10);
+        
+        return  view('/sales/pages/salesdocument/index')->with('SalesInvoice',$salesinvoices);
     }
 
 }

@@ -21,6 +21,11 @@ use App\Http\Requests;
 
 class SalesorderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $salesorders = Salesorder::orderBy('numeracion', 'asc')->paginate(10);         

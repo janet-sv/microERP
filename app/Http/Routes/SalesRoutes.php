@@ -11,7 +11,7 @@
 |
 */
 
-
+Route::auth();
 
 Route::group(['prefix' => 'ventas'], function(){
 
@@ -122,13 +122,21 @@ Route::group(['prefix' => 'ventas'], function(){
                 Route::get('convertir-proforma/{id}', ['as' => 'salesorder.createFromOffer', 'uses' => 'Sales\SalesorderController@createFromOffer']);
                 Route::post('convertir-proforma', ['as' => 'salesorder.storeFromOffer', 'uses' => 'Sales\SalesorderController@storeFromOffer']);
             });
-
+    
+            //Documentos de venta
             Route::group(['prefix' => 'documentos-de-venta'], function(){                    
-                Route::get('/', ['as' => 'salesinvoice.index', 'uses' => 'Account\Sales\SalesController@index']);                
+                Route::get('/', ['as' => 'salesinvoice.index', 'uses' => 'Account\Sales\SalesController@indexSalesDocuments']);                
                 Route::post('create', ['as' => 'salesinvoice.store', 'uses' => 'Account\Sales\SalesController@store']);                
                 Route::get('show/{id}', ['as' => 'salesinvoice.show', 'uses' => 'Account\Sales\SalesController@show']);
                 Route::get('convertir-pedido-de-venta/{id}', ['as' => 'salesinvoice.createFromSalesorder', 'uses' => 'Account\Sales\SalesController@createFromSalesorder']);                
-                Route::get('/findNumberDocument', ['as' => 'salesinvoice.findNumberDocument', 'uses' => 'Account\Sales\SalesController@findNumberDocument']);
+                Route::get('/findNumberDocument', ['as' => 'salesinvoice.findNumberDocument', 'uses' => 'Account\Sales\SalesController@findNumberDocument']);                
             });            
 
+            //Reportes
+            Route::group(['prefix' => 'reportes'], function(){                    
+                Route::get('ventas', ['as' => 'report.sales', 'uses' => 'Sales\ReportController@sales']);                
+                Route::get('rotacion-de-producots', ['as' => 'report.rotation', 'uses' => 'Sales\ReportController@rotation']);                                
+                Route::get('precios-de-lista', ['as' => 'report.listprice', 'uses' => 'Sales\ReportController@listprice']);                                
+                Route::get('/findProducts', ['as' => 'report.findProducts', 'uses' => 'Sales\ReportController@findProducts']);
+            });            
 });

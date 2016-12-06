@@ -31,10 +31,9 @@ class DatabaseSeeder extends Seeder
           $this->call(TaxesTableSeeder::class);
           $this->call(AccountsplanTableSeeder::class);
 
+
           $this->call(DetailpurchaseTableSeeder::class);
           $this->call(DetailsalesTableSeeder::class);
-          
-          $this->call(StateinvoiceTableSeeder::class);
 
 
 
@@ -44,10 +43,7 @@ class DatabaseSeeder extends Seeder
           $this->call(PromoconditionsTableSeeder::class);
           $this->call(CategoryproductsalesTableSeeder::class);
           $this->call(ProductsalesTableSeeder::class);
-          $this->call(ListpricesTableSeeder::class);
-
-          
-
+          $this->call(ListpricesTableSeeder::class);          
 
     }
 }
