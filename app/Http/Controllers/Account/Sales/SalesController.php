@@ -101,7 +101,8 @@ class SalesController extends Controller
     {
         $cuenta = 1607; //se redirecciona a esta cuenta en la tabla
         $cuentaigv = 890;
-        $cuentatotal = 116;   
+        $cuentatotal = 116; 
+        $aux;  
 
 
         $id =  $request['tipo_documento'];
