@@ -8,7 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Account\Journal;
 use App\Models\Account\AccountantSeat;
-
+use App\Models\Account\Accountseatdetail;
+use Log;
+use DB;
 class AccountantseatController extends Controller
 {
     /**
@@ -37,5 +39,21 @@ class AccountantseatController extends Controller
 
         return view('/account/Accountantseat/index')->with('accountantseats',$accountantseats);
     }
+
+      public function show($id)
+    {
+        $accountantseats = AccountantSeat::FindOrFail($id);
+        $diario=  Journal::FindOrFail($accountantseats->diario_id)->value('name');
+  
+        error_log($accountantseats->id);
+        
+
+       // $details = Accountseatdetail::where('accountseat_id',$accountantseats->id);
+$details = Accountseatdetail::where('accountseat_id', $accountantseats->id)->paginate(10);
+// $details = DB::table('accountseatdetail')->where('accountseat_id',$accountantseats->id)->get();
+
+         return view('/account/Accountantseat/show', array('accountantseats'=>$accountantseats,'diario'=>$diario,'details' => $details));
+    }
+
 
 }

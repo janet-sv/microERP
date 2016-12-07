@@ -99,7 +99,7 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        $cuenta = 1607;
+        $cuenta = 1607; //se redirecciona a esta cuenta en la tabla
         $id =  $request['tipo_documento'];
         $number=DB::table('document_type')->where('id', $id)->value('numeration');
         $request['number'] = $number;
@@ -174,7 +174,7 @@ class SalesController extends Controller
                 $accountseatdetail->empresa_id =  $cliente;
            
                 $accountseatdetail->etiqueta =  "/";
-                $accountseatdetail->debe = $salesinvoice->subtotal ;
+                $accountseatdetail->debe = $salesinvoice->amount_total_signed ;
                 $accountseatdetail->haber =  0;
                 $accountseatdetail->save();
 

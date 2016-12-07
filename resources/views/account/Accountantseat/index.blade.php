@@ -4,8 +4,8 @@
 
    <!-- Main component for a primary marketing message or call to action -->
     <ol class="breadcrumb">
-         <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Módulo Contable</a></li>
-         <li class ="breadcrumb-item active"><a href="{{url('Impuestos')}}">>Asientos Contables</a></li>
+         <li class ="breadcrumb-item"><a href="{{url('/ModuloContable')}}">>Módulo Contable</a></li>
+         <li class ="breadcrumb-item active"><a href="{{url('/AsientosContables')}}">>Asientos Contables</a></li>
        </ol>
    <div class="row">
       <div class="col-lg-12">
@@ -43,7 +43,7 @@
                             </thead>
                             <tbody>
                                  @foreach($accountantseats as $accountantseat)
-                            <tr class="clickable-row" data-href="{{route('AsientosContables.edit',$accountantseat->id)}}" >
+                            <tr class="clickable-row" data-href="{{route('AsientosContables.show',$accountantseat->id)}}" >
                                
                                 <td>{{$accountantseat->date}}</td>
                                 <td>{{$accountantseat->code}}</td>

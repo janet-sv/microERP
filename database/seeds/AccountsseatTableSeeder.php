@@ -30,5 +30,72 @@ class AccountsseatTableSeeder extends Seeder
             'state' => 'Publicado',
         ]);
         
+        DB::table('accountseatdetail')->insert([
+            
+            'accountseat_id' => '1',
+            'account_id' => '1607',
+            'empresa_id' => '2',
+            'etiqueta' => '/',
+            'debe' => 100,
+            'haber' => 0,
+        ]);
+
+        DB::table('accountseatdetail')->insert([
+           
+            'accountseat_id' => '1',
+            'account_id' => '1607',
+            'empresa_id' => '2',
+            'etiqueta' => 'IGV 18% Venta',
+            'debe' => 0,
+            'haber' => 18,
+        ]);
+        DB::table('accountseatdetail')->insert([
+           
+            'accountseat_id' => '1',
+            'account_id' => '1607',
+            'empresa_id' => '2',
+            'etiqueta' => 'Factura Venta/1',
+            'debe' => 0,
+            'haber' => 41,
+        ]);
+        DB::table('accountseatdetail')->insert([
+           
+            'accountseat_id' => '1',
+            'account_id' => '1607',
+            'empresa_id' => '2',
+            'etiqueta' => 'Factura Venta/1',
+            'debe' => 0,
+            'haber' => 41,
+        ]);
+
+        DB::table('accountseatdetail')->insert([
+            
+            'accountseat_id' => '2',
+            'account_id' => '1607',
+            'empresa_id' => '2',
+            'etiqueta' => '/',
+            'debe' => 100,
+            'haber' => 0,
+        ]);
+
+        DB::table('accountseatdetail')->insert([
+           
+            'accountseat_id' => '2',
+            'account_id' => '1607',
+            'empresa_id' => '2',
+            'etiqueta' => 'IGV 18% Venta',
+            'debe' => 0,
+            'haber' => 18,
+        ]);
+        DB::table('accountseatdetail')->insert([
+            
+            'accountseat_id' => '2',
+            'account_id' => '1607',
+            'empresa_id' => '2',
+            'etiqueta' => 'Factura Venta/2',
+            'debe' => 0,
+            'haber' => 82,
+        ]);
+    
     }
 }
