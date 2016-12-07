@@ -38,13 +38,12 @@
                                 <th>Diario</th>
                                 <th>Importe</th>
                                 <th>Estado</th>
-                                 <th>Acciones</th>
                                 
                               </tr>
                             </thead>
                             <tbody>
                                  @foreach($accountantseats as $accountantseat)
-                              <tr>
+                            <tr class="clickable-row" data-href="{{route('AsientosContables.edit',$accountantseat->id)}}" >
                                
                                 <td>{{$accountantseat->date}}</td>
                                 <td>{{$accountantseat->code}}</td>
@@ -54,10 +53,7 @@
                                 <td>{{$accountantseat->diario}}</td>
                                 <td>{{$accountantseat->amount}}</td>
                                  <td>{{$accountantseat->state}}</td>
-                                <td>
-                                    <a href="{{route('AsientosContables.edit',$accountantseat->id)}}">[Editar]</a> 
-                                    <a href="{{route('AsientosContables.show',$accountantseat->id)}}">[Eliminar]</a>
-                                </td>
+                                
                               </tr>
                                @endforeach
                             </tbody>
@@ -81,6 +77,12 @@
   {
       document.location.href = "{{ route('AsientosContables.create')}}";
   });
+
+  jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.document.location = $(this).data("href");
+    });
+});
 
 </script>
 

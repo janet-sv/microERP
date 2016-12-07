@@ -15,12 +15,14 @@ use Input;
 use App\Models\Account\AccountantSeat;
 use App\Models\Account\Stateinvoice;
 use App\Models\Account\DetailSales;
+use App\Models\Account\Accountseatdetail;
 
 use App\Models\Sales\Salesorder;
 use App\Models\Sales\Salesorderdetail;
 use App\Models\Logistic\Product\Product;
 use App\Models\Logistic\ProductCategory\ProductCategory;
-use App\Models\Sales\Customer;
+use App\Models\Sales\Customer; 
+
 
 class SalesController extends Controller
 {
@@ -97,14 +99,14 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $cuenta = 1607;
         $id =  $request['tipo_documento'];
         $number=DB::table('document_type')->where('id', $id)->value('numeration');
         $request['number'] = $number;
 
 
-        $id =  $request['cliente'];
-        $empresa=DB::table('customers')->where('id', $id)->value('razon_social');
+        $cliente =  $request['cliente'];
+        $empresa=DB::table('customers')->where('id', $cliente)->value('razon_social');
 
 
         $id =  $request['tipo_documento'];
@@ -141,12 +143,14 @@ class SalesController extends Controller
             $salesinvoicedetail->total      = $request['total'][$key];            
             $salesinvoicedetail->invoice_id = $salesinvoice->id;
             $salesinvoicedetail->product_id = $request['product'][$key];                        
-            $salesinvoicedetail->code = 1607;                                
+            $salesinvoicedetail->code = $cuenta;                                
             $salesinvoicedetail->save();
         } 
 
+ 
+   
         if ( $id == 1 || $id == 2 ){
-            $regis= new AccountantSeat;
+                $regis= new AccountantSeat;
             $regis->date=$request['fecha_creacion'];
             $regis->code=$code;
             $regis->number=$request['number'];
@@ -155,18 +159,54 @@ class SalesController extends Controller
             $regis->diario_id=1;
             $regis->amount=$request['total_documento_venta'];
             $regis->state="Publicado";            
-            DB::table('accountantseat')->insert(
+            $regis->save();
+
+            /*DB::table('accountantseat')->insert(
             ['date' =>  $regis->date, 'code' => $regis->code,'number' =>  $regis->number, 'company' =>  $regis->company,'reference' => $regis->reference, 'diario_id' =>  $regis->diario_id,'amount' => $regis->amount, 'state' => $regis->state]);
+             */
+
+
+            // Asientos para el subtotal 
+
+                $accountseatdetail = new Accountseatdetail;
+                $accountseatdetail->accountseat_id  = $regis->id;
+                $accountseatdetail->account_id     = $cuenta; 
+                $accountseatdetail->empresa_id =  $cliente;
+           
+                $accountseatdetail->etiqueta =  "/";
+                $accountseatdetail->debe = $salesinvoice->subtotal ;
+                $accountseatdetail->haber =  0;
+                $accountseatdetail->save();
+
+
+
+
+            //Asientos para el IGV
+
+                $accountseatdetail = new Accountseatdetail;
+                $accountseatdetail->accountseat_id  = $regis->id;
+                $accountseatdetail->account_id     = $cuenta; 
+                $accountseatdetail->empresa_id =  $cliente;
+              
+                $accountseatdetail->etiqueta =  "IGV 18% Venta";
+                $accountseatdetail->debe = 0 ;
+                $accountseatdetail->haber =  $salesinvoice->igv;
+                $accountseatdetail->save();
+
+
+            /////////////////////////////////////////////            
+      
             $SalesInvoiceAux = SalesInvoice::find($salesinvoice->id);
-            foreach ($SalesInvoiceAux->detailSales as $key => $detailSale) {
+            foreach ($SalesInvoiceAux->detailSales as $detailSale) {
                
                 $accountseatdetail = new Accountseatdetail;
-                $accountseatdetail->accountseat_id  = 
-                $accountseatdetail->account_id     =  
-                $accountseatdetail->empresa_id =
-                $accountseatdetail->etiqueta =
-                $accountseatdetail->debe =
-                $accountseatdetail->haber =
+                $accountseatdetail->accountseat_id  = $regis->id;
+                $accountseatdetail->account_id     = $detailSale->code; 
+                $accountseatdetail->empresa_id =  $cliente;
+                error_log($request['tipo_documento']);
+                $accountseatdetail->etiqueta =  $regis->code."/".$regis->number;
+                $accountseatdetail->debe = 0 ;
+                $accountseatdetail->haber = $detailSale->total ;
                 $accountseatdetail->save();
 
 
