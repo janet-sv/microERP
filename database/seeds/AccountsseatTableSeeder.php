@@ -33,7 +33,7 @@ class AccountsseatTableSeeder extends Seeder
         DB::table('accountseatdetail')->insert([
             
             'accountseat_id' => '1',
-            'account_id' => '1607',
+            'account_id' => '116',
             'empresa_id' => '2',
             'etiqueta' => '/',
             'debe' => 100,
@@ -43,7 +43,7 @@ class AccountsseatTableSeeder extends Seeder
         DB::table('accountseatdetail')->insert([
            
             'accountseat_id' => '1',
-            'account_id' => '1607',
+            'account_id' => '890',
             'empresa_id' => '2',
             'etiqueta' => 'IGV 18% Venta',
             'debe' => 0,
@@ -71,7 +71,7 @@ class AccountsseatTableSeeder extends Seeder
         DB::table('accountseatdetail')->insert([
             
             'accountseat_id' => '2',
-            'account_id' => '1607',
+            'account_id' => '116',
             'empresa_id' => '2',
             'etiqueta' => '/',
             'debe' => 100,
@@ -81,7 +81,7 @@ class AccountsseatTableSeeder extends Seeder
         DB::table('accountseatdetail')->insert([
            
             'accountseat_id' => '2',
-            'account_id' => '1607',
+            'account_id' => '890',
             'empresa_id' => '2',
             'etiqueta' => 'IGV 18% Venta',
             'debe' => 0,

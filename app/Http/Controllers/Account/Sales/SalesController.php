@@ -100,6 +100,10 @@ class SalesController extends Controller
     public function store(Request $request)
     {
         $cuenta = 1607; //se redirecciona a esta cuenta en la tabla
+        $cuentaigv = 890;
+        $cuentatotal = 116;   
+
+
         $id =  $request['tipo_documento'];
         $number=DB::table('document_type')->where('id', $id)->value('numeration');
         $request['number'] = $number;
@@ -170,7 +174,7 @@ class SalesController extends Controller
 
                 $accountseatdetail = new Accountseatdetail;
                 $accountseatdetail->accountseat_id  = $regis->id;
-                $accountseatdetail->account_id     = $cuenta; 
+                $accountseatdetail->account_id     = $cuentatotal; 
                 $accountseatdetail->empresa_id =  $cliente;
            
                 $accountseatdetail->etiqueta =  "/";
@@ -185,7 +189,7 @@ class SalesController extends Controller
 
                 $accountseatdetail = new Accountseatdetail;
                 $accountseatdetail->accountseat_id  = $regis->id;
-                $accountseatdetail->account_id     = $cuenta; 
+                $accountseatdetail->account_id     = $cuentaigv; 
                 $accountseatdetail->empresa_id =  $cliente;
               
                 $accountseatdetail->etiqueta =  "IGV 18% Venta";
