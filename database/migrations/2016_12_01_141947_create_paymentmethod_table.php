@@ -17,7 +17,6 @@ class CreatePaymentmethodTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('numeration');
-            $table->string('type_id')->references('id')->on('paymenttype');
             
             
         });

@@ -83,18 +83,19 @@ class SalesController extends Controller
  
     }
     
-    public function findnumber(Request $request, $id)
+  
+
+  public function findnumber(Request $request, $id)
     {
 
            if($request->ajax()){
                
-               $number=DB::table('document_type')->where('id', $id)->value('numeration');
+               $number=DB::table('paymentmethod')->where('id', $id)->value('numeration');
             
             return response()->json($number);
         }
 
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -258,8 +259,8 @@ class SalesController extends Controller
      
           $Partners = Customer::lists('razon_social','id')->prepend('Seleccione al cliente');
           $metodo = Method_Payment::lists('name','id')->prepend('Metodo de Pago');
-          $tipo = Type_Payment::lists('name','id')->prepend('Tipo de Pago');
-
+          $tipo = Type_Payment::where('id',1)->lists('name','id');
+          
 
 
         /////////////////////7
@@ -277,7 +278,7 @@ class SalesController extends Controller
                     ->paginate(5);
         */
         $details = DetailSales::where('invoice_id', $id)->paginate(10);
-
+         
        // return view('/account/SalesInvoice/edit');
         return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices,'users'=>$users, 'Partners'=>$Partners , 'Document_type'=>$Document_type ,'state'=>$state,'details'=>$details ,'tipo'=>$tipo, 'metodo'=>$metodo, 'Partners'=>$Partners ));
 

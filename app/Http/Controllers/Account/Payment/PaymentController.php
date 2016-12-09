@@ -99,6 +99,59 @@ class PaymentController extends Controller
 
     }
 
+     public function storeventas(Request $request, $idfactura)
+    {
+         $id =  $request['method'];
+         $number=DB::table('paymentmethod')->where('id', $id)->value('numeration');
+         $request['number'] = $number;
+
+         Payment::create($request->all());
+
+         $number = $number + 1;
+         
+         DB::table('paymentmethod')
+            ->where('id', $id)
+            ->update(['numeration' => $number]);
+        
+          $pago =  $request['amount'];
+          $deuda = DB::table('salesinvoice')->where('id', $idfactura)->value('residual_signed');
+          $deuda = $deuda - $pago;
+          if ($deuda <= 0) {
+            $deuda=0.0;
+            DB::table('salesinvoice')
+            ->where('id', $id)
+            ->update(['residual_signed' => 0.0 ,
+                        'state_id' => 2,
+                     ]);
+
+            //guardar las cuentas contables
+
+
+          }
+
+
+
+        return redirect()->route('FacturasClientes.index');
+
+    }
+     public function storecompras(Request $request)
+    {
+         $id =  $request['method'];
+         $number=DB::table('paymentmethod')->where('id', $id)->value('numeration');
+         $request['number'] = $number;
+
+         Payment::create($request->all());
+
+         $number = $number + 1;
+         
+         DB::table('paymentmethod')
+            ->where('id', $id)
+            ->update(['numeration' => $number]);
+
+        return redirect()->route('Pagos.index');
+
+    }
+
    
     public function show()
     {

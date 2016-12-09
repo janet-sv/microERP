@@ -12,7 +12,7 @@ class Payment extends Model
    public    $timestamps = false;
 
    protected  $fillable= [
-      'id','date', 'number', 'method' , 'type', 'client', 'amount' , 'reference', 'state',
+      'id','date', 'number', 'method' , 'type', 'client', 'amount' , 'reference', 'state', 'Factura_id',
    ];
 
     public function method_Payment()
