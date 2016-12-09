@@ -310,7 +310,7 @@ class SalesorderController extends Controller
         if( $cliente )
         	$porcentaje_descuento_cliente = $cliente->porcentaje_descuento;
 
-        $descuento = round(($porcentaje_descuento_cliente + $porcentaje_descuento)*$precio/100,1);
+        $descuento = round(($porcentaje_descuento_cliente + $porcentaje_descuento)*$precio/100,2);
 
         $data = [
 			'precio'    => $precio,						

@@ -122,7 +122,7 @@
                                             </div>  
                                             <div class="col-lg-2">
                                                 <div class="form-group">
-                                                    <label>Total</label>
+                                                    <label>Total sin IGV</label>
                                                     <div class="form-group input-group">
                                                         <span class="input-group-addon">S/</span>
                                                         <input readonly="readonly" type="text" class="form-control" name="total[1]" id="total_1" placeholder="Total">
@@ -167,7 +167,7 @@
                             <div class="row">
                                 <div class="pull-right col-lg-3"> 
                                     <div class="form-group">                                   
-                                        <input readonly="readonly" class="form-control" name="total_pedido_venta" id="total" placeholder="Total" maxlength="50">
+                                        <input readonly="readonly" class="form-control" name="total_pedido_venta" id="total_pedido_venta" placeholder="Total" maxlength="50">
                                     </div>                                   
                                 </div>    
                                 <div class="pull-right col-lg-1">
@@ -193,6 +193,7 @@
 $(document).ready(function($) {
     
     var n=2;
+    var igv = 1.18;
     $("#add").click(function() {
         var x = $("#add").attr('readonly="readonly"');
         if (typeof x !== typeof undefined && x !== false) {return;  }        
@@ -295,8 +296,8 @@ $(document).ready(function($) {
             },
             success: function(data) {
                 $('#precio_' + id).attr("value", data.precio);                
-                $('#descuento_' + id).attr("value", parseFloat(data.descuento).toFixed(1) );                        
-                $('#total_' + id).attr("value", parseFloat(data.precio - data.descuento).toFixed(1) );   
+                $('#descuento_' + id).attr("value", parseFloat(data.descuento).toFixed(2) );                        
+                $('#total_' + id).attr("value", parseFloat( (data.precio - data.descuento)/igv ).toFixed(2) );   
                 calcularTotal();
             }
         });    
@@ -307,32 +308,30 @@ $(document).ready(function($) {
         var idProduct = $('#product_' + id).val();
         var idCustomer = $('#cliente').val();
         var cantidad  = $('#cantidad_' + id).val();        
-        var precio ;                
-        var descuento;                                
+        var precio = $('#precio_' + id).val();                              
         if( cantidad == 0){
             cantidad = 1;
             $('#cantidad_' + id).val(cantidad);        
         } else{
             $('#cantidad_' + id).val(cantidad.slice(0,3));
-        }
+        }  
 
         $.ajax({
             method: 'GET',
-            url: "{{ route('salesorder.findPrice')}}",            
+            url: "{{ route('offer.findDiscount')}}",            
             data: {
                 option: idProduct,
                 cliente: idCustomer                    
             },
-            success: function(data) {                
-                precio    = data.precio;                      
-                descuento = data.descuento;                                      
-                $('#descuento_' + id).attr("value", parseFloat(descuento*cantidad).toFixed(1));
+            success: function(data) {
+                var porcentaje = data.descuento;                
+                var descuento = parseFloat(precio*porcentaje/100).toFixed(2);                
+                $('#descuento_' + id).attr("value", parseFloat(descuento*cantidad).toFixed(2));
                  descuento = $('#descuento_' + id).attr("value");
-                $('#total_' + id).attr("value", parseFloat((precio*cantidad)-descuento).toFixed(1) );   
+                $('#total_' + id).attr("value", parseFloat( ((precio*cantidad)-descuento)/igv ).toFixed(2) );   
                 calcularTotal();
             }
-        });            
-        
+        });                                        
         
     });
     
@@ -347,17 +346,21 @@ $(document).ready(function($) {
                 total = parseFloat(total) + parseFloat($('#total_' + j).attr("value"));                   
             }
         }                
+        var sub_total = total;
+        var igvTotal  = sub_total * 0.18 ;
+        total = sub_total + igvTotal;
+
         var descuento_manual = $("#descuento_manual").val();  
         if (descuento_manual == 0)      
             descuento_manual = 0;
         total = total - descuento_manual;
+        sub_total = total / igv ;
+        igvTotal = total - sub_total ;
 
-        var sub_total = total / 1.18;
-        var igv  = total - sub_total;
 
-        $('#sub_total').attr("value", parseFloat(sub_total).toFixed(1));   
-        $('#igv').attr("value", parseFloat(igv).toFixed(1));   
-        $('#total').attr("value", parseFloat(total).toFixed(1) ); 
+        $('#sub_total').attr("value", parseFloat(sub_total).toFixed(2));   
+        $('#igv').attr("value", parseFloat(igvTotal).toFixed(2));   
+        $('#total_pedido_venta').attr("value", parseFloat(total).toFixed(2) ); 
     }
 });
 

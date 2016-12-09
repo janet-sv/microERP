@@ -94,7 +94,7 @@
                                                     <th>Cantidad</th>                                                                                                                                                                 
                                                     <th>Precio unitario</th> 
                                                     <th>Descuento</th> 
-                                                    <th>Total</th> 
+                                                    <th>Total sin IGV</th> 
                                                 </tr> 
                                             </thead> 
                                             <tbody> 

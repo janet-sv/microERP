@@ -132,7 +132,7 @@
                                             </div>  
                                             <div class="col-lg-2">
                                                 <div class="form-group">
-                                                    @if( $key == 0 ) <label>Total</label> @endif
+                                                    @if( $key == 0 ) <label>Total sin IGV</label> @endif
                                                     <div class="form-group input-group">
                                                         <span class="input-group-addon">S/</span>
                                                         <input readonly="readonly" value="{{$offer->offerdetails[$key]->total}}" type="text" class="form-control" name="total[{{$key+1}}]" id="total_{{$key + 1}}" placeholder="Total">
@@ -218,6 +218,7 @@ $(document).ready(function($) {
     @endforeach
 
     var n={{count($offerdetails)}} + 1;
+    var igv = 1.18;
 
     $("#add").click(function() {
         var x = $("#add").attr('readonly="readonly"');
@@ -322,8 +323,8 @@ $(document).ready(function($) {
             },
             success: function(data) {
                 $('#precio_' + id).attr("value", data.precio);                
-                $('#descuento_' + id).attr("value", parseFloat(data.descuento).toFixed(1) );                        
-                $('#total_' + id).attr("value", parseFloat(data.precio - data.descuento).toFixed(1) );   
+                $('#descuento_' + id).attr("value", parseFloat(data.descuento).toFixed(2) );                        
+                $('#total_' + id).attr("value", parseFloat( (data.precio - data.descuento)/igv ).toFixed(2) );   
                 calcularTotal();
             }
         });    
@@ -334,32 +335,30 @@ $(document).ready(function($) {
         var idProduct = $('#product_' + id).val();
         var idCustomer = $('#cliente').val();
         var cantidad  = $('#cantidad_' + id).val();        
-        var precio ;                
-        var descuento;                                
+        var precio = $('#precio_' + id).val();                              
         if( cantidad == 0){
             cantidad = 1;
             $('#cantidad_' + id).val(cantidad);        
         } else{
             $('#cantidad_' + id).val(cantidad.slice(0,3));
-        }
+        }  
 
         $.ajax({
             method: 'GET',
-            url: "{{ route('salesorder.findPrice')}}",            
+            url: "{{ route('offer.findDiscount')}}",            
             data: {
                 option: idProduct,
                 cliente: idCustomer                    
             },
-            success: function(data) {                
-                precio    = data.precio;                      
-                descuento = data.descuento;                                      
-                $('#descuento_' + id).attr("value", parseFloat(descuento*cantidad).toFixed(1));
+            success: function(data) {
+                var porcentaje = data.descuento;                
+                var descuento = parseFloat(precio*porcentaje/100).toFixed(2);                
+                $('#descuento_' + id).attr("value", parseFloat(descuento*cantidad).toFixed(2));
                  descuento = $('#descuento_' + id).attr("value");
-                $('#total_' + id).attr("value", parseFloat((precio*cantidad)-descuento).toFixed(1) );   
+                $('#total_' + id).attr("value", parseFloat( ((precio*cantidad)-descuento)/igv ).toFixed(2) );   
                 calcularTotal();
             }
-        });            
-        
+        });                                        
         
     });
     
@@ -369,22 +368,26 @@ $(document).ready(function($) {
 
     function calcularTotal(){
         var idLinea, total = 0;
-        for( var j = 1 ; j < n ; j++){            
+        for( var j = 1 ; j < n ; j++){
             if (  $('#cantidad_' + j).val() ){                    
                 total = parseFloat(total) + parseFloat($('#total_' + j).attr("value"));                   
             }
         }                
+        var sub_total = total;
+        var igvTotal  = sub_total * 0.18 ;
+        total = sub_total + igvTotal;
+
         var descuento_manual = $("#descuento_manual").val();  
         if (descuento_manual == 0)      
             descuento_manual = 0;
         total = total - descuento_manual;
+        sub_total = total / igv ;
+        igvTotal = total - sub_total ;
 
-        var sub_total = total / 1.18;
-        var igv  = total - sub_total;
 
-        $('#sub_total').attr("value", parseFloat(sub_total).toFixed(1));   
-        $('#igv').attr("value", parseFloat(igv).toFixed(1));   
-        $('#total_pedido_venta').attr("value", parseFloat(total).toFixed(1) ); 
+        $('#sub_total').attr("value", parseFloat(sub_total).toFixed(2));   
+        $('#igv').attr("value", parseFloat(igvTotal).toFixed(2));   
+        $('#total_pedido_venta').attr("value", parseFloat(total).toFixed(2) ); 
     }
 });
 
