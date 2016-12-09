@@ -1,7 +1,8 @@
 @extends('account.homeAccount')
 
 @section('content')
-
+    
+   
    <!-- Main component for a primary marketing message or call to action -->
     <ol class="breadcrumb">
          <li class ="breadcrumb-item"><a href="{{url('ModuloContable')}}">>Módulo Contable</a></li>
@@ -27,7 +28,9 @@
                                   <button  type="button" id='nuevo'  name='nuevo' class="btn btn-warning navbar-btn" style="margin-bottom: 1px; margin-top: -5px;margin-right: 8px;padding: 3px 20px;">Agregar Cuenta</button>
                                  </p>  <br><br><br>
                           <div class="table-responsive ">
-                          <table class="table table-hover table-bordered table-responsive">
+                          <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por cuenta..">
+
+                          <table class="table table-hover table-bordered table-responsive" id="myTable">
                             <thead>
                               <tr>
                                  <th>Cuenta</th>
@@ -79,6 +82,27 @@
   {
       document.location.href = "{{ route('PlanContable.create')}}";
   });
+
+ function myFunction() {
+  // Declare variables 
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
 
 </script>
 

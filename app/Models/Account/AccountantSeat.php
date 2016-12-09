@@ -17,12 +17,6 @@ class AccountantSeat extends Model
    ];
 
 
- public function __construct()
-    {
-    
-    }
-
-
     public function journal()
    {
       // hasmany - tiene muchas

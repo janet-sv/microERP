@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
           $this->call(SalesInvoiceTableSeeder::class);
           $this->call(ProviderTableSeeder::class);
           $this->call(PurchasesInvoiceTableSeeder::class);
-          $this->call(JournalsTableSeeder::class);
-          
+          $this->call(JournalsTableSeeder::class); 
+          $this->call(AccountsseatTableSeeder::class);
           $this->call(PaymentmethodTableSeeder::class);
           $this->call(PaymenttypeTableSeede::class);
           $this->call(BankTableSeeder::class);

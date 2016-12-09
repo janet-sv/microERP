@@ -17,9 +17,9 @@ class DetailsalesTableSeeder extends Seeder
             'product_id'          => '1',
             'amount'  => '1',
              'code'  => '1607',
-            'unitprice'          => '50.0',
+            'unitprice'          => '41.0',
             'discounts'  => '0',
-            'total'          => '50.0',
+            'total'          => '41.0',
            
            
         ]);
@@ -29,9 +29,9 @@ class DetailsalesTableSeeder extends Seeder
             'product_id'          => '2',
             'amount'  => '1',
              'code'  => '1607',
-            'unitprice'          => '50.0',
+            'unitprice'          => '41.0',
             'discounts'  => '0',
-            'total'          => '50.0',
+            'total'          => '41.0',
            
            
         ]);
@@ -42,9 +42,9 @@ class DetailsalesTableSeeder extends Seeder
             'product_id'          => '2',
             'amount'  => '2',
              'code'  => '1607',
-            'unitprice'          => '100',
+            'unitprice'          => '82.0',
             'discounts'  => '0.0',
-            'total'          => '100',
+            'total'          => '82.0',
            
            
         ]);
