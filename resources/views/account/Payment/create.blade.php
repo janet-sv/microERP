@@ -34,6 +34,13 @@
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group">
+                                    {!!form::label('Tipo de Pago')!!}
+                                      {!! Form::select('type',$tipo,null,['id'=>'type','class'=>'form-control'] ) !!}
+                                   
+                               </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-3 col-md-3">
+                                <div class="form-group">
                                     {!!form::label('Número de Pago')!!}
                                     {!!form::text('number',null ,['id'=>'number','class'=>'form-control' ])!!}
                                </div>
@@ -42,16 +49,9 @@
                                 <div class="form-group">
                                     {!!form::label('Metodo de Pago')!!}
                                     {!! Form::select('method',$metodo,null,['id'=>'method','class'=>'form-control'] ) !!}                                 
-                                   
-                               </div>
+                                </div>
                             </div>
-                            <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group">
-                                    {!!form::label('Tipo de Pago')!!}
-                                      {!! Form::select('type',$tipo,null,['id'=>'type','class'=>'form-control'] ) !!}
-                                   
-                               </div>
-                            </div>
+                            
                           </div>
 
                           <div class="row">
@@ -63,7 +63,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group">
-                                    {!!form::label('Cantidadad')!!}
+                                    {!!form::label('Cantidad')!!}
                                     {!!form::text('amount',null ,['id'=>'amount','class'=>'form-control','placeholder'=>'cantidad' ])!!}
                                </div>
                             </div>

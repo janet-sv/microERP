@@ -13,12 +13,26 @@ class PaymentmethodTableSeeder extends Seeder
     {
         DB::table('paymentmethod')->insert([
             'name'          => 'BANCO (PEN)',
-            'numeration'  => 4,
+            'numeration'  => 1,
+            'type_id'  => 1,
         ]);
         
         DB::table('paymentmethod')->insert([
-            'name'          => 'EFECTIVO (PEN)',
-            'numeration'  => 4,
+            'name'          => 'EFECTIVO',
+            'numeration'  => 1,
+             'type_id'  => 1,
+        ]);
+
+         DB::table('paymentmethod')->insert([
+            'name'          => 'BANCO (PEN)',
+            'numeration'  => 1,
+             'type_id'  => 2,
+        ]);
+        
+        DB::table('paymentmethod')->insert([
+            'name'          => 'EFECTIVO',
+            'numeration'  => 1,
+             'type_id'  => 2,
         ]);
               
     }

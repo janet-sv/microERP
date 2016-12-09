@@ -11,16 +11,7 @@ class PaymentTableSeeder extends Seeder
      */
     public function run()
     {
-         DB::table('payment')->insert([
-            'date'          => '2016-12-01',
-             'number'          => '1',
-              'method'          => 'Pago de Ventas',
-               'type'          => 'Pago de Ventas',
-                'client'          => 'Pago de Ventas',
-                 'amount'          => 'Pago de Ventas',
-                   'reference'          => 'Pago de Ventas',
-                    'state'          => 'Pago de Ventas',
-        ]);
+       
         
      
     }

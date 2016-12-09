@@ -23,6 +23,10 @@ use App\Models\Logistic\Product\Product;
 use App\Models\Logistic\ProductCategory\ProductCategory;
 use App\Models\Sales\Customer; 
 
+use App\Models\Account\Method_Payment;
+
+use App\Models\Account\Type_Payment;
+
 
 class SalesController extends Controller
 {
@@ -250,7 +254,15 @@ class SalesController extends Controller
     public function edit($id)
     {
       
+ //////////Datos del pago si es que hubiera/////////
+     
+          $Partners = Customer::lists('razon_social','id')->prepend('Seleccione al cliente');
+          $metodo = Method_Payment::lists('name','id')->prepend('Metodo de Pago');
+          $tipo = Type_Payment::lists('name','id')->prepend('Tipo de Pago');
 
+
+
+        /////////////////////7
         $Partners = Customer::lists('razon_social','id')->prepend('Seleccioname la cliente');
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
         $Document_type = Document_type::whereNotIn('id', [4, 5,6])->lists('name','id')->prepend('Seleccioname el tipo de documento');
@@ -267,7 +279,7 @@ class SalesController extends Controller
         $details = DetailSales::where('invoice_id', $id)->paginate(10);
 
        // return view('/account/SalesInvoice/edit');
-        return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices,'users'=>$users, 'Partners'=>$Partners , 'Document_type'=>$Document_type ,'state'=>$state,'details'=>$details ));
+        return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices,'users'=>$users, 'Partners'=>$Partners , 'Document_type'=>$Document_type ,'state'=>$state,'details'=>$details ,'tipo'=>$tipo, 'metodo'=>$metodo, 'Partners'=>$Partners ));
 
     }
 
