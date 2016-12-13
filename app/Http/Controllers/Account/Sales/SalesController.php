@@ -273,7 +273,7 @@ class SalesController extends Controller
           
 
 
-        /////////////////////7
+        /////////////////////
         $Partners = Customer::lists('razon_social','id')->prepend('Seleccioname la cliente');
         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
         $Document_type = Document_type::whereNotIn('id', [4, 5,6])->lists('name','id')->prepend('Seleccioname el tipo de documento');

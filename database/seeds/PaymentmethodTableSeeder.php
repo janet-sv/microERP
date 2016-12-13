@@ -12,16 +12,17 @@ class PaymentmethodTableSeeder extends Seeder
     public function run()
     {
         DB::table('paymentmethod')->insert([
-            'name'          => 'BANCO (PEN)',
-            'numeration'  => 1,
-           
-        ]);
-        
-        DB::table('paymentmethod')->insert([
             'name'          => 'EFECTIVO',
             'numeration'  => 1,
              
         ]);
+        DB::table('paymentmethod')->insert([
+            'name'          => 'BANCO',
+            'numeration'  => 1,
+           
+        ]);
+        
+        
 
       
               

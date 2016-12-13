@@ -105,7 +105,7 @@
                                               <th>Cuenta</th>
                                               <th>Cantidad</th>
                                               <th>Precio Unitario</th>
-                                              <th>Importe</th>
+                                              <th>Importe Cobrado</th>
                                             </tr>
                                           </thead>
                                            <tbody>
@@ -187,7 +187,7 @@
          
          
           
-            {!! Form::open(array('url' => 'Pagos/$SalesInvoices->id', 'method' => 'post'))   !!}       
+            {!! Form::open(array('url' => 'Pagos/storeventas/'.$SalesInvoices->id, 'method' => 'post'))   !!}       
 
             <div class="container">
                          
@@ -218,7 +218,7 @@
                               <div class="col-xs-12 col-sm-3 col-md-3">
                                   <div class="form-group">
                                       {!!form::label('Fecha de Pago')!!}
-                                     {!!form::text('date',null ,['id'=>'date','class'=>'form-control','placeholder'=>'Seleccione Fecha' ])!!}
+                                     {!!form::text('date',null ,['id'=>'datemodal','class'=>'form-control','placeholder'=>'Seleccione Fecha' ])!!}
                                  </div>
                               </div>
                               <div class="col-xs-12 col-sm-3 col-md-3">
@@ -301,7 +301,9 @@
   </script>
 <script>
   $( function() {
-    $( "#date" ).datepicker({ dateFormat: "yy-mm-dd" });
+    $( "#datemodal" ).datepicker({ dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date());
+    
+
   } );
   </script>
 
@@ -310,27 +312,21 @@
        $("#method").change(event => {
        $.get(`/FacturasClientes/encuentra/${event.target.value}`, function(res, sta){
           // alert(res);
-          document.getElementById("number1").value = res
+          document.getElementById("number1").value = res;
         
           
        });
     }); 
-  
-
-
-
 </script>
-
-
 <script>
    
      if (  document.getElementById("residual_signed").value <= 0) {
           $("#pago").hide(); 
     }
 
-
-
 </script>
+
+
   @endsection
 
 

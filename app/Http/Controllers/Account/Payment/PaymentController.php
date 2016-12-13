@@ -10,7 +10,8 @@ use App\Models\Account\Payment;
 use DB;
 use App\Models\Account\Partner;
 use App\Models\Account\Method_Payment;
-
+use App\Models\Account\AccountantSeat;
+use App\Models\Account\Accountseatdetail;
 use App\Models\Account\Type_Payment;
 
 class PaymentController extends Controller
@@ -101,7 +102,14 @@ class PaymentController extends Controller
 
      public function storeventas(Request $request, $idfactura)
     {
+        ///Asignar cuentas
+         $cuentapagobanco = 59;
+         $cuentapagoefectivo = 52;
+        $cuentacobro = 116; 
+
+
          $id =  $request['method'];
+
          $number=DB::table('paymentmethod')->where('id', $id)->value('numeration');
          $request['number'] = $number;
 
@@ -119,16 +127,56 @@ class PaymentController extends Controller
           if ($deuda <= 0) {
             $deuda=0.0;
             DB::table('salesinvoice')
-            ->where('id', $id)
+            ->where('id', $idfactura)
             ->update(['residual_signed' => 0.0 ,
                         'state_id' => 2,
                      ]);
 
             //guardar las cuentas contables
+         }
+
+         //Registrar el asiento contable
+
+            $regis= new AccountantSeat;
+            $regis->date=$request['date'];
+            $regis->code=DB::table('paymentmethod')->where('id',$request['method'] )->value('name');
+            $regis->number=$request['number'];
+            $regis->company=DB::table('customers')->where('id',$request['client'] )->value('razon_social');
+            $regis->reference=$request['reference'];
+            $regis->diario_id=$request['method'] + 2;
+            $regis->amount=$request['amount'];
+            $regis->state="Publicado";            
+            $regis->save();
+
+            // Asientos para el total 
+                $cuenta;
+                if ($request['method'] ==1) $cuenta =$cuentapagoefectivo;
+                else $cuenta = $cuentapagobanco;
+
+                $accountseatdetail = new Accountseatdetail;
+                $accountseatdetail->accountseat_id  = $regis->id;
+                $accountseatdetail->account_id     = $cuenta; 
+                $accountseatdetail->empresa_id =  $request['client'];
+                $type=DB::table('paymenttype')->where('id',$request['type'] )->value('name');
+                $accountseatdetail->etiqueta =  $type."/".$request['number'];
+                $accountseatdetail->debe = $regis->amount;
+                $accountseatdetail->haber =  0;
+                $accountseatdetail->save();
 
 
-          }
 
+
+            //Asientos para el la contrapartida
+
+                $accountseatdetail = new Accountseatdetail;
+                $accountseatdetail->accountseat_id  = $regis->id;
+                $accountseatdetail->account_id     = $cuentacobro; 
+                $accountseatdetail->empresa_id =  $request['client'];
+                $type=DB::table('paymenttype')->where('id',$request['type'] )->value('name');
+                $accountseatdetail->etiqueta =  $type."/".$request['number'];
+                $accountseatdetail->debe = 0;
+                $accountseatdetail->haber =  $regis->amount;
+                $accountseatdetail->save();
 
 
         return redirect()->route('FacturasClientes.index');
