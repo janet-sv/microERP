@@ -102,6 +102,7 @@ Route::group(['prefix' => 'ventas'], function(){
                 Route::get('/findProducts', ['as' => 'offer.findProducts', 'uses' => 'Sales\OfferController@findProducts']);
                 Route::get('/findProductsInEdit', ['as' => 'offer.findProductsInEdit', 'uses' => 'Sales\OfferController@findProductsInEdit']);
                 Route::get('/findPrice', ['as' => 'offer.findPrice', 'uses' => 'Sales\OfferController@findPrice']);
+                Route::get('/findDiscount', ['as' => 'offer.findDiscount', 'uses' => 'Sales\OfferController@findDiscount']);
                 Route::get('copy/{id}', ['as' => 'offer.copy', 'uses' => 'Sales\OfferController@copy']);               
                 
             });
@@ -121,6 +122,7 @@ Route::group(['prefix' => 'ventas'], function(){
                 Route::get('/findPrice', ['as' => 'salesorder.findPrice', 'uses' => 'Sales\SalesorderController@findPrice']);
                 Route::get('convertir-proforma/{id}', ['as' => 'salesorder.createFromOffer', 'uses' => 'Sales\SalesorderController@createFromOffer']);
                 Route::post('convertir-proforma', ['as' => 'salesorder.storeFromOffer', 'uses' => 'Sales\SalesorderController@storeFromOffer']);
+                Route::get('/findDiscount', ['as' => 'salesorder.findDiscount', 'uses' => 'Sales\OfferController@findDiscount']);
             });
     
             //Documentos de venta

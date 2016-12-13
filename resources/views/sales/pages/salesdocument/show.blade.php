@@ -17,35 +17,24 @@
                     <div class="panel-heading">
                         Datos del documento de venta
                     </div>
-                    <div class="panel-body">                        
-                        {{Form::open(['route' => 'salesinvoice.store', 'id'=>'formSuggestion'])}} 
+                    <div class="panel-body">                                                
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Tipo de documento</label>
-                                        <select class="form-control" name="tipo_documento" id="tipo_documento">                                           
-                                            <option value="0">Seleccione</option>
-                                            @foreach($document_types as $document_type)                                    
-                                                @if( $document_type->id != 2)
-                                                    <option value="{{$document_type->id}}" >{{$document_type->name}}</option>                                    
-                                                @endif
-                                            @endforeach  
-                                        </select>
+                                        <input readonly="readonly" class="form-control" value="{{$salesinvoice->document_type->name}}" name="document">                                        
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Cliente</label>
-                                        @if($salesorder->customer)                                    
-                                            @if($salesorder->customer->tipo_contribuyente == 1)
-                                                <input hidden value="{{$salesorder->customer->id}}" name="cliente">
-                                                <input readonly="readonly" class="form-control" maxlength="50" value="{{$salesorder->customer->nombre}} {{$salesorder->customer->apellido_paterno}} - {{$salesorder->customer->numero_documento}}"> 
-                                            @else
-                                                <input hidden value="{{$salesorder->customer->id}}" name="cliente">
-                                                <input readonly="readonly" class="form-control" maxlength="50" value="{{$salesorder->customer->razon_social}} - {{$salesorder->customer->ruc}}">
+                                        @if($salesinvoice->customer)                                    
+                                            @if($salesinvoice->customer->tipo_contribuyente == 1)                                                
+                                                <input readonly="readonly" class="form-control" maxlength="50" value="{{$salesinvoice->customer->nombre}} {{$salesinvoice->customer->apellido_paterno}} - {{$salesinvoice->customer->numero_documento}}"> 
+                                            @else                                                
+                                                <input readonly="readonly" class="form-control" maxlength="50" value="{{$salesinvoice->customer->razon_social}} - {{$salesinvoice->customer->ruc}}">
                                             @endif
-                                        @else
-                                            <input hidden value="0" name="cliente">
+                                        @else                                            
                                             <input readonly="readonly" class="form-control" maxlength="50">
                                         @endif
                                     </div>
@@ -55,25 +44,39 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Numeración</label>
-                                        <input readonly="readonly" class="form-control" name="numeracion" id="numeracion" maxlength="50">
+                                        <input value="{{$salesinvoice->number}}" readonly="readonly" class="form-control" name="numeracion" id="numeracion" maxlength="50">
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-6">
-                                    <label>Fecha de creación</label>
-                                        <input value="{{$fecha_creacion}}" readonly="readonly" class="form-control" name="fecha_creacion" maxlength="50">                                                                      
-                                </div>                                                                            
+                                <div class="col-lg-6"> 
+                                    <div class="form-group">                                   
+                                        <label> Estado</label>
+                                        <input readonly="readonly" value="{{$salesinvoice->stateinvoice->name}}" class="form-control" name="descuento_manual" id="descuento_manual" maxlength="7">
+                                    </div>
+                                </div>
                             </div>        
                             <div class="row">
                                 <div class="col-lg-6"> 
                                     <div class="form-group">                                   
+                                        <label> Referencia</label>
+                                        <input readonly="readonly" value="{{$salesinvoice->reference}}" class="form-control" name="descuento_manual" id="descuento_manual" maxlength="7">
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Fecha de creación</label>
+                                    <input value="{{$salesinvoice->date_invoice}}" readonly="readonly" class="form-control" name="fecha_creacion" maxlength="50">                                                                      
+                                </div>
+                            </div>                                                                            
+                            <div class="row">
+                                <div class="col-lg-6"> 
+                                    <div class="form-group">                                   
                                         <label>Comentario</label>
-                                        <textarea style="resize:none;"class="form-control none-resisable" rows="3" placeholder="Descripción" name="descripcion">{{$salesorder->descripcion}}</textarea>    
+                                        <textarea style="resize:none;" readonly="readonly" class="form-control none-resisable" rows="3" name="descripcion">{{$salesinvoice->description}}</textarea>    
                                     </div>
                                 </div>
                                 <div class="col-lg-6"> 
                                     <div class="form-group">                                   
                                         <label>Fecha de vencimiento</label>
-                                        <input value="{{$fecha_vencimiento}}" readonly="readonly" class="form-control" name="fecha_vencimiento" maxlength="50">
+                                        <input value="{{$salesinvoice->date_due}}" readonly="readonly" class="form-control" name="fecha_vencimiento" maxlength="50">
                                     </div>
                                 </div>                              
                             </div>                            
@@ -91,23 +94,18 @@
                                                     <th>Cantidad</th>                                                                                                                                                                 
                                                     <th>Precio unitario</th> 
                                                     <th>Descuento</th> 
-                                                    <th>Total</th> 
+                                                    <th>Total sin IGV</th> 
                                                 </tr> 
                                             </thead> 
                                             <tbody> 
-                                                @foreach( $salesorderdetails as $key => $salesorderdetail)
-                                                <tr> 
-                                                    <input hidden value="{{$salesorder->salesorderdetails[$key]->product->id}}"  name="produc[{{$key+1}}]" >
-                                                    <input hidden value="{{$salesorder->salesorderdetails[$key]->cantidad}}"  name="cantidad[{{$key+1}}]" >
-                                                    <input hidden value="{{$salesorder->salesorderdetails[$key]->precio_unitario}}" name="precio_unitario[{{$key+1}}]" >
-                                                    <input hidden value="{{$salesorder->salesorderdetails[$key]->descuento}}" name="[{{$key+1}}]" >
-                                                    <input hidden value="{{$salesorder->salesorderdetails[$key]->total}}" name="[{{$key+1}}]" >
+                                                @foreach( $salesinvoicedetails as $key => $salesinvoicedetail)
+                                                <tr>                                                     
                                                     <td>{{$key+1}}</td>                                                                                 
-                                                    <td>{{ $salesorder->salesorderdetails[$key]->product->name }}</td>                                                                                             
-                                                    <td>{{ $salesorder->salesorderdetails[$key]->cantidad }}</td>
-                                                    <td>{{ $salesorder->salesorderdetails[$key]->precio_unitario }}</td>
-                                                    <td>{{ $salesorder->salesorderdetails[$key]->descuento }}</td> 
-                                                    <td>{{ $salesorder->salesorderdetails[$key]->total }}</td> 
+                                                    <td>{{ $salesinvoice->detailSales[$key]->product->name }}</td>                                                                                             
+                                                    <td>{{ $salesinvoice->detailSales[$key]->amount }}</td>
+                                                    <td>{{ $salesinvoice->detailSales[$key]->unitprice }}</td>
+                                                    <td>{{ $salesinvoice->detailSales[$key]->discounts }}</td> 
+                                                    <td>{{ $salesinvoice->detailSales[$key]->total }}</td> 
                                                 </tr> 
                                                 @endforeach
                                             </tbody> 
@@ -116,10 +114,10 @@
                                 </div>
                             </div>                            
                                 
-                            <div class="row">
+                            <div class="row">                                                                
                                 <div class="pull-right col-lg-3"> 
                                     <div class="form-group">                                   
-                                        <input readonly="readonly" value="{{$salesorder->descuento_manual}}" class="form-control" name="descuento_manual" id="descuento_manual" placeholder="Descuento Manual" maxlength="7">
+                                        <input readonly="readonly" value="{{$salesinvoice->discount}}" class="form-control" name="descuento_manual" id="descuento_manual" placeholder="Descuento Manual" maxlength="7">
                                     </div>
                                 </div>
                                 <div class="pull-right col-lg-1">
@@ -129,7 +127,7 @@
                             <div class="row">
                                 <div class="pull-right col-lg-3"> 
                                     <div class="form-group">                                   
-                                        <input readonly="readonly" value="{{$salesorder->sub_total}}" readonly="readonly" class="form-control" name="sub_total" id="sub_total" placeholder="Sub Total" maxlength="50">
+                                        <input readonly="readonly" value="{{$salesinvoice->subtotal}}" readonly="readonly" class="form-control" name="sub_total" id="sub_total" placeholder="Sub Total" maxlength="50">
                                     </div>
                                 </div>
                                 <div class="pull-right col-lg-1">
@@ -139,7 +137,7 @@
                             <div class="row">
                                 <div class="pull-right col-lg-3"> 
                                     <div class="form-group">                                   
-                                        <input readonly="readonly" value="{{$salesorder->igv}}" readonly="readonly" class="form-control" name="igv" id="igv" placeholder="IGV" maxlength="50">
+                                        <input readonly="readonly" value="{{$salesinvoice->igv}}" readonly="readonly" class="form-control" name="igv" id="igv" placeholder="IGV" maxlength="50">
                                     </div>                                   
                                 </div>    
                                 <div class="pull-right col-lg-1">
@@ -149,7 +147,7 @@
                             <div class="row">
                                 <div class="pull-right col-lg-3"> 
                                     <div class="form-group">                                   
-                                        <input readonly="readonly" value="{{$salesorder->total}}" readonly="readonly" class="form-control" name="total_documento_venta" id="total_documento_venta" placeholder="Total" maxlength="50">
+                                        <input readonly="readonly" value="{{$salesinvoice->amount_total_signed}}" readonly="readonly" class="form-control" name="total_documento_venta" id="total_documento_venta" placeholder="Total" maxlength="50">
                                     </div>                                   
                                 </div>    
                                 <div class="pull-right col-lg-1">
@@ -157,47 +155,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-12">                                    
-                                    {{Form::submit('Guardar', ['class'=>'btn btn-success pull-right'])}}                                      
-                                    <a href="{{route('salesorder.index')}}" class="btn btn-default pull-right">Cancelar</a>                                      
+                                <div class="col-lg-12">                                                                        
+                                    <a href="{{route('salesinvoice.index')}}" class="btn btn-default pull-right">Cancelar</a>                                      
                                 </div>
                             </div>
-                                
-                        {{Form::close()}}
                     </div>                              
                 </div>
             </div>                              
         </div>  
 </section>
-
-<script src="{{ URL::asset('build/js/sales/salesorder.js')}}"></script>
-<script type="text/javascript">
-$(document).ready(function($) {
-
-    $("body").on('change', "#tipo_documento", function(){                
-        var idDocumentType = $('#tipo_documento').val();
-        if (idDocumentType == 0){
-            $('#numeracion').attr("value", "");                 
-            return;  
-        } 
-        $.ajax({
-            method: 'GET',
-            url: "{{ route('salesinvoice.findNumberDocument')}}",            
-            data: {
-                id: idDocumentType,                
-            },
-            success: function(data) {                
-                numeracion    = data.numeracion;                                
-                $('#numeracion').attr("value", numeracion);                 
-            }
-        });      
-        
-    });    
-    
-});
-
-
-</script>
-
 
 @endsection

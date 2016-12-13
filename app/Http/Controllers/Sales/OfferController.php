@@ -222,7 +222,7 @@ class OfferController extends Controller
     public function destroy($id)
     {
         try {
-            $offer   = Promotion::find($id);
+            $offer   = Offer::find($id);
             $message = "";
             
             $offer->delete();
@@ -325,7 +325,7 @@ class OfferController extends Controller
         if( $cliente )
         	$porcentaje_descuento_cliente = $cliente->porcentaje_descuento;
 
-        $descuento = round(($porcentaje_descuento_cliente + $porcentaje_descuento)*$precio/100,1);
+        $descuento = round(($porcentaje_descuento_cliente + $porcentaje_descuento)*$precio/100,2);
 
         $data = [
 			'precio'    => $precio,						
@@ -335,6 +335,40 @@ class OfferController extends Controller
         return response()->json( $data );         
         
     }
+
+    public function findDiscount(Request $request)
+    {
+        $id = $request['option'];        
+        $idCliente = $request['cliente'];
+        $product = Product::find($id);        
+        $cliente = Customer::find($idCliente);
+        $promodetails = Promodetail::where('id_producto', $id)
+                            ->where('cantidad_descuento', 0)
+                            ->orderBy('updated_at', 'asc')->get();
+        $porcentaje_descuento = 0;
+        $date = date("Y-m-d", time());  
+        foreach ($promodetails as $key => $promodetail) {
+            if ($promodetail->promotion->tipo == 1 && $promodetail->promotion->promocondition->cantidad_requerida ==  1 
+                && ($promodetail->promotion->fecha_fin >=  $date)){
+                $porcentaje_descuento = $promodetail->promotion->promocondition->porcentaje_descuento;
+                break;
+            }
+        }                   
+        
+        $porcentaje_descuento_cliente = 0;
+        if( $cliente )
+            $porcentaje_descuento_cliente = $cliente->porcentaje_descuento;
+
+        $descuento = ($porcentaje_descuento_cliente + $porcentaje_descuento);
+
+        $data = [            
+            'descuento' => $descuento,          
+        ];      
+        
+        return response()->json( $data );         
+        
+    }
+
 
     public function copy($id)
     {
