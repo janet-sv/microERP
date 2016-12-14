@@ -34,3 +34,7 @@ Route::get('FacturasProveedores/encuentra/{id}','Account\Purchases\PurchasesCont
 Route::get('Pagos/encuentra/{id}','Account\Payment\PaymentController@findnumber');
 Route::get('PlanContable/encuentra/{id}','Account\Accountplaning\AccountplaningController@findnumber');
 Route::post('/Pagos/storeventas/{idfactura}','Account\Payment\PaymentController@storeventas');
+
+
+Route::get('Informes/Diario','Account\Report\ReportController@diario');
+

@@ -19,6 +19,9 @@
     {!!Html::style('contable/style.css')!!}
     {!!Html::style('contable/vendor/jquery/jquery-ui.css')!!}
       <link rel="stylesheet"  type="text/css" href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -328,7 +331,7 @@
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Informes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">Libro Diario</a>
+                                    <a href="/Informes/Diario">Libro Diario</a>
                                 </li>
                                 <li>
                                     <a href="morris.html">Libro Mayor</a>
@@ -395,8 +398,9 @@
 {!!Html::script('contable/data/morris-data.js')!!}
 {!!Html::script('contable/dist/js/sb-admin-2.js')!!}
 {!!Html::script('contable/vendor/jquery/jquery-ui.js')!!}
-
-  {!!Html::script('http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js')!!}
+{!!Html::script('http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js')!!}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/i18n/defaults-*.min.js"></script>
 
     @yield('page-script')
 
