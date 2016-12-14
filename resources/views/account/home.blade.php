@@ -19,7 +19,7 @@
                                     <i class="fa fa-cart-arrow-down fa-5x" aria-hidden="true"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
+                                    <div class="huge">{{ $Fventas }}</div>
                                     <div>Facturas de clientes</div>
                                 </div>
                             </div>
@@ -32,7 +32,7 @@
                             </div>
                         </a>
                         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                       <div id="pieVentas" style="width: 570px; height: 500px;"></div>
+                       <div id="pieVentas" style="width: 500px; height: 500px;"></div>
    
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                                     <i class="fa fa-briefcase fa-5x" aria-hidden="true"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
+                                    <div class="huge">{{ $Fcompras }}</div>
                                     <div>Facturas de proveedores</div>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                             </div>
                         </a>
                          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                       <div id="pieCompras" style="width: 570px; height: 500px;"></div>
+                       <div id="pieCompras" style="width: 500px; height: 500px;"></div>
                     </div>
                 </div>
                 
@@ -70,7 +70,7 @@
                                     <i class="fa fa-credit-card-alt fa-5x" aria-hidden="true"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
+                                    <div class="huge">{{ $Pventa }}</div>
                                     <div>Pagos en Ventas</div>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                             </div>
                         </a>
                         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                       <div id="piePagosVentas" style="width: 570px; height: 500px;"></div>
+                       <div id="piePagosVentas" style="width: 500px; height: 500px;"></div>
                     </div>
                 </div>
                 
@@ -95,7 +95,7 @@
                                     <i class="fa fa-credit-card fa-5x" aria-hidden="true"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
+                                    <div class="huge">{{ $Pcompra }}</div>
                                     <div>Pagos en Compras</div>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                             </div>
                         </a>
                         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                       <div id="piePagosCompras" style="width: 570px; height: 500px;"></div>
+                       <div id="piePagosCompras" style="width: 500px; height: 500px;"></div>
                     </div>
                 </div>
             </div>
@@ -122,8 +122,8 @@ google.charts.load('current', {'packages':['corechart']});
 
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-          ['Cerradas',     11],
-          ['Abiertas',  3]
+          ['Cerradas',   {{ $Fventascerrado }}  ],
+          ['Abiertas',  {{ $Fventasabiertas }}]
         ]);
 
         var options = {
@@ -143,8 +143,8 @@ google.charts.load('current', {'packages':['corechart']});
 
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-            ['Cerradas',     11],
-            ['Abiertas',  3]
+            ['Cerradas',     {{  $Fcomprascerrado }}],
+            ['Abiertas',  {{ $Fcomprasabiertas }}]
         ]);
 
         var options = {
@@ -164,8 +164,8 @@ google.charts.load('current', {'packages':['corechart']});
 
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-           ['Pago en Banco',     5],
-           ['Pago en Efectivo',  11]
+           ['Pago en Banco',     {{   $Pventabanco }}],
+           ['Pago en Efectivo',  {{ $Pventaefectivo }}]
         ]);
 
         var options = {
@@ -185,8 +185,9 @@ google.charts.load('current', {'packages':['corechart']});
 
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-            ['Pago en Banco',     5],
-           ['Pago en Efectivo',  11]
+            ['Pago en Banco',     {{ $Pcomprabanco }}],
+           ['Pago en Efectivo',  {{  $Pcompraefectivo }}]
+
          
         ]);
 
