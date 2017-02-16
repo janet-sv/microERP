@@ -27,14 +27,11 @@ Route::resource('Tipo_de_documento','Account\DocumentType\DocumentTypeController
 Route::resource('Tipo_Diario','Account\Journals\JournalsController');
 Route::resource('Pagos','Account\Payment\PaymentController');
 Route::resource('AsientosContables','Account\Accountantseat\AccountantseatController');
-
 Route::get('FacturasClientes/encuentra/{id}','Account\Sales\SalesController@findnumber');
-
 Route::get('FacturasProveedores/encuentra/{id}','Account\Purchases\PurchasesController@findnumber');
 Route::get('Pagos/encuentra/{id}','Account\Payment\PaymentController@findnumber');
 Route::get('PlanContable/encuentra/{id}','Account\Accountplaning\AccountplaningController@findnumber');
 Route::post('/Pagos/storeventas/{idfactura}','Account\Payment\PaymentController@storeventas');
-
-
 Route::get('Informes/Diario','Account\Report\ReportController@diario');
+Route::post('/Informes/exportdiario','Account\Report\ReportController@diarioexport');
 
