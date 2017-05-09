@@ -334,7 +334,7 @@
                                     <a href="/Informes/Diario">Libro Diario</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Libro Mayor</a>
+                                    <a href="/Informes/Mayor">Libro Mayor</a>
                                 </li>
                                 <li>
                                     <a href="morris.html">Registro de Compras</a>

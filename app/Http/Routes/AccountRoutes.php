@@ -34,4 +34,6 @@ Route::get('PlanContable/encuentra/{id}','Account\Accountplaning\AccountplaningC
 Route::post('/Pagos/storeventas/{idfactura}','Account\Payment\PaymentController@storeventas');
 Route::get('Informes/Diario','Account\Report\ReportController@diario');
 Route::post('/Informes/exportdiario','Account\Report\ReportController@diarioexport');
+Route::get('Informes/Mayor','Account\Report\ReportController@mayor');
+Route::post('/Informes/exportmayor','Account\Report\ReportController@mayorexport');
 
