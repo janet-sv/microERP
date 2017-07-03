@@ -7,7 +7,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/modulos/">MicroERP</a>
+        <!--  <a class="navbar-brand" href="{{ url('/home') }}">MicroERP - Modulos</a>-->
+        <nav class="breadcrumb">
+          <a class="breadcrumb-item" href="{{ url('/') }}">Menu-ERP</a>
+          <a class="breadcrumb-item" href="{{ url('/home') }}">/Modulos</a>
+          <span class="breadcrumb-item active">/Modulo-Ventas</span>
+        </nav> 
     </div>
     <!-- /.navbar-header -->
 

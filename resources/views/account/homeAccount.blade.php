@@ -46,8 +46,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                      <a class="navbar-brand" href="{{ url('/home') }}">Inicio</a>
-                       <a class="navbar-brand" href="{{ url('/ModuloContable') }}">Modulo Contable</a>
+                     <!--   <a class="navbar-brand" href="{{ url('/home') }}">MENU-MICROERP</a>
+                       <a class="navbar-brand" href="{{ url('/ModuloContable') }}"> Modulo Contable</a> 
+                         -->
+                  <nav class="breadcrumb">
+                  <a class="breadcrumb-item" href="{{ url('/') }}">Menu-ERP</a>
+                  <a class="breadcrumb-item" href="{{ url('/home') }}">/Modulos</a>
+                  <span class="breadcrumb-item active">/Modulo-Contable</span>
+                  </nav>     
             </div>
             <!-- /.navbar-header -->
 
