@@ -133,6 +133,13 @@ class PaymentController extends Controller
                      ]);
 
             //guardar las cuentas contables
+         }else 
+         {
+            DB::table('salesinvoice')
+            ->where('id', $idfactura)
+            ->update(['residual_signed' => $deuda ,
+                        'state_id' => 1,
+                     ]);
          }
 
          //Registrar el asiento contable

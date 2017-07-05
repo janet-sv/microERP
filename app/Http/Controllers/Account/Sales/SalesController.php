@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Account\Sales;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Account\Partner;
@@ -16,15 +15,12 @@ use App\Models\Account\AccountantSeat;
 use App\Models\Account\Stateinvoice;
 use App\Models\Account\DetailSales;
 use App\Models\Account\Accountseatdetail;
-
 use App\Models\Sales\Salesorder;
 use App\Models\Sales\Salesorderdetail;
 use App\Models\Logistic\Product\Product;
 use App\Models\Logistic\ProductCategory\ProductCategory;
 use App\Models\Sales\Customer; 
-
 use App\Models\Account\Method_Payment;
-
 use App\Models\Account\Type_Payment;
 
 
@@ -96,6 +92,13 @@ class SalesController extends Controller
         }
 
     }
+
+
+
+
+
+
+
     /**
      * Store a newly created resource in storage.
      *

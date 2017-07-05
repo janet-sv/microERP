@@ -226,6 +226,8 @@
                                       {!!form::label('Cliente')!!}
                                       {!! Form::select('client',$Partners,null,['id'=>'client','class'=>'form-control']) !!}
 
+                                     
+
                                  </div>
                               </div>
                               <div class="col-xs-12 col-sm-3 col-md-3">
@@ -240,7 +242,7 @@
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <div class="form-group">
                                     {!!form::label('Referencia')!!}
-                                    {!!form::text('reference',null ,['id'=>'reference','class'=>'form-control'])!!}
+                                    {!!form::text('reference',null ,['id'=>'reference','placeholder'=>'Agregue alguna referencia','class'=>'form-control'])!!}
                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
@@ -301,7 +303,7 @@
   </script>
 <script>
   $( function() {
-    $( "#datemodal" ).datepicker({ dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date());
+    $( "#datemodal" ).datepicker({ dateFormat: "yy-mm-dd", minDate: 0 }).datepicker("setDate", new Date());
     
 
   } );
@@ -325,6 +327,18 @@
     }
 
 </script>
+
+<script>
+   
+     $rest = document.getElementById("residual_signed").value
+     document.getElementById("amount").value = $rest
+      $client = document.getElementById("partner_id").value
+     document.getElementById("client").value = $client
+     $('#client').attr('disabled', 'disabled');
+      $('#type').attr('disabled', 'disabled');
+
+</script>
+
 
 
   @endsection
