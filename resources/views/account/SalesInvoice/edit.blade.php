@@ -155,7 +155,7 @@
                           </div>
              
                     
-
+<button type="button" class="btn btn-warning"  id="cancelarpago" data-toggle="modal" data-target="#modalnotacredito">Cancelar Pago</button>
 <button type="button" class="btn btn-primary"  id="pago" data-toggle="modal" data-target=".bs-example-modal-lg">Registrar Pago</button>
 
    <a href="/FacturasClientes" class="btn btn-danger" role="button">Volver</a>
@@ -169,7 +169,7 @@
           </div>
         </div>
 
-<!-- Modal -->
+<!-- Modals -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -280,6 +280,29 @@
   </div>
 </div>
 
+<!-- Modal -->
+  <div class="modal fade" id="modalnotacredito" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Nota de Credito</h4>
+          
+        </div>
+        <div class="modal-body">
+          <p>Detalle de nota de credito: </p>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 @section('page-script')
     <script>
       $("#cancelar").click(function(event)
@@ -290,6 +313,7 @@
 
       $(#grabar).hide();
     </script>
+
  
   <script>
   $( function() {
@@ -322,9 +346,17 @@
 </script>
 <script>
    
+      if (  document.getElementById("residual_signed").value > 0) {
+       
+          $("#cancelarpago").hide(); 
+          
+    }
      if (  document.getElementById("residual_signed").value <= 0) {
           $("#pago").hide(); 
+          $("#cancelarpago").show(); 
+          
     }
+
 
 </script>
 
