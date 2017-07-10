@@ -333,9 +333,7 @@
      $rest = document.getElementById("residual_signed").value
      document.getElementById("amount").value = $rest
       $client = document.getElementById("partner_id").value
-     document.getElementById("client").value = $client
-     $('#client').attr('disabled', 'disabled');
-      $('#type').attr('disabled', 'disabled');
+
 
 </script>
 
