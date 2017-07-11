@@ -281,27 +281,44 @@
 </div>
 
 <!-- Modal -->
-  <div class="modal fade" id="modalnotacredito" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Nota de Credito</h4>
-          
-        </div>
-        <div class="modal-body">
-          <p>Detalle de nota de credito: </p>
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
+    <div class="modal fade" id="modalnotacredito" role="dialog">
+      <div class="modal-dialog modal-lg">
       
+        <!-- Modal content-->
+        <div class="row">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Nota de Credito</h4>
+            
+          </div>
+          <div class="modal-body">
+            
+             <div class="container">
+               <div class="row">
+                 <div class="col-xs-9 col-sm-9 col-md-9">
+                   <div class="panel panel-danger">
+                    <div class="panel-heading">Detalle de nota de credito:</div>
+                    <div class="panel-body">
+                      
+                    </div>
+                    </div>
+                  </div>
+                </div>
+             </div>
+
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        </div>
+        
+      </div>
     </div>
-  </div>
 
 @section('page-script')
     <script>
