@@ -292,7 +292,7 @@ class SalesController extends Controller
              $salesinvoice->igv                 = $auxigv;
 
               $id_cliente = $request['client'];
-              $empresa=DB::table('customers')->where('id', $cliente)->value('razon_social');
+              $empresa=DB::table('customers')->where('id', $request['client'])->value('razon_social');
               $salesinvoice->partner_id          = $id_cliente;
               $salesinvoice->user_id             = $request['user_id'];
               $salesinvoice->document_id         = $request['document_id'];
