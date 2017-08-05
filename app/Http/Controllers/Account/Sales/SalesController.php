@@ -268,7 +268,7 @@ class SalesController extends Controller
       }
       elseif ($id == 2) {
         $code=DB::table('document_type')->where('id', $id)->value('name');
-
+        $cliente = $request['client'];
         $cuenta = 1607; //se redirecciona a esta cuenta en la tabla
         $cuentaigv = 890;
         $cuentatotal = 116;
@@ -358,6 +358,8 @@ class SalesController extends Controller
 
             $SalesInvoiceAux = SalesInvoice::find($salesinvoice->id);
 
+
+            foreach ($SalesInvoiceAux->detailSales as $detailSale) {
                 $accountseatdetail = new Accountseatdetail;
                 $accountseatdetail->accountseat_id  = $regis->id;
                 $accountseatdetail->account_id     = $detailSale->code;
@@ -368,7 +370,7 @@ class SalesController extends Controller
                 $accountseatdetail->haber = 0 ;
                 $accountseatdetail->save();
 
-
+           }
 
 
 
