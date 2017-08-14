@@ -267,6 +267,8 @@ class SalesController extends Controller
 
       }
       elseif ($id == 2) {
+
+
         $code=DB::table('document_type')->where('id', $id)->value('name');
         $cliente = $request['client'];
         $cuenta = 1607; //se redirecciona a esta cuenta en la tabla
@@ -276,6 +278,14 @@ class SalesController extends Controller
              $salesinvoice = new SalesInvoice;
 
              $auxsubtotal= DB::table('SalesInvoice')->where('id', $request['reference'])->value('subtotal');
+              //Se cambia el estado de ese recibo
+             DB::table('salesinvoice')
+             ->where('id', $request['reference'])
+             ->update([
+                         'state_id' => 3
+                      ]);
+              // fin del cambio de estado
+
              $auxigv= DB::table('SalesInvoice')->where('id', $request['reference'])->value('igv');
               $auxdiscount= DB::table('SalesInvoice')->where('id', $request['reference'])->value('discount');
 
@@ -284,6 +294,9 @@ class SalesController extends Controller
              $salesinvoice->date_invoice        = $request['date_invoice'];
 
              $salesinvoice->number          = $request['number'];
+
+
+
              $salesinvoice->date_due            = $request['date_due'];
              $salesinvoice->amount_total_signed = $request['amount_total_signed'];
              $salesinvoice->residual_signed     = $request['residual_signed'];

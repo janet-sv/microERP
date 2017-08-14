@@ -498,17 +498,37 @@
     });
 </script>
 <script>
-
-      if ( (document.getElementById("residual_signed").value > 0)) {
+document_id
+      if ( (document.getElementById("document_id").value == "1")&&(document.getElementById("residual_signed").value > 0)) {
 
           $("#cancelarpago").hide();
 
     }
-     if ( (document.getElementById("residual_signed").value <= 0)) {
+     if ( (document.getElementById("document_id").value == "1")&&(document.getElementById("residual_signed").value <= 0)) {
           $("#pago").hide();
           $("#cancelarpago").show();
 
     }
+
+    
+
+    if ((document.getElementById("document_id").value == "2") && (document.getElementById("state").value == "1") ) {
+         $("#pago").show();
+         $("#cancelarpago").hide();
+
+   }
+
+   if ((document.getElementById("document_id").value == "2") && (document.getElementById("state").value == "2") ) {
+        $("#pago").hide();
+        $("#cancelarpago").hide();
+
+  }
+if ((document.getElementById("document_id").value == "1") &&(document.getElementById("state").value == "3")) {
+     $("#pago").hide();
+     $("#cancelarpago").hide();
+
+}
+
 
 
 </script>
