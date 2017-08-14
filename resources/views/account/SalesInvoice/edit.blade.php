@@ -499,12 +499,12 @@
 </script>
 <script>
 
-      if (  document.getElementById("residual_signed").value > 0) {
+      if ( (document.getElementById("residual_signed").value > 0)) {
 
           $("#cancelarpago").hide();
 
     }
-     if (  document.getElementById("residual_signed").value <= 0) {
+     if ( (document.getElementById("residual_signed").value <= 0)) {
           $("#pago").hide();
           $("#cancelarpago").show();
 

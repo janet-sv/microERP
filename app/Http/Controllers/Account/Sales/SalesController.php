@@ -272,7 +272,7 @@ class SalesController extends Controller
         $cuenta = 1607; //se redirecciona a esta cuenta en la tabla
         $cuentaigv = 890;
         $cuentatotal = 116;
-
+        $variable;
              $salesinvoice = new SalesInvoice;
 
              $auxsubtotal= DB::table('SalesInvoice')->where('id', $request['reference'])->value('subtotal');
@@ -289,6 +289,7 @@ class SalesController extends Controller
              $salesinvoice->residual_signed     = $request['residual_signed'];
 
              $salesinvoice->subtotal            = $auxsubtotal;
+             $variable =  $auxsubtotal;
              $salesinvoice->igv                 = $auxigv;
 
               $id_cliente = $request['client'];
@@ -356,21 +357,20 @@ class SalesController extends Controller
 
             /////////////////////////////////////////////
 
-            $SalesInvoiceAux = SalesInvoice::find($salesinvoice->id);
+          ///  $SalesInvoiceAux = SalesInvoice::find($salesinvoice->id);
 
 
-            foreach ($SalesInvoiceAux->detailSales as $detailSale) {
+
                 $accountseatdetail = new Accountseatdetail;
                 $accountseatdetail->accountseat_id  = $regis->id;
-                $accountseatdetail->account_id     = $detailSale->code;
+                $accountseatdetail->account_id     = $cuenta;
                 $accountseatdetail->empresa_id =  $cliente;
-                error_log($request['tipo_documento']);
+
                 $accountseatdetail->etiqueta =  $regis->code."/".$regis->number;
-                $accountseatdetail->debe = $detailSale->total ;
+                $accountseatdetail->debe = $variable;
                 $accountseatdetail->haber = 0 ;
                 $accountseatdetail->save();
 
-           }
 
 
 
