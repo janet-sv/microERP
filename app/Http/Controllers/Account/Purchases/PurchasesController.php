@@ -10,8 +10,8 @@ use App\Models\Account\Provider;
 use App\Models\Account\PurchasesInvoice;
 use App\Models\Account\Document_type;
 use App\User;
-use DB; 
-use App\Models\Account\AccountantSeat; 
+use DB;
+use App\Models\Account\AccountantSeat;
 use App\Models\Account\Stateinvoice;
 
 class PurchasesController extends Controller
@@ -31,19 +31,12 @@ class PurchasesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-       
-        $purchasesinvoices = PurchasesInvoice::
-                    select('purchasesinvoice.id','document_type.name as document','provider.name as provider','provider.ruc as ruc','purchasesinvoice.date_invoice','purchasesinvoice.number','purchasesinvoice.date_due','purchasesinvoice.amount_total_signed','purchasesinvoice.residual_signed','purchasesinvoice.state_id as state','purchasesinvoice.reference')
-                    ->join('provider','provider.id','=','purchasesinvoice.provider_id')
-                    ->join('stateinvoice','stateinvoice.id','=','purchasesinvoice.state_id')
-                    ->join('document_type','document_type.id','=','purchasesinvoice.document_id')
-                    ->orderBy('id', 'desc')
-                    ->paginate(5);
-        return view('/account/ShoppingInvoice/index')->with('PurchasesInvoice',$purchasesinvoices);
+     public function index()
+     {
 
-    }
+         $purchasesinvoices = PurchasesInvoice::whereIn('document_id', [1, 2])->orderBy('id', 'desc')->paginate(10);
+         return  view('/account/PurchasesInvoice/index')->with('PurchasesInvoice',$purchasesinvoices);
+     }
 
     /**
      * Store a newly created resource in storage.
@@ -58,22 +51,34 @@ class PurchasesController extends Controller
          $Document_type = Document_type::whereNotIn('id', [1, 2,3])->lists('name','id')->prepend('Seleccioname el tipo de documento');
          $Providers = Provider::lists('name','id')->prepend('Seleccionar el proveedor');
          $state = Stateinvoice::lists('name','id')->prepend('Seleccionar estado');
-     
+
 return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'invoices'=>$invoices,  'Document_type'=>$Document_type , 'state'=>$state  ));
 
     }
 
-     public function findnumber(Request $request, $id)
-    {
+    public function findnumber(Request $request, $id)
+      {
 
-           if($request->ajax()){
-               
-               $number=DB::table('document_type')->where('id', $id)->value('numeration');
-            
-            return response()->json($number);
-        }
+             if($request->ajax()){
 
-    }
+                 $number=DB::table('paymentmethod')->where('id', $id)->value('numeration');
+
+              return response()->json($number);
+          }
+
+      }
+
+      public function findnumbernc(Request $request, $id)
+      {
+
+             if($request->ajax()){
+
+                 $number=DB::table('document_type')->where('id', $id)->value('numeration');
+
+              return response()->json($number);
+          }
+
+      }
 
     /**
      * Store a newly created resource in storage.
@@ -81,110 +86,427 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        
-        $id =  $request['document_id'];
-        $id = $id + 3;
-        $request['document_id'] = $id;
-        $number=DB::table('document_type')->where('id', $id)->value('numeration');
-        $request['number'] = $number;
+     public function store(Request $request)
+     {
+         //$id =  $request['tipo_documento'];
+       $id = $request->input('document_id');
+       if ($id == null) {
+           $id =  $request['tipo_documento'];
+       }
+       $number=DB::table('document_type')->where('id', $id)->value('numeration');
+         //$id =  Input::get('document_idnc');
+         //$id = $request->input('document_idnc', '2');
+ //dd($request['reference']);
+
+      if ($id == 1 || $id == 3 ) {
+
+         $cuenta = 1607; //se redirecciona a esta cuenta en la tabla
+         $cuentaigv = 890;
+         $cuentatotal = 116;
+         $aux;
 
 
-        $id =  $request['provider_id'];
-        $empresa=DB::table('provider')->where('id', $id)->value('name');
+         $id =  $request['tipo_documento'];
+         $number=DB::table('document_type')->where('id', $id)->value('numeration');
+         $request['number'] = $number;
 
-        $id =  $request['document_id'];
-       
-        $code=DB::table('document_type')->where('id', $id)->value('name');
- 
-        $regis= new AccountantSeat;
-        $regis->date=$request['date_invoice'];
-          $regis->code=$code;
-           $regis->number=$request['number'];
-            $regis->company=$empresa;
+
+         $cliente =  $request['cliente'];
+         $empresa=DB::table('customers')->where('id', $cliente)->value('razon_social');
+
+
+         $id =  $request['tipo_documento'];
+
+
+         $code=DB::table('document_type')->where('id', $id)->value('name');
+
+         //SalesInvoice::create($request->all());
+         $id_cliente = null;
+         if( $request['cliente'] != 0)
+             $id_cliente = $request['cliente'];
+         $salesinvoice                      = new SalesInvoice;
+         $salesinvoice->date_invoice        = $request['fecha_creacion'];
+         $salesinvoice->number          = $request['numeracion'];
+         $salesinvoice->date_due            = $request['fecha_vencimiento'];
+         $salesinvoice->amount_total_signed = $request['total_documento_venta'];
+         $salesinvoice->residual_signed     = $request['total_documento_venta'];
+         $salesinvoice->subtotal            = $request['sub_total'];
+
+         $salesinvoice->igv                 = $request['igv'];
+         $salesinvoice->partner_id          = $id_cliente;
+         $salesinvoice->user_id             = $request['user'];
+         $salesinvoice->document_id         = $request['tipo_documento'];
+         $salesinvoice->state_id            = 1;
+         $salesinvoice->id_salesorder       = $request['salesorder'];
+         $salesinvoice->description         = $request['descripcion'];
+         $salesinvoice->discount           = $request['descuento_manual'];
+         $salesinvoice->save();
+
+         foreach($request['product'] as $key=> $value){
+             $salesinvoicedetail             = new DetailSales;
+             $salesinvoicedetail->amount     = $request['cantidad'][$key];
+             $salesinvoicedetail->discounts  = $request['descuento'][$key];
+             $salesinvoicedetail->unitprice  = $request['precio_unitario'][$key];
+             $salesinvoicedetail->total      = $request['total'][$key];
+             $salesinvoicedetail->invoice_id = $salesinvoice->id;
+             $salesinvoicedetail->product_id = $request['product'][$key];
+             $salesinvoicedetail->code = $cuenta;
+             $salesinvoicedetail->save();
+         }
+
+
+
+         if ( $id == 1 || $id == 2 ){
+
+             $regis= new AccountantSeat;
+             $regis->date=$request['fecha_creacion'];
+             $regis->code=$code;
+             $regis->number=$request['number'];
+             $regis->company=$empresa;
              $regis->reference=$request['reference'];
-              $regis->diario_id=2;
-               $regis->amount=$request['amount_total_signed'];
-                $regis->state="Publicado";
-error_log($regis->code);
+             $regis->diario_id=1;
+             $regis->amount=$request['total_documento_venta'];
+             $regis->state="Publicado";
+             $regis->save();
 
-    DB::table('accountantseat')->insert(
-    ['date' =>  $regis->date, 'code' => $regis->code,'number' =>  $regis->number, 'company' =>  $regis->company,'reference' => $regis->reference, 'diario_id' =>  $regis->diario_id,'amount' => $regis->amount, 'state' => $regis->state]);
-      
-        PurchasesInvoice::create($request->all());
-
-            $number = $number + 1;
-        DB::table('document_type')
-            ->where('id', $id)
-            ->update(['numeration' => $number]);
-
-        return redirect()->route('FacturasProveedores.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $PurchasesInvoices = PurchasesInvoice::FindOrFail($id);
-        return view('/account/ShoppingInvoice/show', array('PurchasesInvoices'=>$PurchasesInvoices));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        
-        $Providers = Provider::lists('name','id')->prepend('Seleccioname el proveedor');
-        $Document_type = Document_type::whereNotIn('id', [1, 2,3])->lists('name','id')->prepend('Seleccioname el tipo de documento');
-        $PurchasesInvoices = PurchasesInvoice::FindOrFail($id);
-        $state = Stateinvoice::lists('name','id')->prepend('Seleccionar estado');
+             /*DB::table('accountantseat')->insert(
+             ['date' =>  $regis->date, 'code' => $regis->code,'number' =>  $regis->number, 'company' =>  $regis->company,'reference' => $regis->reference, 'diario_id' =>  $regis->diario_id,'amount' => $regis->amount, 'state' => $regis->state]);
+              */
 
 
-        return view('/account/ShoppingInvoice/edit', array('PurchasesInvoices'=>$PurchasesInvoices,'Providers'=>$Providers, 'Document_type'=>$Document_type, 'state'=>$state ));
+             // Asientos para el subtotal
 
-    }
+                 $accountseatdetail = new Accountseatdetail;
+                 $accountseatdetail->accountseat_id  = $regis->id;
+                 $accountseatdetail->account_id     = $cuentatotal;
+                 $accountseatdetail->empresa_id =  $cliente;
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $id =  $request['document_id'];
-        $id = $id + 3;
-        $request['document_id'] = $id;
-        $PurchasesInvoices = PurchasesInvoice::FindOrFail($id);
-        $input = $request->all();
-        $PurchasesInvoices->fill($input)->save();
-        return redirect()->route('FacturasProveedores.index');
+                 $accountseatdetail->etiqueta =  "/";
+                 $accountseatdetail->debe = $salesinvoice->amount_total_signed ;
+                 $accountseatdetail->haber =  0;
+                 $accountseatdetail->save();
 
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
+             //Asientos para el IGV
+
+                 $accountseatdetail = new Accountseatdetail;
+                 $accountseatdetail->accountseat_id  = $regis->id;
+                 $accountseatdetail->account_id     = $cuentaigv;
+                 $accountseatdetail->empresa_id =  $cliente;
+
+                 $accountseatdetail->etiqueta =  "IGV 18% Venta";
+                 $accountseatdetail->debe = 0 ;
+                 $accountseatdetail->haber =  $salesinvoice->igv;
+                 $accountseatdetail->save();
+
+
+             /////////////////////////////////////////////
+
+             $SalesInvoiceAux = SalesInvoice::find($salesinvoice->id);
+
+             foreach ($SalesInvoiceAux->detailSales as $detailSale) {
+
+                 $accountseatdetail = new Accountseatdetail;
+                 $accountseatdetail->accountseat_id  = $regis->id;
+                 $accountseatdetail->account_id     = $detailSale->code;
+                 $accountseatdetail->empresa_id =  $cliente;
+                 error_log($request['tipo_documento']);
+                 $accountseatdetail->etiqueta =  $regis->code."/".$regis->number;
+                 $accountseatdetail->debe = 0 ;
+                 $accountseatdetail->haber = $detailSale->total ;
+                 $accountseatdetail->save();
+
+
+             }
+
+
+         }
+
+         $number = $number + 1;
+         DB::table('document_type')
+             ->where('id', $id)
+             ->update(['numeration' => $number]);
+
+         return redirect()->route('salesinvoice.index')->with('success', 'El documento de venta se ha registrado exitosamente');
+
+       }
+       elseif ($id == 2) {
+
+
+         $code=DB::table('document_type')->where('id', $id)->value('name');
+         $cliente = $request['client'];
+         $cuenta = 1607; //se redirecciona a esta cuenta en la tabla
+         $cuentaigv = 890;
+         $cuentatotal = 116;
+         $variable;
+              $salesinvoice = new SalesInvoice;
+
+              $auxsubtotal= DB::table('SalesInvoice')->where('id', $request['reference'])->value('subtotal');
+               //Se cambia el estado de ese recibo
+              DB::table('salesinvoice')
+              ->where('id', $request['reference'])
+              ->update([
+                          'state_id' => 3
+                       ]);
+               // fin del cambio de estado
+
+              $auxigv= DB::table('SalesInvoice')->where('id', $request['reference'])->value('igv');
+               $auxdiscount= DB::table('SalesInvoice')->where('id', $request['reference'])->value('discount');
+
+
+
+              $salesinvoice->date_invoice        = $request['date_invoice'];
+
+              $salesinvoice->number          = $request['number'];
+
+
+
+              $salesinvoice->date_due            = $request['date_due'];
+              $salesinvoice->amount_total_signed = $request['amount_total_signed'];
+              $salesinvoice->residual_signed     = $request['residual_signed'];
+
+              $salesinvoice->subtotal            = $auxsubtotal;
+              $variable =  $auxsubtotal;
+              $salesinvoice->igv                 = $auxigv;
+
+               $id_cliente = $request['client'];
+               $empresa=DB::table('customers')->where('id', $request['client'])->value('razon_social');
+               $salesinvoice->partner_id          = $id_cliente;
+               $salesinvoice->user_id             = $request['user_id'];
+               $salesinvoice->document_id         = $request['document_id'];
+               $salesinvoice->reference =        $request['reference'] ;
+               $salesinvoice->state_id            = 1;
+             // $salesinvoice->id_salesorder       = $aux->id_salesorder;
+               $salesinvoice->description         = $request['description'];
+
+               $salesinvoice->discount           = $auxdiscount;
+               $salesinvoice->save();
+
+               $number = $number + 1;
+         DB::table('document_type')
+             ->where('id', $id)
+             ->update(['numeration' => $number]);
+
+
+             $regis= new AccountantSeat;
+             $regis->date=$request['date_invoice'];
+             $regis->code=$code;
+             $regis->number=$request['number'];
+             $regis->company=$empresa;
+             $regis->reference=$request['reference'];
+             $regis->diario_id=1;
+             $regis->amount=$request['amount_total_signed'];
+             $regis->state="Publicado";
+             $regis->save();
+
+             /*DB::table('accountantseat')->insert(
+             ['date' =>  $regis->date, 'code' => $regis->code,'number' =>  $regis->number, 'company' =>  $regis->company,'reference' => $regis->reference, 'diario_id' =>  $regis->diario_id,'amount' => $regis->amount, 'state' => $regis->state]);
+              */
+
+
+             // Asientos para el subtotal
+
+                 $accountseatdetail = new Accountseatdetail;
+                 $accountseatdetail->accountseat_id  = $regis->id;
+                 $accountseatdetail->account_id     = $cuentatotal;
+                 $accountseatdetail->empresa_id =  $cliente;
+
+                 $accountseatdetail->etiqueta =  "/";
+                 $accountseatdetail->debe =  0;
+                 $accountseatdetail->haber = $salesinvoice->amount_total_signed ;
+                 $accountseatdetail->save();
+
+
+
+
+             //Asientos para el IGV
+
+                 $accountseatdetail = new Accountseatdetail;
+                 $accountseatdetail->accountseat_id  = $regis->id;
+                 $accountseatdetail->account_id     = $cuentaigv;
+                 $accountseatdetail->empresa_id =  $cliente;
+
+                 $accountseatdetail->etiqueta =  "IGV 18% Venta";
+                 $accountseatdetail->debe = $salesinvoice->igv;
+                 $accountseatdetail->haber =  0 ;
+                 $accountseatdetail->save();
+
+
+             /////////////////////////////////////////////
+
+           ///  $SalesInvoiceAux = SalesInvoice::find($salesinvoice->id);
+
+
+
+                 $accountseatdetail = new Accountseatdetail;
+                 $accountseatdetail->accountseat_id  = $regis->id;
+                 $accountseatdetail->account_id     = $cuenta;
+                 $accountseatdetail->empresa_id =  $cliente;
+
+                 $accountseatdetail->etiqueta =  $regis->code."/".$regis->number;
+                 $accountseatdetail->debe = $variable;
+                 $accountseatdetail->haber = 0 ;
+                 $accountseatdetail->save();
+
+
+
+
+
+         return redirect()->route('salesinvoice.index')->with('success', 'El documento de venta se ha registrado exitosamente');
+
+       }
+
+
+
+     }
+
+     /**
+      * Display the specified resource.
+      *
+      * @param  int  $id
+      * @return \Illuminate\Http\Response
+      */
+     public function show($id)
+     {
+
+         $salesinvoicedetails = DB::table('salesinvoicedetail')
+                                 ->where('invoice_id', $id)
+                                 ->get();
+         $salesinvoice        = SalesInvoice::find($id);
+
+         $data = [
+             'salesinvoicedetails'     => $salesinvoicedetails,
+             'salesinvoice'            => $salesinvoice,
+         ];
+
+         return view('sales.pages.salesdocument.show', $data);
+
+     }
+
+     /**
+      * Show the form for editing the specified resource.
+      *
+      * @param  int  $id
+      * @return \Illuminate\Http\Response
+      */
+     public function edit($id)
+     {
+
+  //////////Datos del pago si es que hubiera/////////
+
+           $Partners = Customer::lists('razon_social','id')->prepend('Seleccione al cliente');
+           $metodo = Method_Payment::lists('name','id')->prepend('Metodo de Pago');
+           $tipo = Type_Payment::where('id',1)->lists('name','id');
+
+
+
+         /////////////////////
+         $Partners = Customer::lists('razon_social','id')->prepend('Seleccioname la cliente');
+         $users = User::lists('name','id')->prepend('Seleccioname el usuario');
+         $Document_type = Document_type::whereNotIn('id', [4, 5,6])->pluck('name','id')->prepend('Seleccioname el tipo de documento');
+         $SalesInvoices = SalesInvoice::FindOrFail($id);
+         $state = Stateinvoice::lists('name','id')->prepend('Seleccionar estado');
+         /*
+         $details = DetailSales::
+                     select('salesinvoicedetail.id','salesinvoicedetail.invoice_id','product.name as product','accounts.code as name','salesinvoicedetail.amount','salesinvoicedetail.unitprice','salesinvoicedetail.discounts','salesinvoicedetail.total')
+                     ->where('invoice_id','=',  $id)
+                    ->join('accounts','accounts.id','=','salesinvoicedetail.code')
+                    ->join('product','product.id','=','salesinvoicedetail.product_id')
+                     ->paginate(5);
+         */
+         $details = DetailSales::where('invoice_id', $id)->paginate(10);
+
+        // return view('/account/SalesInvoice/edit');
+         return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices,'users'=>$users, 'Partners'=>$Partners , 'Document_type'=>$Document_type ,'state'=>$state,'details'=>$details ,'tipo'=>$tipo, 'metodo'=>$metodo, 'Partners'=>$Partners ));
+
+     }
+
+     /**
+      * Update the specified resource in storage.
+      *
+      * @param  \Illuminate\Http\Request  $request
+      * @param  int  $id
+      * @return \Illuminate\Http\Response
+      */
+     public function update(Request $request, $id)
+     {
+
+         $SalesInvoices = SalesInvoice::FindOrFail($id);
+         $input = $request->all();
+         $SalesInvoices->fill($input)->save();
+         return redirect()->route('FacturasClientes.index');
+
+     }
+
+     /**
+      * Remove the specified resource from storage.
+      *
+      * @param  int  $id
+      * @return \Illuminate\Http\Response
+      */
     public function destroy($id)
-    {
-        
-        $PurchasesInvoices = PurchasesInvoice::FindOrFail($id);
-        $PurchasesInvoices->delete();
-        return redirect()->route('FacturasProveedores.index');
-                
-    }
+     {
 
-}
+          $SalesInvoices = SalesInvoice::FindOrFail($id);
+         $SalesInvoices->delete();
+         return redirect()->route('FacturasClientes.index');
+
+     }
+
+    public function createFromSalesorder($id)
+     {
+         $salesorderdetails = DB::table('salesorderdetails')
+                                 ->where('id_pedido_venta', $id)
+                                 ->get();
+         $salesorder        = Salesorder::find($id);
+         $categoryproducts  = ProductCategory::get();
+         $products          = Product::get();
+         $customers         = Customer::get();
+         $document_types    = Document_type::take(3)->get();
+         $date              = date("Y-m-d", time());
+         if( $salesorder->customer )
+             $days = $salesorder->customer->plazo_credito;
+         else
+             $days = 0;
+         $fecha_vencimiento = date("Y-m-d", strtotime($date . '+' . $days . 'day'));
+
+         $data = [
+             'salesorderdetails' => $salesorderdetails,
+             'salesorder'        => $salesorder,
+             'categoryproducts'  => $categoryproducts,
+             'products'          => $products,
+             'customers'         => $customers,
+             'document_types'    => $document_types,
+             'fecha_creacion'    => $date,
+             'fecha_vencimiento' => $fecha_vencimiento,
+         ];
+
+         //dd($data);
+
+         return view('sales.pages.salesdocument.createFromSalesorder', $data);
+     }
+
+     public function findNumberDocument(Request $request)
+     {
+         $id =  $request['id'];
+
+         $document_type = Document_type::find($id);
+
+         $data = [
+             'numeracion'    => $document_type->numeration,
+         ];
+
+         return response()->json( $data );
+
+     }
+
+     public function indexSalesDocuments()
+     {
+         $salesinvoices = SalesInvoice::whereIn('document_id', [1, 2, 3])->orderBy('id', 'desc')->paginate(10);
+
+         return  view('sales.pages.salesdocument.index')->with('SalesInvoice',$salesinvoices);
+     }
+
+ }
