@@ -93,7 +93,7 @@ class SalesController extends Controller
 
     }
 
-    public function findnumbernc(Request $request, $id)
+    public function findnumbernd(Request $request, $id)
     {
 
            if($request->ajax()){

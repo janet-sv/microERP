@@ -98,7 +98,7 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
          //$id = $request->input('document_idnc', '2');
  //dd($request['reference']);
 
-      if ($id == 1 || $id == 3 ) {
+      if ($id == 4 || $id == 6 ) { //4=Factura Compra /6=Boleta Compra
 
          $cuenta = 1607; //se redirecciona a esta cuenta en la tabla
          $cuentaigv = 890;
@@ -196,7 +196,7 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
                  $accountseatdetail->account_id     = $cuentaigv;
                  $accountseatdetail->empresa_id =  $cliente;
 
-                 $accountseatdetail->etiqueta =  "IGV 18% Venta";
+                 $accountseatdetail->etiqueta =  "IGV 18% Compra";
                  $accountseatdetail->debe = 0 ;
                  $accountseatdetail->haber =  $salesinvoice->igv;
                  $accountseatdetail->save();
@@ -229,7 +229,7 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
              ->where('id', $id)
              ->update(['numeration' => $number]);
 
-         return redirect()->route('salesinvoice.index')->with('success', 'El documento de venta se ha registrado exitosamente');
+         return redirect()->route('salesinvoice.index')->with('success', 'El documento de compra se ha registrado exitosamente');
 
        }
        elseif ($id == 2) {

@@ -18,8 +18,6 @@ Route::get('/', function () {
 });
 
 Route::get('ModuloContable', 'Account\AccountController@index');
-Route::resource('FacturasClientes','Account\Sales\SalesController');
-Route::resource('FacturasProveedores','Account\Purchases\PurchasesController');
 Route::resource('Impuestos','Account\Taxes\TaxesController');
 Route::resource('Bancos','Account\Bank\BankController');
 Route::resource('PlanContable','Account\Accountplaning\AccountplaningController');
@@ -27,9 +25,16 @@ Route::resource('Tipo_de_documento','Account\DocumentType\DocumentTypeController
 Route::resource('Tipo_Diario','Account\Journals\JournalsController');
 Route::resource('Pagos','Account\Payment\PaymentController');
 Route::resource('AsientosContables','Account\Accountantseat\AccountantseatController');
+
+Route::resource('FacturasClientes','Account\Sales\SalesController');
 Route::get('FacturasClientes/encuentra/{id}','Account\Sales\SalesController@findnumber');
 Route::get('FacturasClientes/encuentranc/{id}','Account\Sales\SalesController@findnumbernc');
+
+Route::resource('FacturasProveedores','Account\Purchases\PurchasesController');
 Route::get('FacturasProveedores/encuentra/{id}','Account\Purchases\PurchasesController@findnumber');
+Route::get('FacturasProveedores/encuentrand/{id}','Account\Purchases\PurchasesController@findnumbernd');
+
+
 
 Route::get('Pagos/encuentra/{id}','Account\Payment\PaymentController@findnumber');
 Route::get('PlanContable/encuentra/{id}','Account\Accountplaning\AccountplaningController@findnumber');
@@ -38,4 +43,3 @@ Route::get('Informes/Diario','Account\Report\ReportController@diario');
 Route::post('/Informes/exportdiario','Account\Report\ReportController@diarioexport');
 Route::get('Informes/Mayor','Account\Report\ReportController@mayor');
 Route::post('/Informes/exportmayor','Account\Report\ReportController@mayorexport');
-

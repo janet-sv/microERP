@@ -11,32 +11,46 @@ class PurchasesInvoice extends Model
    public    $timestamps = false;
 
    protected  $fillable= [
-      'id','document_id','provider_id', 'date_invoice', 'number' , 'date_due', 'amount_total_signed',
+      'id','document_id','provider_id', 'date_invoice', 'number' ,'user_id', 'date_due', 'amount_total_signed',
       'residual_signed','subtotal','igv', 'state_id','reference',
    ];
 
    public function provider()
    {
       return $this->hasmany(Provider::class);
-    }  
+    }
+
+    public function user()
+  {
+     // hasmany - tiene muchas
+     return $this->belongsTo('App\User', 'user_id');
+
+  }
+
 
  public function detailpurchase()
    {
-      return $this->belongsto(Detailpurchase::class);
+
+        return $this->hasMany('App\Models\Account\Detailpurchase', 'invoice_id');
     }
-    
-     public function document_type()
-   {
-      // hasmany - tiene muchas
-      return $this->hasmany(Document_type::class);
-      
-   }
-   
+
+    public function document_type()
+ {
+    // hasmany - tiene muchas
+
+    return $this->belongsTo('App\Models\Account\Document_type', 'document_id');
+
+ }
+
+
  public function stateinvoice()
    {
       // hasmany - tiene muchas
-      return $this->hasmany(Stateinvoice::class);
-      
+    return $this->belongsTo('App\Models\Account\Stateinvoice','state_id');
+
    }
+
+//*****************
+
 
 }
