@@ -34,8 +34,8 @@ class PurchasesController extends Controller
      public function index()
      {
 
-         $purchasesinvoices = PurchasesInvoice::whereIn('document_id', [1, 2])->orderBy('id', 'desc')->paginate(10);
-         return  view('/account/PurchasesInvoice/index')->with('PurchasesInvoice',$purchasesinvoices);
+         $purchasesinvoices = PurchasesInvoice::whereIn('document_id', [4, 5])->orderBy('id', 'desc')->paginate(10);
+         return  view('/account/PurchaseInvoice/index')->with('PurchasesInvoice',$purchasesinvoices);
      }
 
     /**
@@ -48,11 +48,11 @@ class PurchasesController extends Controller
     public function create()
     {
          $invoices = DB::table('purchasesinvoice')->count();
-         $Document_type = Document_type::whereNotIn('id', [1, 2,3])->lists('name','id')->prepend('Seleccioname el tipo de documento');
+         $Document_type = Document_type::whereNotIn('id', [4, 5, 6])->lists('name','id')->prepend('Seleccioname el tipo de documento');
          $Providers = Provider::lists('name','id')->prepend('Seleccionar el proveedor');
          $state = Stateinvoice::lists('name','id')->prepend('Seleccionar estado');
 
-return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'invoices'=>$invoices,  'Document_type'=>$Document_type , 'state'=>$state  ));
+         return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'invoices'=>$invoices,  'Document_type'=>$Document_type , 'state'=>$state  ));
 
     }
 
@@ -60,12 +60,9 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
       {
 
              if($request->ajax()){
-
                  $number=DB::table('paymentmethod')->where('id', $id)->value('numeration');
-
-              return response()->json($number);
+                 return response()->json($number);
           }
-
       }
 
       public function findnumbernc(Request $request, $id)
@@ -112,7 +109,7 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
 
 
          $cliente =  $request['cliente'];
-         $empresa=DB::table('customers')->where('id', $cliente)->value('razon_social');
+         $empresa=DB::table('Provider')->where('id', $cliente)->value('name');
 
 
          $id =  $request['tipo_documento'];
@@ -124,39 +121,40 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
          $id_cliente = null;
          if( $request['cliente'] != 0)
              $id_cliente = $request['cliente'];
-         $salesinvoice                      = new SalesInvoice;
-         $salesinvoice->date_invoice        = $request['fecha_creacion'];
-         $salesinvoice->number          = $request['numeracion'];
-         $salesinvoice->date_due            = $request['fecha_vencimiento'];
-         $salesinvoice->amount_total_signed = $request['total_documento_venta'];
-         $salesinvoice->residual_signed     = $request['total_documento_venta'];
-         $salesinvoice->subtotal            = $request['sub_total'];
+         $purchasesinvoice = new PurchasesInvoice;
+      //   $salesinvoice                      = new SalesInvoice;
+         $purchasesinvoice->date_invoice        = $request['fecha_creacion'];
+         $purchasesinvoice->number          = $request['numeracion'];
+         $purchasesinvoice->date_due            = $request['fecha_vencimiento'];
+         $purchasesinvoice->amount_total_signed = $request['total_docume
+         to_venta'];
+         $purchasesinvoice->subtotal            = $request['sub_total'];
 
-         $salesinvoice->igv                 = $request['igv'];
-         $salesinvoice->partner_id          = $id_cliente;
-         $salesinvoice->user_id             = $request['user'];
-         $salesinvoice->document_id         = $request['tipo_documento'];
-         $salesinvoice->state_id            = 1;
-         $salesinvoice->id_salesorder       = $request['salesorder'];
-         $salesinvoice->description         = $request['descripcion'];
-         $salesinvoice->discount           = $request['descuento_manual'];
-         $salesinvoice->save();
+         $purchasesinvoice->igv                 = $request['igv'];
+         $purchasesinvoice->provider_id          = $id_cliente;
+         $purchasesinvoice->user_id             = $request['user'];
+         $purchasesinvoice->document_id         = $request['tipo_documento'];
+         $purchasesinvoice->state_id            = 1;
+         $purchasesinvoice->id_salesorder       = $request['salesorder'];
+         $purchasesinvoice->description         = $request['descripcion'];
+         $purchasesinvoice->discount           = $request['descuento_manual'];
+         $purchasesinvoice->save();
 
          foreach($request['product'] as $key=> $value){
-             $salesinvoicedetail             = new DetailSales;
-             $salesinvoicedetail->amount     = $request['cantidad'][$key];
-             $salesinvoicedetail->discounts  = $request['descuento'][$key];
-             $salesinvoicedetail->unitprice  = $request['precio_unitario'][$key];
-             $salesinvoicedetail->total      = $request['total'][$key];
-             $salesinvoicedetail->invoice_id = $salesinvoice->id;
-             $salesinvoicedetail->product_id = $request['product'][$key];
-             $salesinvoicedetail->code = $cuenta;
-             $salesinvoicedetail->save();
+             $purchasesinvoicedetail             = new Detailpurchase;
+             $purchasesinvoicedetail->amount     = $request['cantidad'][$key];
+             $purchasesinvoicedetail->discounts  = $request['descuento'][$key];
+             $purchasesinvoicedetail->unitprice  = $request['precio_unitario'][$key];
+             $purchasesinvoicedetail->total      = $request['total'][$key];
+             $purchasesinvoicedetail->invoice_id = $purchasesinvoice->id;
+             $purchasesinvoicedetail->product_id = $request['product'][$key];
+             $purchasesinvoicedetail->code = $cuenta;
+             $purchasesinvoicedetail->save();
          }
 
 
 
-         if ( $id == 1 || $id == 2 ){
+         if ( $id == 4 || $id == 5 ){
 
              $regis= new AccountantSeat;
              $regis->date=$request['fecha_creacion'];
@@ -164,7 +162,7 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
              $regis->number=$request['number'];
              $regis->company=$empresa;
              $regis->reference=$request['reference'];
-             $regis->diario_id=1;
+             $regis->diario_id=2; //journal -> diario de compras
              $regis->amount=$request['total_documento_venta'];
              $regis->state="Publicado";
              $regis->save();
@@ -182,7 +180,7 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
                  $accountseatdetail->empresa_id =  $cliente;
 
                  $accountseatdetail->etiqueta =  "/";
-                 $accountseatdetail->debe = $salesinvoice->amount_total_signed ;
+                 $accountseatdetail->debe = $purchasesinvoice->amount_total_signed ;
                  $accountseatdetail->haber =  0;
                  $accountseatdetail->save();
 
@@ -198,30 +196,26 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
 
                  $accountseatdetail->etiqueta =  "IGV 18% Compra";
                  $accountseatdetail->debe = 0 ;
-                 $accountseatdetail->haber =  $salesinvoice->igv;
+                 $accountseatdetail->haber =  $purchasesinvoice->igv;
                  $accountseatdetail->save();
 
 
              /////////////////////////////////////////////
 
-             $SalesInvoiceAux = SalesInvoice::find($salesinvoice->id);
+             $PurchasesInvoiceAux = PurchasesInvoice::find($purchasesinvoice->id);
 
-             foreach ($SalesInvoiceAux->detailSales as $detailSale) {
+             foreach ($PurchasesInvoiceAux->detailpurchase as $detailpurchase) {
 
                  $accountseatdetail = new Accountseatdetail;
                  $accountseatdetail->accountseat_id  = $regis->id;
-                 $accountseatdetail->account_id     = $detailSale->code;
+                 $accountseatdetail->account_id     = $detailpurchase->code;
                  $accountseatdetail->empresa_id =  $cliente;
                  error_log($request['tipo_documento']);
                  $accountseatdetail->etiqueta =  $regis->code."/".$regis->number;
                  $accountseatdetail->debe = 0 ;
-                 $accountseatdetail->haber = $detailSale->total ;
+                 $accountseatdetail->haber = $detailpurchase->total ;
                  $accountseatdetail->save();
-
-
              }
-
-
          }
 
          $number = $number + 1;
@@ -229,10 +223,10 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
              ->where('id', $id)
              ->update(['numeration' => $number]);
 
-         return redirect()->route('salesinvoice.index')->with('success', 'El documento de compra se ha registrado exitosamente');
+         return redirect()->route('PurchaseInvoice.index')->with('success', 'El documento de compra se ha registrado exitosamente');
 
        }
-       elseif ($id == 2) {
+       elseif ($id == 5) {
 
 
          $code=DB::table('document_type')->where('id', $id)->value('name');
@@ -241,49 +235,41 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
          $cuentaigv = 890;
          $cuentatotal = 116;
          $variable;
-              $salesinvoice = new SalesInvoice;
+         $purchasesinvoice = new PurchaseInvoice;
 
-              $auxsubtotal= DB::table('SalesInvoice')->where('id', $request['reference'])->value('subtotal');
+              $auxsubtotal= DB::table('PurchaseInvoice')->where('id', $request['reference'])->value('subtotal');
                //Se cambia el estado de ese recibo
-              DB::table('salesinvoice')
+              DB::table('PurchaseInvoice')
               ->where('id', $request['reference'])
               ->update([
                           'state_id' => 3
                        ]);
                // fin del cambio de estado
 
-              $auxigv= DB::table('SalesInvoice')->where('id', $request['reference'])->value('igv');
-               $auxdiscount= DB::table('SalesInvoice')->where('id', $request['reference'])->value('discount');
+              $auxigv= DB::table('PurchaseInvoice')->where('id', $request['reference'])->value('igv');
+              $auxdiscount= DB::table('PurchaseInvoice')->where('id', $request['reference'])->value('discount');
 
-
-
-              $salesinvoice->date_invoice        = $request['date_invoice'];
-
-              $salesinvoice->number          = $request['number'];
-
-
-
-              $salesinvoice->date_due            = $request['date_due'];
-              $salesinvoice->amount_total_signed = $request['amount_total_signed'];
-              $salesinvoice->residual_signed     = $request['residual_signed'];
-
-              $salesinvoice->subtotal            = $auxsubtotal;
+              $purchasesinvoice->date_invoice        = $request['date_invoice'];
+              $purchasesinvoice->number          = $request['number'];
+              $purchasesinvoice->date_due            = $request['date_due'];
+              $purchasesinvoice->amount_total_signed = $request['amount_total_signed'];
+              $purchasesinvoice->residual_signed     = $request['residual_signed'];
+              $purchasesinvoice->subtotal            = $auxsubtotal;
               $variable =  $auxsubtotal;
-              $salesinvoice->igv                 = $auxigv;
+              $purchasesinvoice->igv                 = $auxigv;
 
                $id_cliente = $request['client'];
                $empresa=DB::table('customers')->where('id', $request['client'])->value('razon_social');
-               $salesinvoice->partner_id          = $id_cliente;
-               $salesinvoice->user_id             = $request['user_id'];
-               $salesinvoice->document_id         = $request['document_id'];
-               $salesinvoice->reference =        $request['reference'] ;
-               $salesinvoice->state_id            = 1;
+               $purchasesinvoice->partner_id          = $id_cliente;
+               $purchasesinvoice->user_id             = $request['user_id'];
+               $purchasesinvoice->document_id         = $request['document_id'];
+               $purchasesinvoice->reference =        $request['reference'] ;
+               $purchasesinvoice->state_id            = 1;
              // $salesinvoice->id_salesorder       = $aux->id_salesorder;
-               $salesinvoice->description         = $request['description'];
+               $purchasesinvoice->description         = $request['description'];
 
-               $salesinvoice->discount           = $auxdiscount;
-               $salesinvoice->save();
-
+               $purchasesinvoice->discount           = $auxdiscount;
+               $purchasesinvoice->save();
                $number = $number + 1;
          DB::table('document_type')
              ->where('id', $id)
@@ -296,7 +282,7 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
              $regis->number=$request['number'];
              $regis->company=$empresa;
              $regis->reference=$request['reference'];
-             $regis->diario_id=1;
+             $regis->diario_id=2;
              $regis->amount=$request['amount_total_signed'];
              $regis->state="Publicado";
              $regis->save();
@@ -315,7 +301,7 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
 
                  $accountseatdetail->etiqueta =  "/";
                  $accountseatdetail->debe =  0;
-                 $accountseatdetail->haber = $salesinvoice->amount_total_signed ;
+                 $accountseatdetail->haber = $purchasesinvoice->amount_total_signed ;
                  $accountseatdetail->save();
 
 
@@ -329,7 +315,7 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
                  $accountseatdetail->empresa_id =  $cliente;
 
                  $accountseatdetail->etiqueta =  "IGV 18% Venta";
-                 $accountseatdetail->debe = $salesinvoice->igv;
+                 $accountseatdetail->debe = $purchasesinvoice->igv;
                  $accountseatdetail->haber =  0 ;
                  $accountseatdetail->save();
 
@@ -354,7 +340,7 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
 
 
 
-         return redirect()->route('salesinvoice.index')->with('success', 'El documento de venta se ha registrado exitosamente');
+         return redirect()->route('PurchaseInvoice.index')->with('success', 'El documento de compra se ha registrado exitosamente');
 
        }
 
@@ -371,14 +357,14 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
      public function show($id)
      {
 
-         $salesinvoicedetails = DB::table('salesinvoicedetail')
+         $purchasesinvoicedetails = DB::table('purchasesinvoicedetail')
                                  ->where('invoice_id', $id)
                                  ->get();
-         $salesinvoice        = SalesInvoice::find($id);
+         $purchasesinvoice        = PurchaseInvoice::find($id);
 
          $data = [
-             'salesinvoicedetails'     => $salesinvoicedetails,
-             'salesinvoice'            => $salesinvoice,
+             'purchasesinvoicedetails'     => $purchasesinvoicedetails,
+             'purchasesinvoice'            => $purchasesinvoice,
          ];
 
          return view('sales.pages.salesdocument.show', $data);
@@ -396,17 +382,17 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
 
   //////////Datos del pago si es que hubiera/////////
 
-           $Partners = Customer::lists('razon_social','id')->prepend('Seleccione al cliente');
+           $Partners = Customer::lists('name','id')->prepend('Seleccione al cliente');
            $metodo = Method_Payment::lists('name','id')->prepend('Metodo de Pago');
            $tipo = Type_Payment::where('id',1)->lists('name','id');
 
 
 
          /////////////////////
-         $Partners = Customer::lists('razon_social','id')->prepend('Seleccioname la cliente');
+         $Partners = Provider::lists('name','id')->prepend('Seleccioname la cliente');
          $users = User::lists('name','id')->prepend('Seleccioname el usuario');
          $Document_type = Document_type::whereNotIn('id', [4, 5,6])->pluck('name','id')->prepend('Seleccioname el tipo de documento');
-         $SalesInvoices = SalesInvoice::FindOrFail($id);
+         $PurchaseInvoices = PurchaseInvoice::FindOrFail($id);
          $state = Stateinvoice::lists('name','id')->prepend('Seleccionar estado');
          /*
          $details = DetailSales::
@@ -416,10 +402,10 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
                     ->join('product','product.id','=','salesinvoicedetail.product_id')
                      ->paginate(5);
          */
-         $details = DetailSales::where('invoice_id', $id)->paginate(10);
+         $details = Detailpurchase::where('invoice_id', $id)->paginate(10);
 
         // return view('/account/SalesInvoice/edit');
-         return view('/account/SalesInvoice/edit', array('SalesInvoices'=>$SalesInvoices,'users'=>$users, 'Partners'=>$Partners , 'Document_type'=>$Document_type ,'state'=>$state,'details'=>$details ,'tipo'=>$tipo, 'metodo'=>$metodo, 'Partners'=>$Partners ));
+         return view('/account/PurchaseInvoice/edit', array('PurchaseInvoice'=>$PurchaseInvoices,'users'=>$users, 'Partners'=>$Partners , 'Document_type'=>$Document_type ,'state'=>$state,'details'=>$details ,'tipo'=>$tipo, 'metodo'=>$metodo, 'Partners'=>$Partners ));
 
      }
 
@@ -433,9 +419,9 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
      public function update(Request $request, $id)
      {
 
-         $SalesInvoices = SalesInvoice::FindOrFail($id);
+         $PurchaseInvoice = PurchasesInvoice::FindOrFail($id);
          $input = $request->all();
-         $SalesInvoices->fill($input)->save();
+         $PurchaseInvoices->fill($input)->save();
          return redirect()->route('FacturasClientes.index');
 
      }
@@ -449,9 +435,9 @@ return view('/account/ShoppingInvoice/create', array('Providers'=>$Providers, 'i
     public function destroy($id)
      {
 
-          $SalesInvoices = SalesInvoice::FindOrFail($id);
-         $SalesInvoices->delete();
-         return redirect()->route('FacturasClientes.index');
+          $PurchaseInvoices = PurchaseInvoice::FindOrFail($id);
+          $PurchaseInvoices->delete();
+          return redirect()->route('FacturasProveedores.index');
 
      }
 

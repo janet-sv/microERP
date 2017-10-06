@@ -352,9 +352,6 @@ class SalesController extends Controller
                 $accountseatdetail->haber = $salesinvoice->amount_total_signed ;
                 $accountseatdetail->save();
 
-
-
-
             //Asientos para el IGV
 
                 $accountseatdetail = new Accountseatdetail;

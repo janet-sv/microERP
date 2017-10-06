@@ -17,8 +17,10 @@ class PurchasesInvoice extends Model
 
    public function provider()
    {
-      return $this->hasmany(Provider::class);
-    }
+      //return $this->hasmany(Provider::class);
+        return $this->belongsTo('App\Models\Account\Provider', 'provider_id');
+
+   }
 
     public function user()
   {

@@ -48,8 +48,8 @@
                               <tr class="clickable-row" data-href="{{route('FacturasClientes.edit',$purchasesinvoice->id)}}" >
 
                                 <td>{{$purchasesinvoice->document_type->name}}</td>
-                                <td>{{$purchasesinvoice->Provider->name}}</td>
-                                <td>{{$purchasesinvoice->Provider->ruc}}</td>
+                                <td>{{$purchasesinvoice->provider->name}}</td>
+                                <td>{{$purchasesinvoice->provider->ruc}}</td>
                                 <td>{{$purchasesinvoice->date_invoice}}</td>
                                 <td>{{$purchasesinvoice->number}}</td>
                                 <td>{{$purchasesinvoice->user->name}}</td>
@@ -65,7 +65,7 @@
                             </tbody>
                           </table>
                           <div class="text-center">
-                            {!!$purchasesinvoice->links()!!}
+                            {!!$PurchasesInvoice->links()!!}
                           </div>
 
                           </div>
