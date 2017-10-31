@@ -13,12 +13,12 @@ class CreatePaymentmethodTable extends Migration
     public function up()
     {
          Schema::create('paymentmethod', function (Blueprint $table) {
-            
+
             $table->increments('id');
             $table->string('name');
             $table->integer('numeration');
-            
-            
+            $table->integer('numerationPurchase');
+
         });
     }
 

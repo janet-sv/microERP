@@ -60,9 +60,10 @@ class PurchasesController extends Controller
       {
 
              if($request->ajax()){
+
                  $number=DB::table('paymentmethod')->where('id', $id)->value('numeration');
                  return response()->json($number);
-          }
+             }
       }
 
       public function findnumbernc(Request $request, $id)
@@ -71,9 +72,9 @@ class PurchasesController extends Controller
              if($request->ajax()){
 
                  $number=DB::table('document_type')->where('id', $id)->value('numeration');
+                 return response()->json($number);
 
-              return response()->json($number);
-          }
+             }
 
       }
 
@@ -93,13 +94,13 @@ class PurchasesController extends Controller
        $number=DB::table('document_type')->where('id', $id)->value('numeration');
          //$id =  Input::get('document_idnc');
          //$id = $request->input('document_idnc', '2');
- //dd($request['reference']);
+         //dd($request['reference']);
 
       if ($id == 4 || $id == 6 ) { //4=Factura Compra /6=Boleta Compra
 
-         $cuenta = 1607; //se redirecciona a esta cuenta en la tabla
+         $cuenta = 1223; //se redirecciona a esta cuenta en la tabla
          $cuentaigv = 890;
-         $cuentatotal = 116;
+         $cuentatotal = 965;//116
          $aux;
 
 
@@ -180,8 +181,8 @@ class PurchasesController extends Controller
                  $accountseatdetail->empresa_id =  $cliente;
 
                  $accountseatdetail->etiqueta =  "/";
-                 $accountseatdetail->debe = $purchasesinvoice->amount_total_signed ;
-                 $accountseatdetail->haber =  0;
+                 $accountseatdetail->debe = 0;
+                 $accountseatdetail->haber =  $purchasesinvoice->amount_total_signed ;
                  $accountseatdetail->save();
 
 
@@ -195,8 +196,8 @@ class PurchasesController extends Controller
                  $accountseatdetail->empresa_id =  $cliente;
 
                  $accountseatdetail->etiqueta =  "IGV 18% Compra";
-                 $accountseatdetail->debe = 0 ;
-                 $accountseatdetail->haber =  $purchasesinvoice->igv;
+                 $accountseatdetail->debe =  $purchasesinvoice->igv;
+                 $accountseatdetail->haber =  0 ;
                  $accountseatdetail->save();
 
 
@@ -212,8 +213,8 @@ class PurchasesController extends Controller
                  $accountseatdetail->empresa_id =  $cliente;
                  error_log($request['tipo_documento']);
                  $accountseatdetail->etiqueta =  $regis->code."/".$regis->number;
-                 $accountseatdetail->debe = 0 ;
-                 $accountseatdetail->haber = $detailpurchase->total ;
+                 $accountseatdetail->debe =   $detailpurchase->total ;
+                 $accountseatdetail->haber =  0 ;
                  $accountseatdetail->save();
              }
          }
@@ -231,9 +232,9 @@ class PurchasesController extends Controller
 
          $code=DB::table('document_type')->where('id', $id)->value('name');
          $cliente = $request['client'];
-         $cuenta = 1607; //se redirecciona a esta cuenta en la tabla
+         $cuenta = 1223; //se redirecciona a esta cuenta en la tabla
          $cuentaigv = 890;
-         $cuentatotal = 116;
+         $cuentatotal = 965;//116
          $variable;
          $purchasesinvoice = new PurchaseInvoice;
 
@@ -300,8 +301,8 @@ class PurchasesController extends Controller
                  $accountseatdetail->empresa_id =  $cliente;
 
                  $accountseatdetail->etiqueta =  "/";
-                 $accountseatdetail->debe =  0;
-                 $accountseatdetail->haber = $purchasesinvoice->amount_total_signed ;
+                 $accountseatdetail->debe =  $purchasesinvoice->amount_total_signed ;
+                 $accountseatdetail->haber = 0;
                  $accountseatdetail->save();
 
 
@@ -315,8 +316,8 @@ class PurchasesController extends Controller
                  $accountseatdetail->empresa_id =  $cliente;
 
                  $accountseatdetail->etiqueta =  "IGV 18% Venta";
-                 $accountseatdetail->debe = $purchasesinvoice->igv;
-                 $accountseatdetail->haber =  0 ;
+                 $accountseatdetail->debe =  0 ;
+                 $accountseatdetail->haber = $purchasesinvoice->igv;
                  $accountseatdetail->save();
 
 
@@ -332,8 +333,8 @@ class PurchasesController extends Controller
                  $accountseatdetail->empresa_id =  $cliente;
 
                  $accountseatdetail->etiqueta =  $regis->code."/".$regis->number;
-                 $accountseatdetail->debe = $variable;
-                 $accountseatdetail->haber = 0 ;
+                 $accountseatdetail->debe = 0 ;
+                 $accountseatdetail->haber =  $variable;
                  $accountseatdetail->save();
 
 
